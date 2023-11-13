@@ -1,0 +1,59 @@
+<%- include('../../partials/head') %>
+<%- include('../../partials/userLogged') %>
+<%- include('../../partials/header') %>
+
+<% if (locals.successMessage) { %>
+    <% if (locals.successMessage == 'editMU') { %>
+        <script>
+            alertify.success('Unidad editada con éxito');
+        </script>
+    <% } %>
+    <% if (locals.successMessage == 'createMU') { %>
+        <script>
+            alertify.success('Unidad creada con éxito');
+        </script>
+    <% } %>
+    
+<% } %>
+
+<div class="aDivBody3">
+
+    <div class="aTitle1">Unidades de medida</div>
+
+    <div class="aDivTable1">
+        <table class="aTable1">
+            <thead>
+                <tr>
+                    <th class="aTh1">
+                        Unidad de medida
+                        <a href="/data/<%= data.idBrunch %>/create-mu/">
+                            <i class="fa-solid fa-plus aAdd1"></i>
+                        </a>
+                    </th>
+                    <th class="aTh1">Unidades por UM</th>
+                    <th class="aTh1"><i class="fa-regular fa-pen-to-square aEdit2"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for( let i = 0; i < data.mu.length; i++ ) { %>
+                    <tr>
+                        <th class="aTh2"><%= data.mu[i].measurement_unit %></th>
+                        <th class="aTh2"><%= data.mu[i].units_per_um %></th>
+                        <th class="aTh2">
+                            <a href="/data/<%= data.idBrunch %>/edit-mu/<%= data.mu[i].id %>">
+                                <i class="fa-regular fa-pen-to-square aEdit1"></i>
+                            </a>
+                            
+                        </th>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+
+
+

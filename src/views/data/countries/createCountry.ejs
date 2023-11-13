@@ -1,0 +1,34 @@
+<%- include('../../partials/head') %>
+<%- include('../../partials/userLogged') %>
+<%- include('../../partials/header') %>
+
+<div class="aDivBody3">
+
+    <div class="aTitle1">Países</div>
+
+    <div class="aTitle2">Crear País</div>
+
+    <div class="aDivForm">
+
+        <form action="/data/<%= data.idBrunch %>/create-country" method="POST">
+
+            <div class="divInputCreateCountry">
+                <label for="countryName" class="aLabelEdit2" >País</label>
+                <input type="text" name="countryName" class="aInput2 <%= locals.errors && errors.countryName ? 'aIsInvalid' : null %>" value="<%= locals.oldData ? oldData.countryName : null %>">
+            </div>
+            <div class="aDivError1">
+                <% if (locals.errors && errors.countryName) { %>
+                    <%= errors.countryName.msg %>
+                <% } %>
+            </div>
+    
+            <div class="aDivButtonsEdit">
+                <button type="submit" class="aButton2">Guardar</button>
+                <a href="/data/<%= data.idBrunch %>/countries/">
+                    <div class="aButton2">Cancelar</div>
+                </a>
+            </div>    
+        </form>
+    </div>
+    
+</div>

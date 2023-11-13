@@ -1,0 +1,8 @@
+<div class="aUserLogged">
+    <% if (locals.userLogged) { %>
+        <div class="aUserLoggedName"><%= userLogged.first_name + ' ' + userLogged.last_name %></div>
+        <div class="aDivLogout"><a href="/logout" class= "aLogout">Cerrar sesión</a></div> 
+    <% } %>
+</div>
+
+

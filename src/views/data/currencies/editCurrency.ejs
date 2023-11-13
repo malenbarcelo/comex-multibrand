@@ -1,0 +1,41 @@
+<%- include('../../partials/head') %>
+<%- include('../../partials/userLogged') %>
+<%- include('../../partials/header') %>
+
+<div class="aDivBody3">
+
+    <div class="aTitle1">Monedas</div>
+
+    <div class="aTitle2">Editar Moneda</div>
+
+    <div class="aDivForm">
+
+        <form action="/data/<%= data.idBrunch %>/edit-currency/<%= currencyExchangeData.id %>" method="POST">
+
+            <div class="aDivInputEdit">
+                <label for="currency" class="aLabelEdit1" >Moneda</label>
+                <input type="text" name="currency" class="aInput2 aUnabled" value="<%= currencyExchangeData.currency_exchange_currency.currency %>" readonly>
+            </div>
+    
+            <div class="aDivInputEdit">
+                <label for="curencyExchange" class="aLabelEdit1">Tasa de cambio</label>
+                <input type="text" name="currencyExchange" class="aInput2 <%= locals.errors && errors.currencyExchange ? 'aIsInvalid' : null %>" value="<%= locals.oldData ? oldData.currencyExchange : currencyExchangeData.currency_exchange %>" >
+            </div>
+            <div class="aDivError1">
+                <% if (locals.errors && errors.currencyExchange) { %>
+                    <%= errors.currencyExchange.msg %>
+                <% } %>
+            </div>
+    
+            <div class="aDivButtonsEdit">
+                <button type="submit" class="aButton2">Guardar</button>
+                <a href="/data/<%= data.idBrunch %>/currencies/">
+                    <div class="aButton2">Cancelar</div>
+                </a>
+            </div>
+
+        </form>
+    </div>
+
+    
+</div>

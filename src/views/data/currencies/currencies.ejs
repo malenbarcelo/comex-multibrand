@@ -1,0 +1,59 @@
+<%- include('../../partials/head') %>
+<%- include('../../partials/userLogged') %>
+<%- include('../../partials/header') %>
+
+<div class="aNotVisible" id="idBrunch">data.idBrunch</div>
+
+<% if (locals.successMessage) { %>
+    <% if (locals.successMessage == 'editCurrency') { %>
+        <script>
+            alertify.success('Moneda editada con éxito');
+        </script>
+    <% } %>
+    <% if (locals.successMessage == 'createCurrency') { %>
+        <script>
+            alertify.success('Moneda creada con éxito');
+        </script>
+    <% } %>
+<% } %>
+
+<div class="aDivBody3">
+
+    <div class="aTitle1">Monedas</div>
+
+    <div class="aDivTable1">
+        <table class="aTable1">
+            <thead>
+                <tr>
+                    <th class="aTh1">
+                        Moneda
+                        <a href="/data/<%= data.idBrunch %>/create-currency/">
+                            <i class="fa-solid fa-plus aAdd1"></i>
+                        </a>
+                    </th>
+                    <th class="aTh1">Tasa de cambio</th>
+                    <th class="aTh1"><i class="fa-regular fa-pen-to-square aEdit2"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for( let i = 0; i < data.brunchCurrencies.length; i++ ) { %>
+                    <tr>
+                        <th class="aTh2"><%= data.brunchCurrencies[i].currency_exchange_currency.currency %></th>
+                        <th class="aTh2"><%= data.brunchCurrencies[i].currency_exchange %></th>
+                        <th class="aTh2">
+                            <a href="/data/<%= data.idBrunch %>/edit-currency/<%= data.brunchCurrencies[i].id %>">
+                                <i class="fa-regular fa-pen-to-square aEdit1"></i>  
+                            </a>
+                        </th>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+
+

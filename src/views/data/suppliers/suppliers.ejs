@@ -1,0 +1,65 @@
+<%- include('../../partials/head') %>
+<%- include('../../partials/userLogged') %>
+<%- include('../../partials/header') %>
+
+<% if (locals.successMessage) { %>
+    <% if (locals.successMessage == 'editSupplier') { %>
+        <script>
+            alertify.success('Proveedor editado con éxito');
+        </script>
+    <% } %>
+    <% if (locals.successMessage == 'createSupplier') { %>
+        <script>
+            alertify.success('Proveedor creado con éxito');
+        </script>
+    <% } %>
+    
+<% } %>
+
+<div class="aDivBody3">
+
+    <div class="aTitle1">Proveedores</div>
+
+    <div class="aDivTable1">
+        <table class="aTable1">
+            <thead>
+                <tr>
+                    <th class="aTh1">
+                        Proveedor
+                        <a href="/data/<%= data.idBrunch %>/create-supplier/">
+                            <i class="fa-solid fa-plus aAdd1"></i>
+                        </a>
+                    </th>
+                    <th class="aTh1">Razón social</th>
+                    <th class="aTh1">Domicilio</th>
+                    <th class="aTh1">País</th>
+                    <th class="aTh1">Moneda</th>
+                    <th class="aTh1"><i class="fa-regular fa-pen-to-square aEdit2"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for( let i = 0; i < data.suppliers.length; i++ ) { %>
+                    <tr>
+                        <th class="aTh2"><%= data.suppliers[i].supplier %></th>
+                        <th class="aTh2"><%= data.suppliers[i].business_name %></th>
+                        <th class="aTh2"><%= data.suppliers[i].address %></th>
+                        <th class="aTh2"><%= data.suppliers[i].supplier_country.country %></th>
+                        <th class="aTh2"><%= data.suppliers[i].supplier_currency.currency %></th>
+                        <th class="aTh2">
+                            <a href="/data/<%= data.idBrunch %>/edit-supplier/<%= data.suppliers[i].id %>">
+                                <i class="fa-regular fa-pen-to-square aEdit1"></i>
+                            </a>
+                            
+                        </th>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+
+
+

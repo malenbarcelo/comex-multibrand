@@ -1,0 +1,27 @@
+<%- include('./partials/head') %>
+<%- include('./partials/header') %>
+<%- include('./partials/userLogged') %>
+
+<% if (locals.successMessage) { %>
+    <script>
+        alertify.success('Contraseña cambiada con éxito');
+    </script>
+<% } %>
+
+<div class="divBody1">
+    
+    <div class="title4">Seleccione un pais</div>
+
+    <div class="divBrunches">
+        <% data.brunches.forEach(brunch => { %>
+            <a href="/imports/<%= brunch.id %>/imports-data">
+                <div class="divBrunch">
+                    <div><%= brunch.brunch %></div>
+                    <img src="/images/<%= brunch.brunch.toLowerCase() %>.jpg" class="brunchLogo" alt="logo">
+                </div>
+            </a>            
+        <% }) %>
+    </div>
+
+</div>
+

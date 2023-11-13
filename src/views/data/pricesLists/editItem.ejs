@@ -1,0 +1,108 @@
+<%- include('../../partials/head') %>
+<%- include('../../partials/userLogged') %>
+<%- include('../../partials/header') %>
+
+<div class="aDivBody3">
+
+    <div class="aTitle1">Listas de precios</div>
+
+    <div class="aTitle2">Editar Item</div>
+
+    <div class="aDivForm">
+        <form action="/data/<%= data.idBrunch %>/edit-item/<%= item.id %>" method="POST">
+
+            <div class="aDivInputEdit2">
+                <label for="item" class="aLabelEdit1">Item</label>
+                <input type="text" name="item" class="aInput4 aUnabled" id="item" value="<%= item.item %>" readonly>
+            </div>
+
+            <div class="aDivInputEdit2">
+                <label for="supplier" class="aLabelEdit1" >Proveedor</label>
+                <input type="text" name="supplier" class="aInput4 aUnabled" id="supplier" value="<%= item.price_list_supplier.supplier %>" readonly>
+            </div>
+
+            <div class="aDivInputEdit2">
+                <label for="description" class="aLabelEdit1">Descripción</label>
+                <input type="text" name="description" class="aInput4" value="<%= item.description %>" id="description">
+            </div>
+
+            <div class="aDivInputEdit2">
+                <label for="fob" class="aLabelEdit1" >Precio FOB</label>
+                <input type="text" name="fob" class="aInput4" value="<%= parseFloat(item.fob,4) %>" id="fob">
+            </div>
+
+            <div class="aDivInputEdit2">
+                <label for="selectMU" class="aLabelEdit1" >Unidad de medida</label>
+                <select name="selectMU" class="aSelect2">
+                    <% data.mu.forEach(measUnit => { %>
+                        <option value="<%= measUnit.id %>" <%= measUnit.id == item.id_measurement_units ? 'selected' : null %>>
+                            <%= measUnit.measurement_unit %>
+                        </option>
+                    <% }) %>
+                </select>
+            </div>
+
+            <div class="aDivInputEdit2">
+                <label for="muPerBox" class="aLabelEdit1" >UM por caja</label>
+                <input type="text" name="muPerBox" class="aInput4" id="muPerBox" value="<%= item.mu_per_box %>">
+            </div>
+
+            <div class="aDivInputEdit2">
+                <label for="weight" class="aLabelEdit1" >Peso por caja (kg)</label>
+                <input type="text" name="weight" class="aInput4" id="weight" value="<%= parseFloat(item.weight_kg,4) %>">
+            </div>
+
+            <div class="aDivInputEdit2">
+                <label for="volume" class="aLabelEdit1" >Volumen (m3)</label>
+                <input type="text" name="volume" class="aInput4" id="volume" value="<%= parseFloat(item.volume_m3,4) %>">
+            </div>
+
+            <div class="aDivInputEdit2">
+                <label for="brand" class="aLabelEdit1" >Marca</label>
+                <input type="text" name="brand" class="aInput4" id="brand" value="<%= item.brand %>">
+            </div>
+
+            <div class="aDivInputEdit2">
+                <label for="origin" class="aLabelEdit1" >Origen</label>
+                <input type="text" name="origin" class="aInput4" id="origin" value="<%= item.origin %>">
+            </div>
+
+            <div class="aDivInputEdit2">
+                <label for="selectCostCalc" class="aLabelEdit1" >Cálculo del costo</label>
+                <select name="selectCostCalc" class="aSelect2">
+                    <option value="Precio" <%= item.cost_calculation == "Precio" ? 'selected' : null %>>
+                        Precio
+                    </option>
+                    <option value="Volumen" <%= item.cost_calculation == "Volumen" ? 'selected' : null %>>
+                        Volumen
+                    </option>
+                </select>
+            </div>
+
+            <div class="aDivInputEdit2">
+                <label for="hasBreaks" class="aLabelEdit1" >Considera roturas</label>
+                <select name="hasBreaks" class="aSelect2">
+                    <option value="1" <%= item.has_breaks == "1" ? 'selected' : null %>>
+                        Sí
+                    </option>
+                    <option value="0" <%= item.has_breaks == "0" ? 'selected' : null %>>
+                        No
+                    </option>
+                </select>
+            </div>
+    
+            <div class="aDivButtonsEdit">
+                <div class="aButton2" id="saveButton">Guardar</div>
+                <a href="/data/<%= data.idBrunch %>/prices-lists/<%= item.id_suppliers %>">
+                    <div class="aButton2">Cancelar</div>
+                </a>
+            </div>
+
+            <%- include('../../partials/confirmPopup') %>
+
+        </form>
+    </div>
+
+</div>
+
+<script type="module" src="/js/editPriceList.js"></script>

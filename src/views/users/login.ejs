@@ -1,0 +1,48 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+
+    <div class="divBody1">
+
+        <h1 class="title3">COMEX</h3>
+    
+        <h3 class="title1">Iniciar sesión</h3>
+    
+        <form action="/login" method="POST">
+    
+            <div class="divInputs1">
+    
+                <input type="text" name="userName" placeholder="Usuario" class="input1 <%= locals.errors && errors.userName ? 'aIsInvalid' : null %>" value="<%= locals.oldData ? oldData.userName : null %>">
+                <div class="aDivError1">
+                    <% if (locals.errors && errors.userName) { %>
+                        <%= errors.userName.msg %>
+                    <% } %>
+                </div>
+    
+                <input type="password" name="password" placeholder="Contraseña" class="input1 <%= locals.errors && errors.password ? 'aIsInvalid' : null %>" >
+                <div class="aDivError1">
+                    <% if (locals.errors && errors.password) { %>
+                        <%= errors.password.msg %>
+                    <% } %>
+                </div>
+    
+                <div class="divButtons2">
+                    <button type="submit" class="button2">Ingresar</button>
+                </div>
+    
+            </div>
+        </form>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+

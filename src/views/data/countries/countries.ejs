@@ -1,0 +1,57 @@
+<%- include('../../partials/head') %>
+<%- include('../../partials/userLogged') %>
+<%- include('../../partials/header') %>
+
+<% if (locals.successMessage) { %>
+    <% if (locals.successMessage == 'editCountry') { %>
+        <script>
+            alertify.success('País editado con éxito');
+        </script>
+    <% } %>
+    <% if (locals.successMessage == 'createCountry') { %>
+        <script>
+            alertify.success('País creado con éxito');
+        </script>
+    <% } %>
+    
+<% } %>
+
+<div class="aDivBody3">
+
+    <div class="aTitle1">Países</div>
+
+    <div class="aDivTable1">
+        <table class="aTable1">
+            <thead>
+                <tr>
+                    <th class="aTh1">
+                        País
+                        <a href="/data/<%= data.idBrunch %>/create-country/">
+                            <i class="fa-solid fa-plus aAdd1"></i>
+                        </a>
+                    </th>
+                    <th class="aTh1"><i class="fa-regular fa-pen-to-square aEdit2"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for( let i = 0; i < data.countries.length; i++ ) { %>
+                    <tr>
+                        <th class="aTh2"><%= data.countries[i].country %></th>
+                        <th class="aTh2">
+                            <a href="/data/<%= data.idBrunch %>/edit-country/<%= data.countries[i].id %>">
+                                <i class="fa-regular fa-pen-to-square aEdit1"></i>
+                            </a>
+                            
+                        </th>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+
+
+

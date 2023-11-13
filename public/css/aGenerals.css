@@ -1,0 +1,385 @@
+/*-------Generals-------*/
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+input, select, textarea{
+    outline:none
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}/*Hide arrows from input type number*/
+
+a{
+    text-decoration: none;
+    color:black
+}
+
+.aNotVisible{
+    display: none;
+}
+
+.aUnabled{
+    color: grey;
+}
+
+/*-------Titles-------*/
+.aTitle1{
+    font-size:17px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+.aTitle2{
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 18px;
+    margin-bottom: 10px;
+}
+
+.aTitle3{
+    font-size:17px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 50px;
+    margin-bottom: 70px;
+}
+
+/*-------Divs-------*/
+.aDivBody1{
+    margin-top: 5px;
+}
+
+.aDivBody2{
+    margin-top: 50px;
+}
+
+
+
+.aDivBody3{
+    position: absolute;
+    left:200px;
+    width: calc(100vw - 200px)
+}
+
+.aDivForm{
+    display: flex;
+    justify-content: center;
+}
+
+.aDivInputEdit{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    align-items: center;
+    column-gap: 7px;
+}
+
+.aDivInputEdit2{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    align-items: center;
+    column-gap: 7px;
+}
+
+/*-------Inputs-------*/
+.aInput1{
+    border:none;
+    border-bottom: black solid 1px;
+    margin-bottom: 15px;
+    font-size: 13px;
+    padding: 10px 6px;
+    width: 300px;
+    background-color: rgb(245, 242, 242) ;
+}
+
+.aInput2{
+    border:none;
+    font-size: 11px;
+    text-align: center;
+    background-color: rgb(245, 242, 242) ;
+    width: 100px;
+    padding:8px 4px 5px 4px;
+}
+
+.aInput3{
+    border:none;
+    font-size: 11px;
+    text-align: center;
+    background-color: rgb(245, 242, 242) ;
+    width: 300px;
+    padding:8px 4px 8px 4px;
+    height: auto;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.aInput4{
+    border:none;
+    font-size: 11px;
+    text-align: center;
+    background-color: rgb(245, 242, 242) ;
+    width: 300px;
+    padding:6px 2px 6px 2px;
+    height: auto;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.aInput5{
+    border:none;
+    font-size: 11px;
+    text-align: center;
+    background-color: transparent;
+    width: 100px;
+    padding:8px 4px 5px 4px;
+}
+
+.aSelect1{
+    border:none;
+    font-size: 11px;
+    text-align: center;
+    background-color: rgb(245, 242, 242) ;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 308px;
+    padding: 8px 4px 8px 4px;
+}
+
+.aSelect2{
+    border:none;
+    font-size: 11px;
+    text-align: center;
+    background-color: rgb(245, 242, 242) ;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 304px;
+    padding: 6px 2px 6px 2px;
+}
+
+.aSelect3{
+    border:none;
+    font-size: 11px;
+    text-align: center;
+    background-color: rgb(245, 242, 242) ;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 106px;
+    padding: 6px 2px 6px 2px;
+}
+
+/*-------Buttons-------*/
+.aButton1{
+    background-color: #15A89D;
+    border:none;
+    padding: 6px 10px 6px 10px;
+    margin-top: 20px;
+    color:  #efeded;
+    cursor: pointer;
+}
+
+.aButton2{
+    background-color: hsl(176, 78%, 37%);
+    border:none;
+    padding: 4px 0px 4px 0px;
+    margin-top: 20px;
+    color:  #efeded;
+    cursor: pointer;
+    font-size: 12px;
+    border-radius: 15px;
+    width: 90px;
+    text-align: center;
+}
+
+.aButton3{
+    color:#efeded;
+    border:none;
+    padding: 6px 10px 6px 10px;
+    margin-top: 20px;
+    background-color:#15A89D;
+    cursor: pointer;
+    border-radius: 15px;
+    width: 100px;
+}
+
+.aButton1:hover,.aButton2:hover,.aButton3:hover{
+    background-color:#1a847d
+}
+
+.aDivButtonsEdit{
+    display: flex;
+    justify-content: center;
+    column-gap: 5px;
+
+}
+
+/*-------Tables-------*/
+.aDivTable1{
+    margin: auto;
+    margin-top: 30px;
+    width: fit-content;
+}
+
+.aTable1{
+    margin: auto;
+}
+
+.aTh1{
+    background-color:#15A89D;
+    font-size: 12px;
+    padding: 5px 10px 5px 10px;
+    color:  #efeded;
+}
+
+.aTh2{
+    background-color:#efeded;
+    font-size: 11px;
+    padding: 5px 10px 5px 10px;
+    font-weight: lighter;
+    max-width: 200px;
+}
+
+.aTh3{
+    background-color:#15A89D;
+    font-size: 11px;
+    padding: 3px 7px 3px 7px;
+    color:  #efeded;
+}
+
+.aTh4{
+    width: 45px;
+}
+
+.aTh5{
+    width: 50px;
+}
+
+.aTh6{
+    width: 70px;
+}
+
+.aTh7{
+    width: 50px;
+}
+
+.aTh8{
+    width: 60px;
+}
+
+.aEdit1{
+    color: black;
+    font-size: 10px;
+    cursor: pointer;
+}
+
+.aEdit1:hover{
+    color:#15A89D
+}
+
+.aEdit2{
+    color:#efeded;
+    font-size: 10px;
+}
+
+.aEdit3{
+    font-size: 12px;
+}
+
+.aAdd1{
+    font-size: 10px;
+    cursor: pointer;
+    margin-left: 3px;
+    color:#efeded
+}
+
+/*-------Labels-------*/
+.aLabelEdit1{
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.aLabelEdit2{
+    font-weight: bold;
+    font-size: 12px;
+    text-align: right;
+}
+
+
+/*-------Errors-------*/
+.aDivError1{    
+    font-size: 12px;
+    color: rgb(221, 7, 7);
+    margin: auto;
+    margin-bottom: 15px;
+    margin-top:3px;
+    width: 200px;
+    text-align: center;
+}
+
+.aIsInvalid{
+    border:rgb(221, 7, 7) solid 1.5px !important
+}
+
+
+
+
+
+
+
+
+.aUserLogged{
+    margin-top: 10px;
+    margin-right: 15px;
+    text-align: right;
+}
+
+.aUserLoggedName{
+    font-weight: bold;
+}
+
+.aLogout{
+    color: rgb(4, 4, 222);
+    text-decoration: none;
+    font-size: 12px;
+}
+
+
+
+
+
+
+
+.aUnderlined{
+    text-decoration: underline;
+}
+
+
+@media (max-width:400px){
+    .aUserLogged{
+        margin-right: 7px;
+        margin-top: 5px;
+    }
+    .aUserLoggedName{
+        font-size: 15px;
+    }
+    .aDivLogout{
+        font-size: 11px;
+    }
+}
+
+
+.aVisible{
+    display: block
+}
+
+
+
+
+
+
+
+
+
+

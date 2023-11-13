@@ -1,0 +1,368 @@
+:root{
+    --color1:#15A89D;
+    --color2: #F5F5F5;
+    --color3: #efeded;
+}
+
+/*------selectBrunch------*/
+.divBrunches{
+    text-align: center;
+    margin-top: 50px;
+}
+
+.divBrunch{
+    width: 300px;
+    margin: auto;
+    margin-bottom: 15px;
+    padding: 15px;
+    background-color: var(--color2);
+    border-radius: 30px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 15px;
+}
+
+.divBrunch:hover{
+    background-color: var(--color1);
+    color:var(--color3);
+}
+
+.divBrunch:hover a{
+    color:  #efeded;
+}
+
+.brunchLogo{
+    height: 20px;
+}
+
+/*------pricesLists------*/
+.divFormPriceList{
+    margin-top: 20px;
+}
+
+.divAlertMessage{
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+    width: 300px;
+    margin: auto;
+    margin-top: 20px;
+    align-items: center;
+    background-color: #e4c6c6;
+    padding: 10px;
+}
+
+.textAlert{
+    text-align: center;    
+}
+
+.iAlert{
+    font-size: 18px;
+    color: rgb(163, 4, 4);
+}
+
+.divActions{
+    display: flex;
+    justify-content: right;
+    column-gap: 10px;
+    margin-bottom: 7px;
+    font-size: 12px;
+    margin-right: 10px;
+}
+
+.iAction:hover{
+    cursor:pointer;
+    color: #15A89D;
+
+}
+
+.newListPopup {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.newListPopupVisible{
+    display: block;
+}
+
+.newListPopupNotVisible{
+    display: none;
+}
+
+/*------createPo------*/
+.poData{
+    display: flex;
+    column-gap: 5px;
+    justify-content: center;
+}
+
+.divPoData{
+    font-size: 12px;
+    margin-top: 10px;
+    padding: 5px;
+    border-right: black solid 1px;
+}
+
+.firstPoData{
+    border-left: black solid 1px;
+}
+
+.poTotalData{
+    margin-bottom: -15px;
+}
+
+.divActionsCreatePo{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    font-size: 15px;
+    column-gap: 5px;
+}
+
+.divActionCreatePo{
+    color:#efeded;
+    width: 25px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:#15A89D;
+    border-radius: 15px;
+    width: 50px;
+}
+
+.divActionCreatePo:hover{
+    background-color: #efeded;
+    color:#15A89D
+}
+
+.saveDisk{
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: regular;
+}
+
+.pencilEdit{
+    font-size: 9px;
+    position: absolute;
+    left: 38px;
+    top:2px;
+    cursor: pointer;
+}
+
+.pencilEdit2{
+    font-size: 9px;
+    position: absolute;
+    left: 36px;
+    top:2px;
+    cursor: pointer;
+}
+
+.pencilEdit:hover,.pencilEdit2:hover{
+    color:#15A89D;
+}
+
+.divQuantity{
+    position: relative;
+}
+
+/*------purchaseOrderPdf------*/
+
+.poBody{
+    margin-top: 20px;
+}
+
+.purchaseOrderHeader{
+    position: relative;
+    background-color:rgb(244,244,244);
+    padding: 8px;
+    margin-top: 25px;
+
+}
+
+.poDatas{
+    position: absolute;
+    height: 60px;
+    top: 8px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 10px;
+    
+}
+
+.poLogo{
+    position: absolute;
+    left: 30px;
+}
+
+.poDataTitle{
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.poData{
+    font-size: 12px;
+}
+
+.poTitle{
+    font-size: 20px;
+    font-weight: bold;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.poCompanyLogo{
+    height: 60px;
+}
+
+.poNumber,.poDate{
+    display: flex;
+    column-gap: 8px;
+}
+
+.divPoDataPdf{
+    display: flex;
+    justify-content: center;
+    column-gap: 10px;
+}
+
+.divBrunchData{
+    margin-top: 15px;
+    display: grid;
+    grid-template-columns: 40px 250px;
+    grid-template-rows: auto auto;
+    grid-gap: 5px;
+    padding: 10px;
+}
+
+.divFrom{
+    font-size: 12px;
+    font-weight: bold;
+    grid-row: span 2;
+    text-align: right;
+    padding-right: 5px;
+}
+
+.brunchName{
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.brunchAddress{
+    font-size: 12px;
+}
+
+.divExtendedData{
+    margin-top: 3px;
+    display: flex;
+    justify-content: right;
+    column-gap: 10px;
+    align-items: center;
+    padding: 3px;
+}
+
+.extendedDataTitle{
+    font-size: 12px;
+    font-weight: bold;
+    width: 100px;
+}
+
+.extendedData{
+    font-size: 12px;
+    width: 100px;
+    text-align: right;
+}
+
+.addMargin{
+    margin-top: 15px;
+}
+
+/*---create country---*/
+.divInputCreateCountry{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 15px;
+    margin-top: 25px;
+}
+
+/*---imports---*/
+.divFilters{
+    display: flex;
+    justify-content: center;
+    column-gap: 5px;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.inputImports{
+    font-size: 12px;
+    text-align: center;
+    width: 90px;
+    border-radius: 10px;
+    border: rgb(112, 109, 109) solid 1px;
+    padding: 3px;
+}
+
+.selectSupplier{
+    width: 130px;
+}
+
+.newPo{
+    color:#efeded;
+    position: absolute;
+    right: 10px;
+    top: 13.5px;
+    font-size: 11px;
+    cursor: pointer;
+
+}
+
+.thPo{
+    position: relative;
+}
+
+.filterPo{
+    font-size: 12px;
+    cursor: pointer;
+}
+
+
+@media (max-width:400px){
+    .divBrunch{
+        width: 200px;
+        height: 18px;
+        font-size:16px
+    }
+    .divFilters{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        row-gap: 5px;
+        margin-top: -15px;
+    }
+    .inputImports{
+        width: 130px;
+        padding: 3px;
+    }
+
+
+}
+
+
+
+
+
+

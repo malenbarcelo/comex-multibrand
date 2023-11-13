@@ -1,0 +1,128 @@
+<%- include('../../partials/head') %>
+<%- include('../../partials/userLogged') %>
+<%- include('../../partials/header') %>
+
+<div class="aNotVisible" id="idBrunch"><%= data.idBrunch %></div>
+<div class="aNotVisible" id="brunch"><%= data.brunch.brunch %></div>
+
+<% if (locals.successMessage) { %>
+    <% if (locals.successMessage == 'editItem') { %>
+        <script>
+            alertify.success('Item editado con éxito');
+        </script>
+    <% } %>
+    <% if (locals.successMessage == 'createItem') { %>
+        <script>
+            alertify.success('Item creado con éxito');
+        </script>
+    <% } %>
+    <% if (locals.successMessage == 'createList') { %>
+        <script>
+            alertify.success('Lista creada con éxito');
+        </script>
+    <% } %>
+    <% if (locals.successMessage == 'deleteItem') { %>
+        <script>
+            alertify.success('Item eliminado con éxito');
+        </script>
+    <% } %>
+    
+<% } %>
+
+<div class="divBody2">
+
+    <div class="aTitle1">Listas de precios</div>
+
+    <div class="aDivForm">
+        
+        <div class="aDivInputEdit divFormPriceList">
+            <select name="selectSupplier" class="aSelect1" id="selectSupplier">
+                <option value="default" selected>
+                    ---Seleccione un proveedor---
+                </option>
+                <% data.suppliers.forEach(supplier => { %>
+                    <option value="<%= supplier.id %>" <%= locals.supplierId != 0 && supplierId == supplier.id ? 'selected' : null %>>
+                        <%= supplier.supplier %>
+                    </option>
+                <% }) %>
+            </select>
+        </div>
+    </div>
+
+    <div class="aNotVisible" id="addPriceList">
+        <div id="alert"></div>
+        <div class="button5" id="uploadFirstList">
+            <i class="fa-solid fa-upload iAction"></i>
+        </div>
+    </div>
+    
+    <div class="aDivTable1 aNotVisible" id="priceListTable">
+
+        <div class="divActions">
+            <!---<i class="fa-solid fa-magnifying-glass iAction"></i>--->
+            <a href="" id="hrefCreateItem">
+                <i class="fa-solid fa-plus iAction"></i>
+            </a>
+            <a href="" id="hrefDownloadPriceList">
+                <i class="fa-solid fa-download iAction"></i>
+            </a>
+            <i class="fa-solid fa-upload iAction" id="uploadPriceList"></i>
+        </div>
+
+        <div class="divTable">
+            <table class="aTable1">
+                <thead>
+                    <tr>
+                        <th class="aTh1">
+                            Item
+                        </th>
+                        <th class="aTh1">Descripción</th>
+                        <th class="aTh1">UM</th>
+                        <th class="th2">UM por caja</th>
+                        <th class="th1">Peso (kg)</th>
+                        <th class="th1">Volumen (m3)</th>
+                        <th class="th2 aTh7" id="priceCurrency"></th>
+                        <th class="aTh1">Marca</th>
+                        <th class="aTh1">Origen</th>
+                        <th class="aTh1">Costeo</th>
+                        <th class="aTh1">Roturas</th>
+                        <th class="aTh1"><i class="fa-regular fa-pen-to-square aEdit2"></i></th>
+                        <th class="aTh1"><i class="fa-regular fa-trash-can aEdit2"></i></th>
+                    </tr>
+                </thead>
+                <tbody id="priceListBody"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!---Add new price list--->
+<div class="newListPopup <%= locals.uploadFormVisible ? 'newListPopupVisible' : 'newListPopupNotVisible' %>" id="newPriceList">
+    <div class="cConfirmContent">
+        <form action="" method="POST" enctype="multipart/form-data" id="formUploadList2">
+            <div>
+                <div class="title5">Subir lista de precios</div>
+                <div class="title6" id="newListSupplier"><%= locals.uploadFormVisible ? supplier.supplier : null %></div>
+                <input type="file" name="priceList" class="input4 <%= locals.errors && errors.priceList ? 'aIsInvalid' : null %>" id="file3">   
+                <div class="error4" id="error3">
+                    <% if (locals.errors && errors.priceList) { %>
+                        <%= errors.priceList.msg %>
+                    <% } %>
+                </div>
+                <div class="divButtons4">
+                    <button type="submit" class="button3" id="confirmButton">Importar</button>
+                    <div class="button3" id="cancelButton3">Cancelar</div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<%- include('../../partials/confirmPopup') %>
+
+<script type="module" src="/js/pricesLists.js"></script>
+
+
+
+
+

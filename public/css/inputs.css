@@ -1,0 +1,153 @@
+:root{
+    --color1:#15A89D;
+    --color2: #F5F5F5;
+    --color3: #efeded;
+}
+
+/*---Inputs1---*/
+.divInputs1{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
+}
+
+.input1{
+    border:none;
+    border-bottom: black solid 1px;
+    margin-bottom: 0px;
+    font-size: 13px;
+    padding: 10px 6px;
+    width: 300px;
+    background-color: var(--color2);
+}
+
+/*---Inputs2---*/
+.divInput2{
+    display: flex;
+    flex-direction: column;
+}
+
+.inputData2{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.input2{
+    border:none;
+    font-size: 12px;
+    text-align: center;
+    padding: 8px 4px;
+    width: 200px;
+    background-color: var(--color2);
+}
+
+.inputError2{
+    display: flex;
+    justify-content: end;
+}
+
+.error2{
+    width: 208px;
+    font-size: 12px;
+    color: rgb(221, 7, 7);
+    text-align: center;
+    margin-top: 2px;
+    margin-bottom: 10px;
+}
+
+.inputWidth2{
+    width: 207px;
+}
+
+/*---Inputs3---*/
+.divInputs3{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border:var(--color1) solid 1px;
+    width: 300px;
+    margin: auto;
+    padding-bottom: 10px;
+    margin-top: 15px;
+}
+
+.input3{
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+
+/*---Inputs4---*/
+.input4{
+    font-size: 12px;    
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    margin-bottom: 5px;
+}
+
+.error4{
+    width: 208px;
+    font-size: 12px;
+    color: rgb(221, 7, 7);
+    text-align: center;
+    margin: auto;
+    margin-bottom: 40px;
+}
+
+/*---inputs 5---*/
+.divInput5{
+    display: flex;
+    flex-direction: column;
+}
+
+.inputData5{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.input5{
+    border:none;
+    font-size: 12px;
+    text-align: center;
+    padding: 6px 2px;
+    width: 300px;
+    background-color: var(--color2);
+}
+
+.inputError5{
+    display: flex;
+    justify-content: end;
+}
+
+.error5{
+    width: 300px;
+    font-size: 11px;
+    color: rgb(221, 7, 7);
+    text-align: center;
+    margin-top: 2px;
+    margin-bottom: 8px;
+}
+
+.inputWidth5{
+    width: 304px;
+}
+
+
+
+/*---generals---*/
+.inputUnabled{
+    color:grey
+}
+
+@media (max-width:400px){
+    .input1{
+        width: 250px;
+    }
+}

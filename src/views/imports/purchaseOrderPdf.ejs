@@ -1,0 +1,91 @@
+<%- include('../partials/head') %>
+
+<div class="bodyPO">
+
+    <div class="purchaseOrderHeader">
+        <div class="poLogo"><img src="/images/companyLogo.jpg" alt="Company Logo" class="poCompanyLogo"></div>
+        <div class="poTitle">PURCHASE ORDER</div>
+        <div class="poDatas">
+            <div class="poNumber">
+                <div class="poDataTitle">PO Number:</div>
+                <div class="poData"><%= purchaseOrder.purchase_order %></div>
+            </div>
+            <div class="poDate">
+                <div class="poDataTitle">Date: </div>
+                <div class="poData"><%= dateString %></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divPoDataPdf">
+        <div class="divBrunchData">
+            <div class="divFrom">From:</div>
+            <div class="brunchName"><%= data.brunch.business_name %></div>
+            <div class="brunchAddress"><%= data.brunch.address %></div>
+        </div>
+    
+        <div class="divBrunchData">
+            <div class="divFrom">To:</div>
+            <div class="brunchName"><%= purchaseOrder.purchase_order_supplier.business_name %></div>
+            <div class="brunchAddress"><%= purchaseOrder.purchase_order_supplier.address %></div>
+        </div>
+    </div>
+
+    <div class="aDivTable1">
+
+        <div class="divTable">
+            <table class="aTable1">
+                <thead>
+                    <tr>
+                        <th class="aTh1">Item</th>
+                        <th class="aTh1">Description</th>
+                        <th class="aTh1">Item Qty</th>
+                        <th class="aTh1">MU</th>
+                        <th class="aTh1">Cartons</th>
+                        <% if (showPrices == 1) { %>
+                            <th class="aTh1 aTh4">Unit Price</th>
+                            <th class="aTh1 aTh4">Extended Price</th>
+                        <% } %>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for( let i = 0; i < purchaseOrderDetails.length; i++ ) { %>
+                        <tr>
+                            <th class="aTh2"><%= purchaseOrderDetails[i].item %></th>
+                            <th class="aTh2"><%= purchaseOrderDetails[i].description %></th>
+                            <th class="aTh2"><%= parseFloat(purchaseOrderDetails[i].mu_quantity,2) %></th>
+                            <th class="aTh2"><%= purchaseOrderDetails[i].purchase_order_detail_mu.measurement_unit %></th>
+                            <th class="aTh2"><%= parseFloat(purchaseOrderDetails[i].boxes,2) %></th>
+                            <% if (showPrices == 1) { %>
+                                <th class="aTh2"><%= parseFloat(purchaseOrderDetails[i].fob,2) %></th>
+                                <th class="aTh2"><%= parseFloat(purchaseOrderDetails[i].total_fob,2) %></th>
+                            <% } %>
+                            
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+        <% if (showPrices == 1) { %>
+            <div class="divExtendedData addMargin">
+                <div class="extendedDataTitle">Extended Price</div>
+                <div class="extendedData"><%= purchaseOrder.purchase_order_currency.currency + ' ' + parseFloat(purchaseOrder.total_fob,2).toFixed(2) %></div>
+            </div>
+        <% } %>
+        
+        <div class="divExtendedData">
+            <div class="extendedDataTitle">Cartons</div>
+            <div class="extendedData"><%= parseFloat(purchaseOrder.total_boxes,2).toFixed(2) %></div>
+        </div>        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+

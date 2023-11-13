@@ -1,0 +1,36 @@
+<%- include('../../partials/head') %>
+<%- include('../../partials/userLogged') %>
+<%- include('../../partials/header') %>
+
+<div class="aDivBody3">
+
+    <div class="aTitle1">Unidades de medida</div>
+
+    <div class="aTitle2">Editar unidad de medida</div>
+
+    <div class="aDivForm">
+
+        <form action="/data/<%= data.idBrunch %>/edit-mu/<%= muData.id %>" method="POST">
+
+            <div class="aDivInputEdit">
+                <label for="measurementUnit" class="aLabelEdit1" >Unidad de medida</label>
+                <input type="text" name="measurementUnit" class="aInput2 aUnabled" value="<%= muData.measurement_unit %>" readonly>
+            </div>
+    
+            <div class="aDivInputEdit">
+                <label for="unitsPerUM" class="aLabelEdit1">Unidades por UM</label>
+                <input type="text" name="unitsPerUM" class="aInput2" value="<%= muData.units_per_um %>">
+            </div>
+    
+            <div class="aDivButtonsEdit">
+                <button type="submit" class="aButton2">Guardar</button>
+                <a href="/data/<%= data.idBrunch %>/measurement-units/">
+                    <div class="aButton2">Cancelar</div>
+                </a>
+            </div>
+
+        </form>
+    </div>
+
+    
+</div>

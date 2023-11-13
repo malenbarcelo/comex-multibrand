@@ -1,0 +1,78 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<%- include('../partials/userLogged') %>
+
+<% if (locals.successMessage) { %>
+    <% if (locals.successMessage == 'editUser') { %>
+        <script>
+            alertify.success('Usuario editado con éxito');
+        </script>
+    <% } %>
+    <% if (locals.successMessage == 'createUser') { %>
+        <script>
+            alertify.success('Usuario con éxito');
+        </script>
+    <% } %>
+<% } %>
+
+<div class="divBody1">
+
+    <div class="title1">Usuarios</div>
+
+    <div class="aDivTable1">
+        <table class="aTable1">
+            <thead>
+                <tr>
+                    <th class="aTh1">
+                        Usuario
+                        <a href="/users/<%= data.idBrunch %>/create-user/">
+                            <i class="fa-solid fa-plus aAdd1"></i>
+                        </a>
+                    </th>
+                    <th class="aTh1">Nombre y apellido</th>
+                    <th class="aTh1">Email</th>
+                    <th class="aTh1">Perfil</th>
+                    <th class="aTh1"><i class="fa-regular fa-pen-to-square aEdit2"></i></th>
+                    <th class="aTh1"><i class="fa-solid fa-unlock-keyhole aEdit2"></i></th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <% for( let i = 0; i < data.users.length; i++ ) { %>
+                    <tr>
+                        <th class="aTh2"><%= data.users[i].user_name %></th>
+                        <th class="aTh2"><%= data.users[i].first_name + ' ' + data.users[i].last_name %></th>
+                        <th class="aTh2"><%= data.users[i].email %></th>
+                        <th class="aTh2"><%= data.users[i].user_user_category.category_name %></th>
+                        <th class="aTh2">
+                            <a href="/users/<%= data.idBrunch %>/edit-user/<%= data.users[i].id %>">
+                                <i class="fa-regular fa-pen-to-square aEdit1"></i>  
+                            </a>
+                        </th>
+                        <th class="aTh2">
+                            <i class="fa-solid fa-unlock-keyhole aEdit1" id="<%= 'restore_' + data.users[i].id %>"></i>
+                        </th>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-----Restore Password----->
+<div class="cConfirmPopup" id="confirmPopup">
+    <div class="cConfirmContent">
+        <div class="cConfirmText" id="confirmText"></div>
+        <div class="divButtons3">
+            <button type="submit" class="button3" id="confirmButton">Confirmar</button>
+            <div class="button3" id="cancelButton">Cancelar</div>
+        </div>
+    </div>
+</div>
+
+<script type="module" src="/js/users.js"></script>
+
+
+
+
+

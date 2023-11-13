@@ -1,0 +1,7 @@
+node_modules
+package-lock.json
+package.json
+sqlScriptsAndData
+prdToDev.js
+devToPrd.js
+public/js/dominio.js
