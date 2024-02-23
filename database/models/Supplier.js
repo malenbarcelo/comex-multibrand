@@ -27,6 +27,10 @@ module.exports = (sequelize, DataTypes) => {
       id_currencies:{
          type: DataTypes.INTEGER,
          allowNull: false,
+      },
+      cost_calculation:{
+         type: DataTypes.STRING,
+         allowNull: false,
       }
    }
    const config = {

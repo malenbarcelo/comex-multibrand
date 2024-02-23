@@ -2,58 +2,14 @@
     --color1:#15A89D;
     --color2: #F5F5F5;
     --color3: #efeded;
+    --color5: #e2dfdf;
+    --color6:#d7dcdc;
 }
 
-.title1{
-    font-size:17px;
-    text-align: center;
-    font-weight: bold;
-    margin-top: 30px;
-}
-
-.title2{
+.titleS{
     font-size: 15px;
     font-weight: bold;
     text-align: center;
-    margin-top: 18px;
-    margin-bottom: 35px;
+    margin-bottom: 20px;
 }
 
-.title3{
-    font-size:30px;
-    text-align: center;
-    font-weight: bold;
-    margin-top: 60px;
-}
-
-.title4{
-    font-size:18px;
-    text-align: center;
-    font-weight: bold;
-    margin-top: 80px;
-}
-
-.title5{
-    font-size: 13px;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 18px;
-    margin-bottom: 35px;
-}
-
-.title6{
-    font-size: 13px;
-    font-weight: bold;
-    text-align: center;
-    margin-top: -25px;
-    margin-bottom: 35px;
-}
-
-@media (max-width:400px){
-    .title3{
-        font-size:25px
-    }
-    .title1{
-        font-size:15px
-    }
-}

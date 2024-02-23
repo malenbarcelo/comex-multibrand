@@ -1,0 +1,146 @@
+<div class="receiveImport" id="receiveImportPopup">
+
+    <div class="divImportDataReceive">
+        <div class="divCloseImportsPopup">
+            <div class="closeImportsPopup" id="receiveImportClosePopup">X</div>
+        </div>
+        
+        <div class="importsTitle" id="supplierReceive"></div>
+        
+        <div class="importsSubTitle" id="purchaseOrderReceive"></div> 
+
+    </div>
+
+    <div class="formImportsPopup">
+
+        <form action="" method="POST">
+            
+            <div class="divReceiveImportInput">
+                <label for="receptionDate" class="receiveImportLabel">Fecha de recepción</label>
+                <input type="date" name="receptionDate" placeholder="DD/MM/AAAA" class="receiveImportInput" id="receptionDate">
+            </div>
+
+            <div class="divReceiveImportInput relativePosition">
+                <label for="fobSupplierCurrency" class="receiveImportLabel" id="fobSupplierCurrencyLabel"></label>
+                <input type="text" id="fobSupplierCurrencyInput" name="fobSupplierCurrency"  class="receiveImportInput blockedInput" readonly>
+                <div class="editdataReceiveImport"><i class="fa-solid fa-pencil pencilEditPo" id="pencilEditPo"></i></div>
+            </div>
+
+            <div class="receiveImportTitle1">Gastos de la importación</div>
+
+            <div class="receiveImportAlertText">
+                <div><i class="fa-solid fa-circle-exclamation receiveImportAlert"></i></div>
+                <div id="receiveImportSubtitle"></div>
+            </div>
+
+            <div class="divReceiveImportInput">
+                <label for="currencyExchange" class="receiveImportLabel">Tasa de cambio</label>
+                <input type="text" id="currencyExchange" name="currencyExchange" class="receiveImportInput">
+            </div>
+
+            <div class="divReceiveImportInput relativePosition">
+                <label for="fobLocalCurrency" class="receiveImportLabel" id="fobLocalCurrencyLabel"></label>
+                <input type="text" id="fobLocalCurrencyInput" name="fobLocalCurrency"  class="receiveImportInput blockedInput" readonly>
+            </div>
+
+            <div class="divReceiveImportInput">
+                <label for="freight" class="receiveImportLabel">Flete</label>
+                <input type="text" id="freight" name="freight" class="receiveImportInput">
+            </div>
+
+            <div class="divReceiveImportInput">
+                <label for="insurance" class="receiveImportLabel">Seguro</label>
+                <input type="text" id="insurance" name="insurance" class="receiveImportInput">
+            </div>
+
+            <div class="divReceiveImportInput relativePosition">
+                <label for="cif" class="receiveImportLabel" id="cifLabel"></label>
+                <input type="text" id="cifInput" name="cif"  class="receiveImportInput blockedInput" readonly>
+            </div>
+
+            <div class="divReceiveImportInput">
+                <label for="forwarder" class="receiveImportLabel">Gastos forwarder</label>
+                <input type="text" id="forwarder" name="forwarder"  class="receiveImportInput">
+            </div>
+
+            <div class="divReceiveImportInput">
+                <label for="domesticFreight" class="receiveImportLabel">Flete interno</label>
+                <input type="text" id="domesticFreight" name="domesticFreight"  class="receiveImportInput">
+            </div>
+
+            <div class="divReceiveImportInput">
+                <label for="dispatchExpenses" class="receiveImportLabel">Gastos despacho</label>
+                <input type="text" id="dispatchExpenses" name="dispatchExpenses"  class="receiveImportInput">
+            </div>
+
+            <div class="divReceiveImportInput">
+                <label for="officeFees" class="receiveImportLabel">Honorarios despacho</label>
+                <input type="text" id="officeFees" name="officeFees"  class="receiveImportInput">
+            </div>
+
+            <div class="divReceiveImportInput">
+                <label for="conatinerCosts" class="receiveImportLabel">Gastos contenedor</label>
+                <input type="text" id="containerCosts" name="containerCosts"  class="receiveImportInput">
+            </div>
+
+            <div class="divReceiveImportInput">
+                <label for="portExpenses" class="receiveImportLabel">Gastos puerto</label>
+                <input type="text" id="portExpenses" name="portExpenses"  class="receiveImportInput">
+            </div>
+
+            <div class="divReceiveImportInput">
+                <label for="dutiesTarifs" class="receiveImportLabel">Derechos / Aranceles</label>
+                <input type="text" id="dutiesTarifs" name="dutiesTarifs"  class="receiveImportInput">
+            </div>
+
+            <div class="divReceiveImportInput">
+                <label for="containerInsurance" class="receiveImportLabel">Seguro contenedor</label>
+                <input type="text" id="containerInsurance" name="containerInsurance"  class="receiveImportInput">
+            </div>
+
+            <div class="divReceiveImportInput">
+                <label for="portContribution" class="receiveImportLabel">Aporte portuario</label>
+                <input type="text" id="portContribution" name="portContribution"  class="receiveImportInput">
+            </div>
+
+            <div class="divReceiveImportInput">
+                <label for="otherExpenses" class="receiveImportLabel">Otros gastos</label>
+                <input type="text" id="otherExpenses" name="otherExpenses"  class="receiveImportInput">
+            </div>
+
+            <div class="titleS" id="costCalculationTitle">Costeo por volumen</div>
+
+            <div class="divReceiveImportInput relativePosition">
+                <label for="totalExpense" class="receiveImportLabel" id="totalExpenseLabel"></label>
+                <input type="text" id="totalExpenseInput" name="totalExpense"  class="receiveImportInput blockedInput" readonly>
+            </div>
+
+            <div class="divReceiveImportInput relativePosition">
+                <label for="totalCost" class="receiveImportLabel" id="totalCostLabel"></label>
+                <input type="text" id="totalCostInput" name="totalCost"  class="receiveImportInput blockedInput" readonly>
+            </div>
+
+            <div class="divReceiveImportInput relativePosition">
+                <label for="volumeExpense" class="receiveImportLabel" id="volumeExpenseLabel"></label>
+                <input type="text" id="volumeExpenseInput" name="volumeExpense"  class="receiveImportInput blockedInput" readonly>
+            </div>
+
+            <div class="divReceiveImportInput relativePosition">
+                <label for="priceExpense" class="receiveImportLabel" id="priceExpenseLabel"></label>
+                <input type="text" id="priceExpenseInput" name="priceExpense"  class="receiveImportInput blockedInput" readonly>
+            </div>
+
+            <div class="divReceiveImportInput relativePosition">
+                <label for="totalVolumeM3" class="receiveImportLabel" id="totalVolumeM3Label"></label>
+                <input type="text" id="totalVolumeM3Input" name="totalVolumeM3"  class="receiveImportInput blockedInput" readonly>
+            </div>
+
+            <div class="importsButtons">
+                <div class="importsButton1" id="cancelReception">Cancelar</div>
+                <div class="importsButton1" id="saveReception">Guardar datos</div>
+                <div class="importsButton1" id="endReception">Aceptar recepción</div>
+            </div>
+            
+        </form>
+    </div>
+</div>

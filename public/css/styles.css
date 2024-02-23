@@ -4,6 +4,19 @@
     --color3: #efeded;
 }
 
+/*------generals------*/
+.isInvalid{
+    border:rgb(206, 10, 10) solid 2px
+}
+
+.divError{
+    color:rgb(206, 10, 10);
+    text-align: center;
+    font-size: 13px;
+    margin-top: 2px;
+    display: none;
+}
+
 /*------selectBrunch------*/
 .divBrunches{
     text-align: center;
@@ -319,19 +332,7 @@
     width: 130px;
 }
 
-.newPo{
-    color:#efeded;
-    position: absolute;
-    right: 10px;
-    top: 13.5px;
-    font-size: 11px;
-    cursor: pointer;
 
-}
-
-.thPo{
-    position: relative;
-}
 
 .filterPo{
     font-size: 12px;

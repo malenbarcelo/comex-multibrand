@@ -27,7 +27,7 @@ export function createPoItemData(item,counter,muQuantity,fob) {
         'volume_m3':volumeM3,
         'total_volume_m3':totalVolumeM3,
         'fob':fob,
-        'total_fob':totalFob,
+        'total_fob_supplier_currency':totalFob,
         'brand':item.brand,
         'currency':currency
     }

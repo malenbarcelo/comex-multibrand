@@ -28,24 +28,22 @@ const apisController = {
     try{
 
       const data = req.body
+      var idPo = 0
 
       //get idPO if exists
       const getPo = await purchaseOrdersQueries.filterPo(data.purchaseOrder)
 
-      //delete PO if exists
+      //update PO if exists, else create po
       if (getPo != null) {
-        const idPo = getPo.id
+        idPo = getPo.id
+        await purchaseOrdersQueries.editPo(data, idPo)
         await purchaseOrdersQueries.deletePoDetails(idPo)
-        await purchaseOrdersQueries.deletePo(idPo)
+      }else{
+        await purchaseOrdersQueries.createPo(data)
+        idPo = await purchaseOrdersQueries.lastIdPo(data.idBrunch)        
       }
 
-      //create PO
-      await purchaseOrdersQueries.createPo(data)
-
-      //get PO id
-      const idPo = await purchaseOrdersQueries.lastIdPo(data.idBrunch)
-
-      //create PO Details
+      //create po details
       await purchaseOrdersQueries.createPoDetails(data,idPo)
 
       res.status(200).json()
@@ -205,6 +203,18 @@ const apisController = {
       return res.send('Ha ocurrido un error')
     }
   },
+  currencies: async(req,res) =>{
+    try{
+
+      const currencies = await currenciesQueries.currencies()
+
+      res.status(200).json(currencies)
+
+    }catch(error){
+      console.log(error)
+      return res.send('Ha ocurrido un error')
+    }
+  },
   purchaseOrderDetails: async(req,res) =>{
     try{
 
@@ -231,6 +241,20 @@ const apisController = {
       const newPassword = bcrypt.hashSync(userToLogin.user_name,10)
 
       await usersQueries.changePassword(userToLogin.user_name,newPassword)
+
+      res.status(200).json()
+
+    }catch(error){
+      console.log(error)
+      return res.send('Ha ocurrido un error')
+    }
+  },
+  saveImportCosts: async(req,res) =>{
+    try{
+
+      const data = req.body
+
+      await purchaseOrdersQueries.savePoCosts(data)
 
       res.status(200).json()
 

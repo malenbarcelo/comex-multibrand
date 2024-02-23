@@ -18,12 +18,37 @@ async function getData(idBrunch){
 }
 
 const importsController = {
+  //APIS
+  receivePo: async(req,res) =>{
+    try{
+
+      const data = req.body
+        
+      await purchaseOrdersQueries.receivePo(data)      
+
+      res.status(200).json()
+
+    }catch(error){
+      console.group(error)
+      return res.send('Ha ocurrido un error')
+    }
+  },
+
+
+
+
+
+
+
+
+
+
   imports: async(req,res) =>{
     try{
-      const idBrunch = req.params.idBrunch      
-      
+      const idBrunch = req.params.idBrunch
+      const date =  new Date()
+      const year = ((date.getFullYear()).toString()).slice(-2)
       const data = await getData(idBrunch)
-
       const imports = await purchaseOrdersQueries.filterLast100(idBrunch)
 
       imports.forEach(item => {
@@ -187,10 +212,7 @@ const importsController = {
       var css = cssb.join('');
 
       
-      var route = path.resolve('../public/images/companyLogo.jpg')
-      console.log(route)
-
-      
+      var route = path.resolve('../public/images/companyLogo.jpg')      
 
       const headerTemplate = '<div class="po">'+'PO ' + fileName + '<img src=' + route + 'alt="Company Logo" class="poCompanyLogo">'+'</div>'
 
@@ -208,21 +230,6 @@ const importsController = {
         }
       });
 
-      /*const pdfBuffer = await page.pdf({
-        format: 'A4',
-        printBackground: true,
-        displayHeaderFooter: true,
-        headerTemplate: `
-        <div class="header" style="width:100%,border: red">
-          <h1 style="font-size: 60px">Este es el encabezado personalizado</h1>
-        </div>
-      `,
-        footerTemplate: '<div style="text-align: center;">Página <span class="pageNumber"></span> de <span class="totalPages"></span></div>',
-        margin: {
-          top: '60px', // Ajusta el margen superior para evitar superposición con el encabezado
-        },
-          })*/
-
       await browser.close()
 
       // Configura las cabeceras de respuesta para descargar el PDF
@@ -230,7 +237,6 @@ const importsController = {
       res.setHeader('Content-Disposition', 'attachment; filename=Purchase order - ' + fileName + '.pdf');
 
       res.send(pdfBuffer);
-
     
   }catch(error){
         console.log(error)

@@ -258,6 +258,27 @@ const dataController = {
       return res.send('Ha ocurrido un error')
     }
   },
+  deleteItem: async(req,res) =>{
+    try{
+
+      const idItem = req.params.idItem
+      const idBrunch = req.params.idBrunch
+      const supplierId = req.params.idSupplier
+
+      const data = await getData(idBrunch)
+
+      const successMessage = 'deleteItem'
+
+      //delete item
+      await pricesListsQueries.deleteItem(idItem)
+
+      return res.render('data/pricesLists/pricesLists',{title:'Listas de precios',data,successMessage,supplierId})
+
+    }catch(error){
+      console.log(error)
+      return res.send('Ha ocurrido un error')
+    }
+  },
   editCountry: async(req,res) =>{
     try{
 
@@ -619,7 +640,7 @@ const dataController = {
 
       priceListNumber +=1
 
-      const resultValidation = validationResult(req)
+      /*const resultValidation = validationResult(req)
 
       if (resultValidation.errors.length > 0){
 
@@ -633,7 +654,7 @@ const dataController = {
           uploadFormVisible,
           supplier
         })
-      }
+      }*/
         
 
       const file = req.file.filename
@@ -651,12 +672,11 @@ const dataController = {
         itemData.fob = priceList[i][6]
         itemData.selectMU = measurementUnit[0].id
         itemData.muPerBox = priceList[i][3]
-        itemData.brand = priceList[i][9]
-        itemData.origin = priceList[i][10]
+        itemData.brand = priceList[i][8]
+        itemData.origin = priceList[i][9]
         itemData.weight = priceList[i][5]
-        itemData.volume = priceList[i][4]        
-        itemData.selectCostCalc = priceList[i][7]
-        itemData.hasBreaks = priceList[i][8] == 'si' ? 1: 0
+        itemData.volume = priceList[i][4]
+        itemData.hasBreaks = priceList[i][7] == 'si' ? 1: 0
 
         await pricesListsQueries.createItem(idBrunch,itemData,supplier,date,priceListNumber)
 

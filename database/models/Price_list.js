@@ -52,10 +52,6 @@ module.exports = (sequelize, DataTypes) => {
          type: DataTypes.STRING,
          allowNull: false,
       },
-      cost_calculation:{
-         type: DataTypes.STRING,
-         allowNull: false,
-      },
       has_breaks:{
          type: DataTypes.INTEGER,
          allowNull: false,

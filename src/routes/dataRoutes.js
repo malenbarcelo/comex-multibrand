@@ -36,6 +36,9 @@ router.post('/:idBrunch/upload-price-list/:idSupplier', upload.single('priceList
 router.get('/:idBrunch/create-item/:idSupplier',dataController.createItem)
 router.post('/:idBrunch/create-item',pricesListsValidations.createItem,dataController.createItemProcess)
 router.get('/:idBrunch/download-price-list/:idSupplier',dataController.downloadPriceList)
+router.post('/:idBrunch/delete-item/:idSupplier/:idItem',dataController.deleteItem)
+
+
 
 
 router.get('/:idBrunch/suppliers',dataController.suppliers)

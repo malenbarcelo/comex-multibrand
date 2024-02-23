@@ -118,7 +118,18 @@
     </div>
 </div>
 
-<%- include('../../partials/confirmPopup') %>
+<!--delete popup--->
+<form action="" method="POST" id="formDeleteItem" enctype="multipart/form-data" >
+    <div class="cConfirmPopup" id="confirmPopup">
+        <div class="cConfirmContent">
+            <div class="cConfirmText" id="confirmText"></div>
+            <div class="cDivButtons">
+                <button type="submit" class="cConfirmButtons" id="confirmButton">Confirmar</button>
+                <div class="cConfirmButtons" id="cancelButton">Cancelar</div>
+            </div>
+        </div>
+    </div>
+</form>
 
 <script type="module" src="/js/pricesLists.js"></script>
 

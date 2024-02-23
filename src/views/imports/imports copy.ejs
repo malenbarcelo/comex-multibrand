@@ -1,0 +1,130 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<%- include('../partials/userLogged') %>
+
+<div class="divBody1">
+
+    <div class="aTitle1">Detalle de importaciones</div>
+    
+    <div class="aDivTable1">
+
+        <div class="divFilters">
+            <select name="" id="selectSupplier" class="inputImports selectSupplier">
+                <option value="default">Proveedor</option>
+                <% data.suppliers.forEach(supplier => { %>
+                    <option value="<%= supplier.supplier %>" <%= locals.dataToFilter && locals.dataToFilter.supplier == supplier.supplier ? 'selected' : null  %>>
+                        <%= supplier.supplier %>
+                    </option>
+                <% }) %>
+            </select>
+            <input type="text" placeholder="Año" class="inputImports" id="year" value="<%= locals.dataToFilter && locals.dataToFilter.year != 0 ? locals.dataToFilter.year : null %>">
+            <input type="text" placeholder="N° de OC" class="inputImports" id="po" value="<%= locals.dataToFilter && locals.dataToFilter.po != 0 ? locals.dataToFilter.po : null %>">
+            <input type="text" placeholder="Item" class="inputImports" id="item" value="<%= locals.dataToFilter && locals.dataToFilter.item != 0 ? locals.dataToFilter.item : null %>">
+            <div class="filterActions">
+                <i class="fa-solid fa-magnifying-glass filterPo" id="filterPo"></i>
+                <a href="/imports/<%= data.idBrunch %>/imports-data">
+                    <i class="fa-solid fa-xmark filterPo"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="divTable">
+            <table class="aTable1">
+                <thead>
+                    <tr>
+                        <th class="aTh1 thPo">
+                            OC  
+                            <i class="fa-solid fa-plus newPo" id="createPo"></i>
+                        </th>
+                        <th class="aTh1">Proveedor</th>
+                        <th class="aTh1 th10">Fecha</th>
+                        <th class="aTh1 th10">FOB</th>
+                        <th class="aTh1 th10">Moneda</th>
+                        <th class="aTh1 aTh4 th10">Volumen (m3)</th>
+                        <th class="aTh1 aTh4 th10">Cajas</th>
+                        <th class="aTh1 aTh4 th10">Fecha de recepción</th>
+                        <th class="aTh1">Costo</th>
+                        <th class="aTh1">Estado</th>
+                        <th class="aTh1 th10"><i class="fa-regular fa-pen-to-square aEdit2"></i></th>
+                        <th class="aTh1 th10"><i class="fa-regular fa-file-excel aEdit2"></i></th>
+                        <th class="aTh1 th10"><i class="fa-solid fa-truck-ramp-box aEdit2"></i></th>
+                        <th class="aTh1 th10"><i class="fa-regular fa-folder-open aEdit2"></i></th>
+                        <th class="aTh1 th10"><i class="fa-solid fa-xmark aEdit2"></i></th>
+                    </tr>
+                </thead>
+                <tbody id="tBody">
+                    <% for( let i = 0; i < imports.length; i++ ) { %>
+                        <tr>
+                            <th class="aTh2"><%= imports[i].purchase_order %></th>
+                            <th class="aTh2"><%= imports[i].purchase_order_supplier.supplier %></th>
+                            <th class="aTh2 th10"><%= imports[i].dateString %></th>
+                            <th class="aTh2 th10"><%= parseFloat(imports[i].total_fob_supplier_currency,2).toLocaleString(undefined,{ style: 'decimal', minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></th>
+                            <th class="aTh2 th10"><%= imports[i].purchase_order_currency.currency %></th>
+                            <th class="aTh2 th10"><%= parseFloat(imports[i].total_volume_m3,2) %></th>
+                            <th class="aTh2 th10"><%= parseFloat(imports[i].total_boxes,2).toLocaleString(undefined,{ style: 'decimal', minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></th>
+                            <th class="aTh2 th10"><%= imports[i].reception_date %></th>
+                            <th class="aTh2"><%= imports[i].costing %></th>
+                            <th class="aTh2"><%= imports[i].status %></th>
+                            <th class="aTh2 th10">
+                                <i class="fa-regular fa-pen-to-square aEdit1" id="<%= 'editPo_' + imports[i].id %>"></i>
+                            </th>
+                            <th class="aTh2 th10">
+                                <i class="fa-regular fa-file-excel aEdit1" id="<%= 'printExcel_' + imports[i].id %>"></i>
+                            </th>
+                            <th class="aTh2 th10">
+                                <i class="fa-solid fa-truck-ramp-box aEdit1" id="<%= 'receiveImport_' + imports[i].id %>"></i>
+                            </th>
+                            <th class="aTh2 th10">
+                                <i class="fa-regular fa-folder-open aEdit1"></i>
+                            </th>
+                            <th class="aTh2 th10">
+                                <i class="fa-solid fa-xmark aEdit1" id="<%= 'cancel_' + imports[i].id %>"></i>
+                            </th>
+
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!---select popup--->
+<div class="cConfirmPopup" id="selectPopup">
+    <div class="cConfirmContent">
+        <div class="cConfirmTitle" id="selectText"></div>
+        <form action="" method="POST" id="formSelect">
+            <div class="cDivInputs" id="selectInputs"></div>
+            <div class="aDivError1" id="divError"></div>
+            <div class="cDivButtons">
+                <div class="cConfirmButtons" id="confirmButton">Aceptar</div>
+                <div class="cConfirmButtons" id="cancelButton">Cancelar</div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!---include prices--->
+<div class="cConfirmPopup" id="showPricesPopup">
+    <div class="cShowPrices">
+        <div class="cConfirmText" id="confirmText">¿Desea mostrar precios?</div>
+        <div class="cDivButtons">
+            <a href="" id="yesButton" class="cButton">Si</a>
+            <a href="" id="noButton" class="cButton">No</a>
+            <div id="cancelPrintButton" class="cButton">Cancelar</div>
+        </div>
+    </div>
+</div>
+
+<%- include('../imports/createEditPo') %>
+<%- include('../imports/receiveImport') %>
+
+<script type="module" src="/js/imports.js"></script>
+
+
+
+
+
+
+
+

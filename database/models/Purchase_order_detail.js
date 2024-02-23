@@ -56,11 +56,11 @@ module.exports = (sequelize, DataTypes) => {
          type: DataTypes.DECIMAL,
          allowNull: false,
       },
-      fob:{
+      fob_supplier_currency:{
          type: DataTypes.DECIMAL,
          allowNull: false,
       },
-      total_fob:{
+      total_fob_supplier_currency:{
          type: DataTypes.DECIMAL,
          allowNull: false,
       },
@@ -69,6 +69,42 @@ module.exports = (sequelize, DataTypes) => {
          type: DataTypes.STRING,
          allowNull: false,
       },
+      pays_duties_tarifs:{
+         type: DataTypes.STRING,
+         allowNull: false,
+      },
+      freight_and_insurance_local_currency:{
+         type: DataTypes.DECIMAL,
+         allowNull: true,
+      },
+      cif_local_currency:{
+         type: DataTypes.DECIMAL,
+         allowNull: true,
+      },
+      total_expenses_local_currency:{
+         type: DataTypes.DECIMAL,
+         allowNull: true,
+      },
+      total_costs_local_currency:{
+         type: DataTypes.DECIMAL,
+         allowNull: true,
+      },
+      total_volume_expense_local_currency:{
+         type: DataTypes.DECIMAL,
+         allowNull: true,
+      },
+      total_price_expense_local_currency:{
+         type: DataTypes.DECIMAL,
+         allowNull: true,
+      },
+      unit_cost_local_currency:{
+         type: DataTypes.DECIMAL,
+         allowNull: true,
+      },
+      unit_cost_supplier_currency:{
+         type: DataTypes.DECIMAL,
+         allowNull: true,
+      }
    }
    const config = {
    tableName : 'purchase_orders_details',

@@ -16,7 +16,7 @@ export function createPoInputsData(poData,currency) {
     divPoVolume.innerHTML = '<b>Volumen:</b> ' + poVolume.toFixed(3) + ' m3'
 
     poData.forEach(item => {
-        poFob += parseFloat(item.total_fob,2)
+        poFob += parseFloat(item.total_fob_supplier_currency,2)
         divPoFob.innerHTML = '<b>FOB:</b> ' + currency + ' ' + poFob.toFixed(2)
 
         poBoxes += parseFloat(item.boxes,2)

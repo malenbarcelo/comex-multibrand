@@ -22,6 +22,7 @@ window.addEventListener('load',async()=>{
     const cancelButton = document.getElementById('cancelButton')
     const confirmButton = document.getElementById('confirmButton')
     const confirmText = document.getElementById('confirmText')
+    const formDeleteItem = document.getElementById('formDeleteItem')
 
     //newPriceList popup
     const newPriceList = document.getElementById('newPriceList')
@@ -86,18 +87,27 @@ window.addEventListener('load',async()=>{
                     priceListBody.innerHTML += '<tr>' + item + description + mu + muPerBox + weight + volume + fob + brand + origin + costCalculation + hasBreaks + editItem + deleteItem + '</tr>'
                 }
 
+                
+
                 supplierPriceList.forEach(item => {
+
                     const deleteItem = document.getElementById('deleteItem_' + item.id)
 
                     deleteItem.addEventListener("click",async(e)=>{
+                        
                         confirmText.innerHTML ='¿Confirma que desea eliminar el item <b>' + item.item + ' </b>de<b> ' + selectedOption +'</b>?'
+                        
                         cancelButton.addEventListener("click", async() => {
                             confirmPopup.style.display = "none"
                         })
-                        confirmButton.addEventListener("click", async() => {
+
+                        formDeleteItem.action = '/data/' + idBrunch + '/delete-item/' + supplier + '/' + item.id
+
+                        /*confirmButton.addEventListener("click", async() => {
+                            console.log(confirmButton)
                             await fetch(dominio + 'apis/delete-item/' + item.id,{method:'DELETE'})
                             window.location.href = '/data/' + idBrunch + '/prices-lists/' + supplier
-                        })
+                        })*/
                 
                         //Show popup
                         confirmPopup.style.display = "block"
@@ -134,7 +144,6 @@ window.addEventListener('load',async()=>{
         const changeEvent = new Event("change")
         selectSupplier.dispatchEvent(changeEvent)
     }
-
 })
 
 

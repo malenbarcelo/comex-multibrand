@@ -1,0 +1,29 @@
+:root{
+    --color1:#15A89D;
+    --color2: #F5F5F5;
+    --color3: #efeded;
+}
+
+.th1{
+    background-color:var(--color1);
+    font-size: 12px;
+    padding: 5px 10px 5px 10px;
+    color:  #efeded;
+    width: 40px;
+}
+
+.th2{
+    background-color:var(--color1);
+    font-size: 12px;
+    padding: 5px 10px 5px 10px;
+    color:  #efeded;
+    width: 60px;
+}
+
+
+
+@media (max-width:400px){
+    .th10{
+        display: none;
+    }
+}

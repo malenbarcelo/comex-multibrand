@@ -1,0 +1,114 @@
+<div class="sidePopup" id="createEditPoPopup">
+
+    <div class="divImportCreateEditPo">
+
+        <div class="divCloseImportsPopup">
+            <div class="closeImportsPopup" id="closeCreateEditPoPopup">X</div>
+        </div>
+
+        <div class="importsTitle" id="titleCreateEditPo"></div>
+
+        <div class="divCreateEditPoInputs">
+
+            <input type="text" id="createEditPoNumber" class="createEditImportPO">
+
+            <select name="selectPoSupplier" id="selectPoSupplier" class="createImportSupplier">
+                <option value="0" selected>--Seleccione un proveedor---</option>
+                <% data.suppliers.forEach(supplier => { %>
+                    <option value="<%= supplier.id %>"><%= supplier.supplier %></option>
+                <% }) %>
+            </select>
+
+            <div id="poSupplier" class="editImportSupplier"></div>
+
+            <div class="divSelectItem" id="divSelectItem">
+                <div class="divCreateEditPoInput">
+                    <label for="selectItem" class="createEditPoLabel" id="itemLabel">Item</label>
+                    <div>
+                        <select name="selectItem" id="selectItem" class="createEditPoInput"></select>
+                        <div class="divError" id="itemError">Seleccione un item</div>
+                    </div>
+                </div>
+                <div class="divCreateEditPoInput">
+                    <label for="createEditItemQty" class="createEditPoLabel" id="quantityLabel">Cantidad (UM)</label>
+                    <div>
+                        <input type="text" id="createEditItemQty" name ="createEditItemQty" class="createEditPoInput">
+                        <div class="divError" id="quantityError">Seleccione cantidad</div>
+                    </div>
+                </div>
+                <div class="divCreateEditPoInput" id="addItem">
+                    <div>
+                        <div class="squarePlus">+</div>
+                        <div class="divErrorNotVisible" id="squarePlusError">x</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divPoErrors" id="divPoErrors"></div>
+
+        </div>
+
+        <div class="divPoResumedData">
+            <div class="divCreateEditPoInput">
+                <label for="totalFob" class="createEditPoLabel2" id="totalFobLabel">FOB: </label>
+                <input type="text" id="totalFob" name ="totalFob" class="createEditPoInput2">
+            </div>
+            <div class="divCreateEditPoInput">
+                <label for="totalBoxes" class="createEditPoLabel2">Cajas: </label>
+                <input type="text" id="totalBoxes" name ="totalBoxes" class="createEditPoInput2">
+            </div>
+            <div class="divCreateEditPoInput">
+                <label for="totalVolume" class="createEditPoLabel2">Volumen (m3): </label>
+                <input type="text" id="totalVolume" name ="totalVolume" class="createEditPoInput2">
+            </div>
+            <div class="divCreateEditPoInput">
+                <label for="totalWeight" class="createEditPoLabel2">Peso (kg): </label>
+                <input type="text" id="totalWeight" name ="totalWeight" class="createEditPoInput2">
+            </div>
+
+            <div class="divCreateEditPoActions">
+                <div class="createEditPoAction" id="saveCreateEditPo"><i class="fa-regular fa-floppy-disk"></i></div>
+                <div class="createEditPoAction" id="cancelCreateEditPo"><i class="fa-solid fa-xmark"></i></div>
+            </div>
+
+        </div>
+
+        <div class="divTable">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th class="theadM thLeftBorder">Item</th>
+                        <th class="theadXL">Descripción</th>
+                        <th class="theadM">Cantidad (UM)</th>
+                        <th class="theadXS">UM</th>
+                        <th class="theadS">Precio UM </th>
+                        <th class="theadS">UM por caja</th>
+                        <th class="theadM">Volumen por caja (m3)</th>
+                        <th class="theadM">Peso por caja (kg)</th>
+                        <th class="theadM">Cajas</th>
+                        <th class="theadS">Importe total</th>
+                        <th class="theadM">Volumen total (m3)</th>
+                        <th class="theadM">Peso total (kg)</th>
+                        <th class="theadS" id="divCbxDutiesTarifs">
+                            <div>Paga arancel</div>
+                            <input type="checkbox" name="" id="cbxDutiesTarifs" class="tableCheckbox">
+                        </th>
+                        <th class="theadXS"><i class="fa-regular fa-pen-to-square"></i></th>
+                        <th class="theadXS thRightBorder"><i class="fa-regular fa-trash-can"></i></th>
+                    </tr>
+                </thead>
+
+                <tbody id="createEditPoTableBody" class="createEditPoTableBody"></tbody>
+
+            </table>
+
+        </div>
+
+
+
+    </div>
+
+
+
+</div>

@@ -1,8 +1,25 @@
-<div class="aUserLogged">
-    <% if (locals.userLogged) { %>
-        <div class="aUserLoggedName"><%= userLogged.first_name + ' ' + userLogged.last_name %></div>
-        <div class="aDivLogout"><a href="/logout" class= "aLogout">Cerrar sesión</a></div> 
-    <% } %>
+<div class="header">
+
+    <div class="divBurgerMenu">
+        <div class="burgerMenu">
+            <i class="fa-solid fa-bars"></i>
+            Menú
+        </div>
+    </div>
+
+    <div>
+        <img src="/images/companyLogo.jpg" alt="Multibrand" class="headerCompanyLogo">
+    </div>
+
+    <div class="divUserLogged">
+        <% if (locals.userLogged) { %>
+            <div class="userLoggedName"><%= userLogged.first_name + ' ' + userLogged.last_name %></div>
+            <div class=""><a href="/logout" class="logout">Cerrar sesión</a></div> 
+        <% } %>
+    </div>
+
 </div>
+
+
 
 

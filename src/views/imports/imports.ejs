@@ -1,21 +1,10 @@
 <%- include('../partials/head') %>
 <%- include('../partials/header') %>
-<%- include('../partials/userLogged') %>
-
-<div class="aNotVisible" id="idBrunch"><%= data.idBrunch %></div>
-
-<% if (locals.successMessage) { %>
-    <% if (locals.successMessage == 'createPo') { %>
-        <script>
-            alertify.success('Orden de compra creada con éxito');
-        </script>
-    <% } %>
-<% } %>
 
 <div class="divBody1">
 
     <div class="aTitle1">Detalle de importaciones</div>
-    
+
     <div class="aDivTable1">
 
         <div class="divFilters">
@@ -38,66 +27,64 @@
             </div>
         </div>
 
-        <div class="divTable">
-            <table class="aTable1">
-                <thead>
-                    <tr>
-                        <th class="aTh1 thPo">
-                            OC  
-                            <i class="fa-solid fa-plus newPo" id="createPO"></i>
-                        </th>
-                        <th class="aTh1">Proveedor</th>
-                        <th class="aTh1 th10">Fecha</th>
-                        <th class="aTh1 th10">Importe Total</th>
-                        <th class="aTh1 th10">Moneda</th>
-                        <th class="aTh1 aTh4 th10">Volumen (m3)</th>
-                        <th class="aTh1 aTh4 th10">Cajas</th>
-                        <th class="aTh1 aTh4 th10">Fecha de recepción</th>
-                        <th class="aTh1">Costeo</th>
-                        <th class="aTh1">Estado</th>
-                        <th class="aTh1 th10"><i class="fa-regular fa-pen-to-square aEdit2"></i></th>
-                        <th class="aTh1 th10"><i class="fa-regular fa-file-pdf aEdit2"></i></th>
-                        <th class="aTh1 th10"><i class="fa-regular fa-file-excel aEdit2"></i></th>
-                        <th class="aTh1 th10"><i class="fa-solid fa-truck-ramp-box aEdit2"></i></th>
-                        <th class="aTh1 th10"><i class="fa-regular fa-folder-open aEdit2"></i></th>
-                        <th class="aTh1 th10"><i class="fa-solid fa-xmark aEdit2"></i></th>
-                    </tr>
-                </thead>
-                <tbody id="tBody">
-                    <% for( let i = 0; i < imports.length; i++ ) { %>
-                        <tr>
-                            <th class="aTh2"><%= imports[i].purchase_order %></th>
-                            <th class="aTh2"><%= imports[i].purchase_order_supplier.supplier %></th>
-                            <th class="aTh2 th10"><%= imports[i].dateString %></th>
-                            <th class="aTh2 th10"><%= parseFloat(imports[i].total_fob,2) %></th>
-                            <th class="aTh2 th10"><%= imports[i].purchase_order_currency.currency %></th>
-                            <th class="aTh2 th10"><%= parseFloat(imports[i].total_volume_m3,2) %></th>
-                            <th class="aTh2 th10"><%= parseFloat(imports[i].total_boxes,2) %></th>
-                            <th class="aTh2 th10"><%= imports[i].reception_date %></th>
-                            <th class="aTh2"><%= imports[i].costing %></th>
-                            <th class="aTh2"><%= imports[i].status %></th>
-                            <th class="aTh2 th10">
-                                <a href="/imports/<%= data.idBrunch %>/edit-purchase-order/<%= imports[i].purchase_order %>">
-                                    <i class="fa-regular fa-pen-to-square aEdit1"></i>
-                                </a>
-                            </th>
-                            <th class="aTh2 th10">
-                                <i class="fa-regular fa-file-pdf aEdit1" id="<%= 'printPdf_' + imports[i].id %>"></i>
-                            </th>
-                            <th class="aTh2 th10">
-                                <i class="fa-regular fa-file-excel aEdit1" id="<%= 'printExcel_' + imports[i].id %>"></i>
-                            </th>
-                            <th class="aTh2 th10"></th>
-                            <th class="aTh2 th10"></th>
-                            <th class="aTh2 th10">
-                                <i class="fa-solid fa-xmark aEdit1" id="<%= 'cancel_' + imports[i].id %>"></i>
-                            </th>
 
-                        </tr>
-                    <% } %>
-                </tbody>
-            </table>
-        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th class="theadM thPo thLeftBorder">
+                        OC
+                        <i class="fa-solid fa-plus newPo" id="createPo"></i>
+                    </th>
+                    <th class="theadL">Proveedor</th>
+                    <th class="theadM">Fecha</th>
+                    <th class="theadM">FOB</th>
+                    <th class="theadM">Moneda</th>
+                    <th class="theadM">Volumen (m3)</th>
+                    <th class="theadM">Cajas</th>
+                    <th class="theadM">Fecha de recepción</th>
+                    <th class="theadM">Costo</th>
+                    <th class="theadM">Estado</th>
+                    <th class="theadXS"><i class="fa-regular fa-pen-to-square"></i></th>
+                    <th class="theadXS"><i class="fa-regular fa-file-excel"></i></th>
+                    <th class="theadXS"><i class="fa-solid fa-truck-ramp-box"></i></th>
+                    <th class="theadXS"><i class="fa-regular fa-folder-open"></i></th>
+                    <th class="theadXS thRightBorder"><i class="fa-solid fa-xmark"></i></th>
+                </tr>
+            </thead>
+            <tbody id="tBody">
+                <% for( let i = 0; i < imports.length; i++ ) { %>
+                    <tr>
+                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= imports[i].purchase_order %></th>
+                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= imports[i].purchase_order_supplier.supplier %></th>
+                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= imports[i].dateString %></th>
+                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= parseFloat(imports[i].total_fob_supplier_currency,2).toLocaleString(undefined,{ style: 'decimal', minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></th>
+                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= imports[i].purchase_order_currency.currency %></th>
+                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= parseFloat(imports[i].total_volume_m3,2) %></th>
+                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= parseFloat(imports[i].total_boxes,2).toLocaleString(undefined,{ style: 'decimal', minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></th>
+                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= imports[i].reception_date %></th>
+                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= imports[i].costing %></th>
+                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= imports[i].status %></th>
+                        <th class="tBody1 thIcon1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>">
+                            <i class="fa-regular fa-pen-to-square" id="<%= 'editPo_' + imports[i].id %>"></i>
+                        </th>
+                        <th class="tBody1 thIcon1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>">
+                            <i class="fa-regular fa-file-excel" id="<%= 'printExcel_' + imports[i].id %>"></i>
+                        </th>
+                        <th class="tBody1 thIcon1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>">
+                            <i class="fa-solid fa-truck-ramp-box" id="<%= 'receiveImport_' + imports[i].id %>"></i>
+                        </th>
+                        <th class="tBody1 thIcon1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>">
+                            <i class="fa-regular fa-folder-open"></i>
+                        </th>
+                        <th class="tBody1 thIcon1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>">
+                            <i class="fa-solid fa-xmark" id="<%= 'cancel_' + imports[i].id %>"></i>
+                        </th>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+
+
     </div>
 </div>
 
@@ -127,6 +114,9 @@
         </div>
     </div>
 </div>
+
+<%- include('../imports/createEditPo') %>
+<%- include('../imports/receiveImport') %>
 
 <script type="module" src="/js/imports.js"></script>
 

@@ -12,7 +12,11 @@ const brunchesQueries = {
     brunch: async(idBrunch) => {
         const brunch = await db.Brunches.findOne({
             where:{id:idBrunch},
+            include: [
+                {association: 'brunch_currency'}
+            ],
             raw:true,
+            nest:true
         })
         return brunch
     },

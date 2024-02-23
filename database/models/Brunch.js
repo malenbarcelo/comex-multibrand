@@ -16,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
          type: DataTypes.STRING,
          allowNull: false,
       },
+      id_currencies:{
+         type: DataTypes.INTEGER,
+         allowNull: false,
+      },
       business_name:{
          type: DataTypes.STRING,
          allowNull: false,
@@ -30,6 +34,13 @@ module.exports = (sequelize, DataTypes) => {
    timestamps : false
    }
    const Brunch = sequelize.define(alias, cols, config)
+
+   Brunch.associate = (models) => {
+      Brunch.belongsTo(models.Currencies,{
+          as:'brunch_currency',
+          foreignKey: 'id_currencies'
+      })
+   }
    
    return Brunch
 }

@@ -31,7 +31,6 @@ const pricesListsQueries = {
                 volume_m3:itemData.volume == '' ? 0 : parseFloat(itemData.volume,3),
                 brand:itemData.brand,
                 origin: itemData.origin,
-                cost_calculation:itemData.selectCostCalc,
                 has_breaks:itemData.hasBreaks,
                 id_suppliers: supplier.id,
                 id_brunches: idBrunch,

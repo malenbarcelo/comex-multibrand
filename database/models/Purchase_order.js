@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
          type: DataTypes.INTEGER,
          allowNull: false,
       },
-      total_fob:{
+      total_fob_supplier_currency:{
          type: DataTypes.DECIMAL,
          allowNull: false,
       },
@@ -63,8 +63,89 @@ module.exports = (sequelize, DataTypes) => {
       reception_date:{
          type: DataTypes.DATE,
          allowNull: true,
+      },
+      exchange_rate:{
+         type: DataTypes.DECIMAL,
+         allowNull: true,
+      },
+      total_fob_local_currency:{
+         type: DataTypes.DECIMAL,
+         allowNull: true,
+      },
+      freight_local_currency:{
+         type: DataTypes.DECIMAL,
+         allowNull:true
+      },
+      insurance_local_currency:{
+         type: DataTypes.DECIMAL,
+         allowNull:true
+      },
+      cif_local_currency:{
+         type: DataTypes.DECIMAL,
+         allowNull:true
+      },
+      forwarder_local_currency:{
+         type: DataTypes.DECIMAL,
+         allowNull:true
+      },
+      domestic_freight_local_currency:{
+         type: DataTypes.DECIMAL,
+         allowNull:true
+      },
+      dispatch_expenses_local_currency:{
+         type: DataTypes.DECIMAL,
+         allowNull:true
+      },
+      office_fees_local_currency:{
+         type: DataTypes.DECIMAL,
+         allowNull:true
+      },
+      container_costs_local_currency:{
+         type: DataTypes.DECIMAL,
+         allowNull:true
+      },
+      port_expenses_local_currency:{
+         type: DataTypes.DECIMAL,
+         allowNull:true
+      },
+      duties_tarifs_local_currency:{
+         type: DataTypes.DECIMAL,
+         allowNull:true
+      },
+      container_insurance_local_currency:{
+         type: DataTypes.DECIMAL,
+         allowNull:true
+      },
+      port_contribution_local_currency:{
+         type: DataTypes.DECIMAL,
+         allowNull:true
+      },
+      other_expenses_local_currency:{
+         type: DataTypes.DECIMAL,
+         allowNull:true
+      },
+      total_expenses_local_currency:{
+         type: DataTypes.DECIMAL,
+         allowNull:true
+      },
+      total_costs_local_currency:{
+         type: DataTypes.DECIMAL,
+         allowNull:true
+      },
+      total_volume_expense_local_currency:{
+         type: DataTypes.DECIMAL,
+         allowNull:true
+      },
+      total_price_expense_local_currency:{
+         type: DataTypes.DECIMAL,
+         allowNull:true
+      },
+      cost_calculation:{
+         type: DataTypes.STRING,
+         allowNull:false
       }
    }
+   
    const config = {
    tableName : 'purchase_orders',
    timestamps : false
@@ -80,6 +161,10 @@ module.exports = (sequelize, DataTypes) => {
       Purchase_order.belongsTo(models.Currencies,{
          as:'purchase_order_currency',
          foreignKey: 'id_currencies'
+     }),
+     Purchase_order.belongsTo(models.Brunches,{
+         as:'purchase_order_brunch',
+         foreignKey: 'id_brunches'
      })
    }
    

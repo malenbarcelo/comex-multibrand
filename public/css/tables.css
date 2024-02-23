@@ -1,29 +1,115 @@
 :root{
     --color1:#15A89D;
     --color2: #F5F5F5;
-    --color3: #efeded;
+    --color3:#d7dcdc;
+    --color4:white
 }
 
-.th1{
-    background-color:var(--color1);
+/*------GENERALS------*/
+th{
+    font-size: 13px;
+    text-align: center;
+}
+
+table{
+    margin: auto;
+    border-collapse: collapse;
+}
+
+thead{
+    position: sticky;
+    top:0;
+}/*to leave titles fixed 
+
+/*------divs conatining tables------*/
+.divTable{
+    max-height: 400px; /*to avoid overflow, it depends on the website landscape*/
+    overflow-y: auto;
+    width: fit-content;
+    margin: auto;
+    position: relative;
+}
+
+/*------Thead------*/
+.theadXS{
+    width: 35px;
+    background-color: var(--color1);
+    color: var(--color2);
+    padding: 4px;
+}/*XSmall size*/
+
+.theadS{
+    width: 65px;
+    background-color: var(--color1);
+    color: var(--color2);
+    padding: 4px;
+}/*Small size*/
+
+.theadM{
+    width: 80px;
+    background-color: var(--color1);
+    color: var(--color2);
+    padding: 4px;
+}/*Medium size*/
+
+.theadL{
+    width: 130px;
+    background-color: var(--color1);
+    color: var(--color2);
+    padding: 4px;
+}/*Large size*/
+
+.theadXL{
+    width: 150px;
+    background-color: var(--color1);
+    color: var(--color2);
+    padding: 4px;
+}/*XLarge size*/
+
+.thLeftBorder{
+    border-top-left-radius: 10px;
+}/*Add radius to left top border*/
+
+.thRightBorder{
+border-top-right-radius: 10px;
+}/*Add radius to right top border*/
+
+/*------Tbody------*/
+.tBody1{
+    font-weight: lighter;
+    padding: 9px 0px;
+}
+
+.tBodyEven{
+    background-color: var(--color2);
+}/*background when row number is even*/
+
+.tBodyOdd{
+    background-color: var(--color3);
+}/*background when row number is odd*/
+
+
+/*-----------SPECIFIC-----------*/
+
+/*------imports.ejs------*/
+.thPo{
+    position: relative;
+}
+
+.newPo{
+    color:var(--color2);
+    position: absolute;
+    right: 10px;
+    top: 14px;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.thIcon1{
     font-size: 12px;
-    padding: 5px 10px 5px 10px;
-    color:  #efeded;
-    width: 40px;
 }
 
-.th2{
-    background-color:var(--color1);
-    font-size: 12px;
-    padding: 5px 10px 5px 10px;
-    color:  #efeded;
-    width: 60px;
-}
-
-
-
-@media (max-width:400px){
-    .th10{
-        display: none;
-    }
+#divCbxDutiesTarifs{
+    display: flex;
+    column-gap: 2px;
 }

@@ -20,7 +20,9 @@ const purchaseOrdersQueries = {
         const brunchPos = await db.Purchase_orders.findAll({
             include: [
                 {association: 'purchase_order_supplier'},
-                {association: 'purchase_order_currency'}
+                {association: 'purchase_order_currency'},
+                {association: 'purchase_order_brunch'}
+
             ],
             where:{id_brunches:idBrunch},
             raw:true,
@@ -76,14 +78,56 @@ const purchaseOrdersQueries = {
             id_brunches:data.idBrunch,
             id_suppliers:data.idSupplier,
             id_currencies:data.idCurrency,
-            total_fob:(parseFloat(data.poFob,2)).toFixed(2),
-            total_volume_m3:(parseFloat(data.poVolume,4)).toFixed(4),
-            total_weight_kg:(parseFloat(data.poWeight,2)).toFixed(2),
-            total_boxes: (parseFloat(data.poBoxes,2)).toFixed(2),
+            total_fob_supplier_currency:(parseFloat(data.poFobSupplierCurrency,2)),
+            total_volume_m3:(parseFloat(data.poVolume,4)),
+            total_weight_kg:(parseFloat(data.poWeight,2)),
+            total_boxes: (parseFloat(data.poBoxes,2)),
             costing: null,
             status:'En proceso',
-            reception:null
+            reception:null,
+            cost_calculation:data.costCalculation
         })
+    },
+    editPo: async(data,idPo) => {
+
+        //edit po
+        await db.Purchase_orders.update(
+            {
+                total_fob_supplier_currency:(parseFloat(data.poFobSupplierCurrency,2)),
+                total_volume_m3:(parseFloat(data.poVolume,4)),
+                total_weight_kg:(parseFloat(data.poWeight,2)),
+                total_boxes: (parseFloat(data.poBoxes,2))
+            },
+            {where:{id:idPo}}
+        )
+    },
+    receivePo: async(data) => {
+
+        await db.Purchase_orders.update(
+            {
+                reception_date: data.reception_date,
+                exchange_rate: data.exchange_rate,
+                total_fob_local_currency: data.total_fob_local_currency,
+                freight_local_currency: data.freight_local_currency,
+                insurance_local_currency: data.insurance_local_currency,
+                cif_local_currency: data.cif_local_currency,
+                forwarder_local_currency: data.forwarder_local_currency,
+                domestic_freight_local_currency: data.domestic_freight_local_currency,
+                dispatch_expenses_local_currency: data.dispatch_expenses_local_currency,
+                office_fees_local_currency: data.office_fees_local_currency,
+                container_costs_local_currency: data.container_costs_local_currency,
+                port_expenses_local_currency: data.port_expenses_local_currency,
+                duties_tarifs_local_currency: data.duties_tarifs_local_currency,
+                container_insurance_local_currency: data.container_insurance_local_currency,
+                port_contribution_local_currency: data.port_contribution_local_currency,
+                other_expenses_local_currency: data.other_expenses_local_currency,
+                total_expenses_local_currency: data.total_expenses_local_currency,
+                total_costs_local_currency: data.total_costs_local_currency,
+                total_volume_expense_local_currency: data.total_volume_expense,
+                total_price_expense_local_currency: data.total_price_expense
+            },
+            {where:{purchase_order:data.purchase_order}}
+        )
     },
     createPoDetails: async(data,idPo) => {
 
@@ -104,9 +148,10 @@ const purchaseOrdersQueries = {
                 total_weight_kg:poDetails[i].total_weight_kg,
                 volume_m3:poDetails[i].volume_m3,
                 total_volume_m3:poDetails[i].total_volume_m3,
-                fob:poDetails[i].fob,
-                total_fob:poDetails[i].total_fob,
-                brand:poDetails[i].brand
+                fob_supplier_currency:poDetails[i].fob_supplier_currency,
+                total_fob_supplier_currency:poDetails[i].total_fob_supplier_currency,
+                brand:poDetails[i].brand,
+                pays_duties_tarifs: poDetails[i].pays_duties_tarifs
             })            
         }
     },

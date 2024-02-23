@@ -70,8 +70,8 @@ window.addEventListener('load',async()=>{
                 'total_weight_kg':parseFloat(item.total_weight_kg,2),
                 'volume_m3':parseFloat(item.volume_m3,2),
                 'total_volume_m3':parseFloat(item.total_volume_m3,2),
-                'fob':parseFloat(item.fob,2),
-                'total_fob':parseFloat(item.total_fob,2),
+                'fob_supplier_currency':parseFloat(item.fob_supplier_currency,2),
+                'total_fob_supplier_currency':parseFloat(item.total_fob_supplier_currency,2),
                 'brand':item.brand,
                 'currency':currency
             }
@@ -136,10 +136,10 @@ window.addEventListener('load',async()=>{
             const filterItem = supplierItems.filter(item => item.id == idItem.value)
             const item = filterItem[0]
             const muQuantity = document.getElementById('quantity').value
-            const fob = (parseFloat(item.fob,4)).toFixed(3)
+            const fobSupplierCurrency = (parseFloat(item.fob_supplier_currency,4)).toFixed(3)
             
             //new item data
-            const newItem = createPoItemData(item,counter,muQuantity,fob)
+            const newItem = createPoItemData(item,counter,muQuantity,fobSupplierCurrency)
 
             poData.push(newItem)
 
@@ -204,15 +204,15 @@ window.addEventListener('load',async()=>{
             for (let i = 0; i < poData.length; i++) {
                 if (poData[i].counter == rowToEdit) {
                     const muQuantity = parseFloat(document.getElementById('editInputQuantity').value,2)
-                    const fob = parseFloat(document.getElementById('editInputFob').value,2)
+                    const fobSupplierCurrency = parseFloat(document.getElementById('editInputFob').value,2)
                     const unitsQuantity = item.price_list_mu.units_per_um * muQuantity
                     poData[i].mu_quantity = muQuantity
                     poData[i].units_quantity = unitsQuantity
                     poData[i].boxes = (parseFloat(muQuantity / poData[i].mu_per_box,2)).toFixed(2)
                     poData[i].total_weight_kg = (parseFloat(item.weight_kg * (muQuantity / poData[i].mu_per_box),2)).toFixed(2)
                     poData[i].total_volume_m3 = (parseFloat(item.volume_m3 * (muQuantity / poData[i].mu_per_box),2)).toFixed(2)
-                    poData[i].fob = parseFloat(fob,2)
-                    poData[i].total_fob = (parseFloat(fob * muQuantity,2)).toFixed(2)
+                    poData[i].fob_supplier_currency = parseFloat(fobSupplierCurrency,2)
+                    poData[i].total_fob_supplier_currency = (parseFloat(fobSupplierCurrency * muQuantity,2)).toFixed(2)
                     break 
                 }            
             }
@@ -264,7 +264,7 @@ window.addEventListener('load',async()=>{
             'idBrunch':idBrunch,
             'idSupplier':idSupplier,
             'idCurrency':idCurrency,
-            'poFob':parseFloat(poInfo.poFob,2),
+            'poFobSupplierCurrency':parseFloat(poInfo.poFobSupplierCurrency,2),
             'poWeight':parseFloat(poInfo.poWeight,2),
             'poVolume':parseFloat(poInfo.poVolume,2),
             'poBoxes':parseFloat(poInfo.poBoxes,2),
