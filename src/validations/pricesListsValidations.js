@@ -83,7 +83,7 @@ const pricesListsValidations = {
                         const data = await readXlsFile('public/images/' + fileName)
 
                         for (let i = 1; i < data.length; i++) {
-                            if (data[i][0] == null || data[i][1] == null || data[i][9] == null || data[i][10] == null) {
+                            if (data[i][0] == null || data[i][1] == null || data[i][8] == null || data[i][9] == null) {
                                 throw new Error('Los campos "Item", "Descripción", "Marca" y "Origen" no pueden estar vacíos')
                             }
 
@@ -109,11 +109,7 @@ const pricesListsValidations = {
                                 throw new Error('Los campos "Peso (kg)" y "Precio por UM" deben estar completos y deben ser numéricos')
                             }
 
-                            if (data[i][7] !== 'Volumen' && data[i][7] !== 'Precio' ) {
-                                throw new Error('El campo "Costeo" solo admite los valores "Volumen" y "Precio"')
-                            }
-
-                            if (data[i][8] !== 'si' && data[i][8] !== 'no' ) {
+                            if (data[i][7] !== 'si' && data[i][7] !== 'no' ) {
                                 throw new Error('El campo "Roturas" solo admite los valores "si" y "no"')
                             }
 

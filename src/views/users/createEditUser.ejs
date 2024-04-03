@@ -1,0 +1,60 @@
+<div class="sidePopup createEditPopup" id="popup">
+
+    <div class="notVisible" id="idBrunch"><%= data.idBrunch %></div>
+
+    <div class="divClosePopup">
+        <div class="closePopup" id="close">X</div>
+    </div>
+
+    <div class="titleM" id="title"></div>
+
+    <form action="/users/<%= data.idBrunch %>/create-edit-user" method="POST">
+
+        <div class="popupContent">
+
+            <div class="divInput">
+                <label for="userName" class="label" id="userNameLabel">Usuario</label>
+                <input type="text" name="userName" class="input1 XXL" id="userName">
+                <div class="divError XL" id="userNameErrorText"></div>
+            </div>       
+
+            <div class="divInput">
+                <label for="firstName" class="label" id="firstNameLabel">Nombre</label>
+                <input type="text" name="firstName" class="input1 XXL" id="firstName">
+                <div class="divError XL" id="firstNameErrorText"></div>
+            </div>
+            
+            <div class="divInput">
+                <label for="lastName" class="label" id="lastNameLabel">Apellido</label>
+                <input type="text" name="lastName" class="input1 XXL" id="lastName">
+                <div class="divError XL" id="lastNameErrorText"></div>
+            </div>
+            
+            <div class="divInput">
+                <label for="email" class="label" id="emailLabel">Email</label>
+                <input type="text" name="email" class="input1 XXL" id="email">
+                <div class="divError XL" id="emailErrorText"></div>
+            </div>
+            
+            <div class="divInput">
+                <label for="userCategory" class="label" id="userCategoryLabel">Perfil</label>
+                <select name="userCategory" class="input1 XXL" id="userCategory">
+                    <option value="default" id="defaultOption0"></option>
+                    <% data.usersCategories.forEach(category => { %>
+                        <option value="<%= category.id %>" id="<%= category.id %>">
+                            <%= category.category_name %>
+                        </option>
+                    <% }) %>
+                </select>
+                <div class="divError XL" id="userCategoryErrorText"></div>
+            </div>
+            
+            <div class="divButtonsColumn">
+                <button type="submit" class="button1 mButton" id="acceptCreate">Guardar</button>
+            </div>
+
+        </div>
+
+    </form>
+
+</div>

@@ -63,6 +63,9 @@ const user_user_categorysQueries = {
                 password: password
             }
     )},
+    deleteUser: async(idUser) => {
+        await db.Users.destroy({where:{id:idUser}})
+    },
 }       
 
 module.exports = user_user_categorysQueries

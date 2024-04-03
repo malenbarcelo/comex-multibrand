@@ -1,15 +1,11 @@
 <%- include('./partials/head') %>
 <%- include('./partials/header') %>
 
-<% if (locals.successMessage) { %>
-    <script>
-        alertify.success('Contraseña cambiada con éxito');
-    </script>
-<% } %>
+<div class="mainTitle">
+    <div class="titleL">Seleccione un pais</div>
+</div>
 
-<div class="divBody1">
-    
-    <div class="title4">Seleccione un pais</div>
+<div class="content">
 
     <div class="divBrunches">
         <% data.brunches.forEach(brunch => { %>

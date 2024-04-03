@@ -1,4 +1,5 @@
 import { dominio } from "../../dominio.js"
+import globals from "./globals.js"
 
 function receptionGetElements() {
 
@@ -52,7 +53,7 @@ function receptionCompleteInputs(importData,brunchData,formatOptions) {
 
     //get elements
     const { inputs , calculations, elements } = receptionGetElements()
-    
+
     //complete elements
     elements.supplierReceive.innerText = importData.purchase_order_supplier.supplier
     elements.purchaseOrderReceive.innerText = importData.purchase_order
@@ -60,7 +61,7 @@ function receptionCompleteInputs(importData,brunchData,formatOptions) {
     elements.fobLocalCurrencyLabel.innerHTML = '<b>FOB (' + brunchData.brunch_currency.currency + ')</b>'
     elements.cifLabel.innerHTML = '<b>CIF (' + brunchData.brunch_currency.currency + ')</b>'
     elements.totalExpenseLabel.innerHTML = '<b>Gastos totales (' + brunchData.brunch_currency.currency + ')</b>'
-    elements.totalCostLabel.innerHTML = '<b>Costos totales (' + brunchData.brunch_currency.currency + ')</b>'                
+    elements.totalCostLabel.innerHTML = '<b>Costos totales (' + brunchData.brunch_currency.currency + ')</b>'
     elements.volumeExpenseLabel.innerHTML = '<b>Gastos por volumen (' + brunchData.brunch_currency.currency + ')</b>'
     elements.priceExpenseLabel.innerHTML = '<b>Gastos por precio (' + brunchData.brunch_currency.currency + ')</b>'
     elements.totalVolumeM3Label.innerHTML = '<b>Volumen total m3 (' + brunchData.brunch_currency.currency + ')</b>'
@@ -83,106 +84,181 @@ function receptionCompleteInputs(importData,brunchData,formatOptions) {
     inputs.otherExpenses.value = importData.other_expenses_local_currency == null ? '' : parseFloat(importData.other_expenses_local_currency,2)
     inputs.receptionDate.value = importData.reception_date
 
+     //hide elements if necessary
+     if (importData.purchase_order_supplier.cost_calculation == 'Factor') {
+        calculations.totalVolumeM3Input.style.display = 'none'
+        elements.totalVolumeM3Label.style.display = 'none'
+        calculations.volumeExpenseInput.style.display = 'none'
+        elements.volumeExpenseLabel.style.display = 'none'
+        calculations.priceExpenseInput.style.display = 'none'
+        elements.priceExpenseLabel.style.display = 'none'
+     }
+
     return {inputs, calculations, elements}
 
 }
 
-async function receptionCalculateCosts(importData,formatOptions) {
+async function receptionCalculateCosts(importData,process,formatOptions) {
 
     const {inputs, calculations, elements} = receptionGetElements()
 
     //get inputs data
-    const currencyExchangeValue = inputs.currencyExchange.value == '' ? 0 : inputs.currencyExchange.value
-    const freightValue = inputs.freight.value == '' ? 0 : inputs.freight.value
-    const insuranceValue = inputs.insurance.value == '' ? 0 : inputs.insurance.value
-    const forwarderValue = inputs.forwarder.value == '' ? 0 : inputs.forwarder.value
-    const domesticFreightValue = inputs.domesticFreight.value == '' ? 0 : inputs.domesticFreight.value
-    const dispatchExpensesValue = inputs.dispatchExpenses.value == '' ? 0 : inputs.dispatchExpenses.value
-    const officeFeesValue = inputs.officeFees.value == '' ? 0 : inputs.officeFees.value
-    const containerCostsValue = inputs.containerCosts.value == '' ? 0 : inputs.containerCosts.value
-    const portExpensesValue = inputs.portExpenses.value == '' ? 0 : inputs.portExpenses.value
-    const dutiesTarifsValue = inputs.dutiesTarifs.value == '' ? 0 : inputs.dutiesTarifs.value
-    const containerInsuranceValue = inputs.containerInsurance.value == '' ? 0 : inputs.containerInsurance.value
-    const portContributionValue = inputs.portContribution.value == '' ? 0 : inputs.portContribution.value
-    const otherExpensesValue = inputs.otherExpenses.value == '' ? 0 : inputs.otherExpenses.value
-    
+    const currencyExchangeValue = parseFloat(inputs.currencyExchange.value == '' ? 0 : inputs.currencyExchange.value,2)
+    const freightValue = parseFloat(inputs.freight.value == '' ? 0 : inputs.freight.value,2)
+    const insuranceValue = parseFloat(inputs.insurance.value == '' ? 0 : inputs.insurance.value,2)
+    const forwarderValue = parseFloat(inputs.forwarder.value == '' ? 0 : inputs.forwarder.value,2)
+    const domesticFreightValue = parseFloat(inputs.domesticFreight.value == '' ? 0 : inputs.domesticFreight.value,2)
+    const dispatchExpensesValue = parseFloat(inputs.dispatchExpenses.value == '' ? 0 : inputs.dispatchExpenses.value,2)
+    const officeFeesValue = parseFloat(inputs.officeFees.value == '' ? 0 : inputs.officeFees.value,2)
+    const containerCostsValue = parseFloat(inputs.containerCosts.value == '' ? 0 : inputs.containerCosts.value,2)
+    const portExpensesValue = parseFloat(inputs.portExpenses.value == '' ? 0 : inputs.portExpenses.value,2)
+    const dutiesTarifsValue = parseFloat(inputs.dutiesTarifs.value == '' ? 0 : inputs.dutiesTarifs.value,2)
+    const containerInsuranceValue = parseFloat(inputs.containerInsurance.value == '' ? 0 : inputs.containerInsurance.value,2)
+    const portContributionValue = parseFloat(inputs.portContribution.value == '' ? 0 : inputs.portContribution.value,2)
+    const otherExpensesValue = parseFloat(inputs.otherExpenses.value == '' ? 0 : inputs.otherExpenses.value,2)
+
     //calculate costs
-    const fobLocalCurrency = parseFloat(importData.total_fob_supplier_currency,2) * currencyExchangeValue    
-    const cif = parseFloat(fobLocalCurrency) + parseFloat(freightValue) + parseFloat(insuranceValue)
-    const totalExpense = parseFloat(freightValue,2) + parseFloat(insuranceValue,2) + parseFloat(forwarderValue,2) + parseFloat(domesticFreightValue,2) + parseFloat(dispatchExpensesValue,2) + parseFloat(officeFeesValue,2) + parseFloat(containerCostsValue,2) + parseFloat(portExpensesValue,2) + parseFloat(dutiesTarifsValue,2) + parseFloat(containerInsuranceValue,2) + parseFloat(portContributionValue,2) + parseFloat(otherExpensesValue,2)
-    const totalCost = parseFloat(fobLocalCurrency,2) + parseFloat(totalExpense,2)
-    const volumeExpense = parseFloat(forwarderValue,2) + parseFloat(domesticFreightValue,2) + parseFloat(portExpensesValue,2) + parseFloat(containerInsuranceValue,2) + parseFloat(portContributionValue,2)+ parseFloat(otherExpensesValue,2)
-    const priceExpense = parseFloat(dispatchExpensesValue,2) + parseFloat(officeFeesValue,2)
-    
+    const fobLocalCurrency = importData.total_fob_supplier_currency * currencyExchangeValue
+    const cif = fobLocalCurrency + freightValue + insuranceValue
+    const totalExpense = freightValue + insuranceValue + forwarderValue + domesticFreightValue + dispatchExpensesValue + officeFeesValue + containerCostsValue + portExpensesValue + dutiesTarifsValue + containerInsuranceValue + portContributionValue + otherExpensesValue
+    const totalCost = fobLocalCurrency + totalExpense
+    const volumeExpense = forwarderValue + domesticFreightValue + portExpensesValue + containerInsuranceValue + portContributionValue+ otherExpensesValue
+    const priceExpense = dispatchExpensesValue + officeFeesValue
+
     //complete inputs
-    calculations.fobSupplierCurrencyInput.value = parseFloat(importData.total_fob_supplier_currency,2).toLocaleString(undefined,formatOptions)
-    calculations.fobLocalCurrencyInput.value = parseFloat(fobLocalCurrency,2).toLocaleString(undefined,formatOptions)
-    calculations.cifInput.value = parseFloat(cif,2).toLocaleString(undefined,formatOptions)
-    calculations.totalExpenseInput.value = parseFloat(totalExpense,2).toLocaleString(undefined,formatOptions)
-    calculations.totalCostInput.value = parseFloat(totalCost,2).toLocaleString(undefined,formatOptions)
-    calculations.volumeExpenseInput.value = parseFloat(volumeExpense,2).toLocaleString(undefined,formatOptions)
-    calculations.priceExpenseInput.value = parseFloat(priceExpense,2).toLocaleString(undefined,formatOptions)
-    calculations.totalVolumeM3Input.value = parseFloat(importData.total_volume_m3,3).toLocaleString(undefined,formatOptions)
+    calculations.fobSupplierCurrencyInput.value = importData.total_fob_supplier_currency.toLocaleString(undefined,formatOptions)
+    calculations.fobLocalCurrencyInput.value = fobLocalCurrency.toLocaleString(undefined,formatOptions)
+    calculations.cifInput.value = cif.toLocaleString(undefined,formatOptions)
+    calculations.totalExpenseInput.value = totalExpense.toLocaleString(undefined,formatOptions)
+    calculations.totalCostInput.value = totalCost.toLocaleString(undefined,formatOptions)
+    calculations.volumeExpenseInput.value = volumeExpense.toLocaleString(undefined,formatOptions)
+    calculations.priceExpenseInput.value = priceExpense.toLocaleString(undefined,formatOptions)
+    calculations.totalVolumeM3Input.value = importData.total_volume_m3.toLocaleString(undefined,formatOptions)
+
+    let details = []
+    let alertCounter = 0
+
+    /////If process = 'acceptReception' get items details, otherwise only complete purchase order data
+    
+    if (process == 'acceptReception') {
+
+        //get data to save reception (purchase_orders_details table)
+        details = await (await fetch(dominio + 'apis/purchase-order-details/' + importData.purchase_order)).json()
+
+        let cifItemsThatPay = 0
+        const totalVolume = importData.total_volume_m3
+        const costCalculations = importData.cost_calculation
+        let itemProportion = 0
+
+        //if dutiesTarifsValues != 0 display alert
+        let itemsThatPay = 0
+
+        details.forEach(item => {
+            if (item.pays_duties_tarifs == 'si') {
+                itemsThatPay +=1
+            }
+        })
+
+        if (itemsThatPay == 0 && inputs.dutiesTarifs.value != 0 && inputs.dutiesTarifs.value != '') {
+
+            alertCounter +=1
+
+            globals.alertText.innerHTML = '<div>Debe seleccionar en la orden de compra qué items pagan arancel.</div>'
+
+            globals.alertPopup.style.display = 'block'
+
+            globals.acceptAlertButton.addEventListener("click", async() => {
+                globals.alertPopup.style.display = 'none'
+            })
+
+        }
+
+        //get item fob, cif and cifItemsThatPay duties_tarfis'
+        details.forEach(item => {
+
+            const itemVolume = item.total_volume_m3 
+            const itemFobLocalCurrency = item.total_fob_supplier_currency * parseFloat(currencyExchangeValue,2)
+            itemProportion = itemFobLocalCurrency / fobLocalCurrency
+            const itemFreightAndInsurance = costCalculations == 'Volumen' ? (freightValue + insuranceValue) / totalVolume * itemVolume : itemProportion * (freightValue + insuranceValue)
+            const itemCifLocalCurrency = itemFreightAndInsurance + itemFobLocalCurrency
+    
+            item.total_fob_local_currency = itemFobLocalCurrency
+            item.freight_and_insurance_local_currency = itemFreightAndInsurance
+            item.cif_local_currency = itemCifLocalCurrency
+    
+            if (item.pays_duties_tarifs == "si") {
+                cifItemsThatPay += itemCifLocalCurrency
+            }
+        })
+    
+        //get other item data
+        details.forEach(item => {
+
+            itemProportion = item.total_fob_local_currency / fobLocalCurrency
+            
+            const itemDutiesTarifs = item.pays_duties_tarifs == "si" ? (item.cif_local_currency / cifItemsThatPay) * dutiesTarifsValue : 0
+            const itemVolumeExpense = costCalculations == 'Volumen' ? (volumeExpense / totalVolume * item.total_volume_m3) : null
+            const itemPriceExpense = costCalculations == 'Volumen' ? (priceExpense / cif * item.cif_local_currency) : null
+            const itemTotalExpense = costCalculations == 'Volumen' ? item.freight_and_insurance_local_currency + itemVolumeExpense + itemPriceExpense + itemDutiesTarifs : itemProportion * (totalExpense - dutiesTarifsValue) + itemDutiesTarifs //not every item pay dutiesTarifs
+    
+            item.fob_local_currency = item.total_fob_local_currency * currencyExchangeValue
+            item.duties_tarifs_local_currency = itemDutiesTarifs
+            item.total_volume_expense_local_currency = costCalculations == 'Volumen' ? itemVolumeExpense : null
+            item.total_price_expense_local_currency =  costCalculations == 'Volumen' ? itemPriceExpense : null
+            item.total_expense_local_currency =  itemTotalExpense
+            item.total_cost_local_currency = item.total_fob_local_currency + itemTotalExpense
+            item.unit_cost_local_currency = item.total_cost_local_currency / item.units_quantity
+            item.unit_cost_supplier_currency = item.unit_cost_local_currency / currencyExchangeValue
+    
+        })
+    }
 
     //get data to save reception (purchase_orders table)
     const data = {
         'purchase_order':elements.purchaseOrderReceive.innerText,
-        'reception_date':inputs.receptionDate.value,
-        'exchange_rate':parseFloat(currencyExchangeValue,2),
+        'reception_date':inputs.receptionDate.value == '' ? null : inputs.receptionDate.value,
+        'exchange_rate':currencyExchangeValue,
         'total_fob_local_currency': fobLocalCurrency,
-        'freight_local_currency':parseFloat(freightValue,2),
-        'insurance_local_currency':parseFloat(insuranceValue,2),
+        'freight_local_currency':freightValue,
+        'insurance_local_currency':insuranceValue,
         'cif_local_currency':cif,
-        'forwarder_local_currency':parseFloat(forwarderValue,2),
-        'domestic_freight_local_currency':parseFloat(domesticFreightValue,2),
-        'dispatch_expenses_local_currency':parseFloat(dispatchExpensesValue,2),
-        'office_fees_local_currency':parseFloat(officeFeesValue,2),
-        'container_costs_local_currency':parseFloat(containerCostsValue,2),
-        'port_expenses_local_currency':parseFloat(portExpensesValue,2),
-        'duties_tarifs_local_currency':parseFloat(dutiesTarifsValue,2),
-        'container_insurance_local_currency':parseFloat(containerInsuranceValue,2),
-        'port_contribution_local_currency':parseFloat(portContributionValue,2),
-        'other_expenses_local_currency':parseFloat(otherExpensesValue,2),
+        'forwarder_local_currency':forwarderValue,
+        'domestic_freight_local_currency':domesticFreightValue,
+        'dispatch_expenses_local_currency':dispatchExpensesValue,
+        'office_fees_local_currency':officeFeesValue,
+        'container_costs_local_currency':containerCostsValue,
+        'port_expenses_local_currency':portExpensesValue,
+        'duties_tarifs_local_currency':dutiesTarifsValue,
+        'container_insurance_local_currency':containerInsuranceValue,
+        'port_contribution_local_currency':portContributionValue,
+        'other_expenses_local_currency':otherExpensesValue,
         'total_expenses_local_currency':totalExpense,
         'total_costs_local_currency':totalCost,
         'total_volume_expense':volumeExpense,
         'total_price_expense':priceExpense,
-        'cost':totalCost / fobLocalCurrency - 1
+        'cost_vs_fob':process == 'saveReceptionData' ? null : totalCost / fobLocalCurrency - 1,
+        'cost_calculation': importData.cost_calculation,
+        'status': process == 'saveReceptionData' ? 'En recepción' : 'Recibida',
+        'details': details
     }
 
-    //get data to save reception (purchase_orders_details table)
-    const details = await (await fetch(dominio + 'apis/purchase-order-details/' + importData.purchase_order)).json()
-
-    let itemsThatPay = 0
-
-    details.forEach(item => {
-        const totalVolume = importData.total_volume_m3
-        const itemVolume = item.total_volume_m3        
-        const itemFreightAndInsurance = (parseFloat(freightValue,2) + parseFloat(insuranceValue,2)) / totalVolume * itemVolume
-        const cif = itemFreightAndInsurance + item.total_fob_supplier_currency * parseFloat(currencyExchangeValue,2)
-        
-        item.freight_and_insurance_local_currency = parseFloat(itemFreightAndInsurance,2)
-        item.cif_local_currency = parseFloat(cif,2)
-
-        //find out how many items pay duties_tarifs
-        if (item.pays_duties_tarifs == "si"){
-            itemsThatPay +=1
-        }
-    })
-
-    //add duties_tarifs data
-    details.forEach(item => {
-        
-        //find out how many items pay duties_tarifs
-        if (item.pays_duties_tarifs == "si"){
-            item.duties_tarifs_local_currency = item.cif_local_currency / itemsThatPay * parseFloat(dutiesTarifsValue,2)
-        }
-    })
-
-    console.log(details)
-
-    return {data,details}
+    return {data,alertCounter}
 
 }
 
-export { receptionCompleteInputs, receptionCalculateCosts }
+function receiveIsInvalid(errorLabel, input) {
+
+    errorLabel.classList.add('errorColor')
+    input.classList.add('isInvalid')
+
+}
+
+function receiveIsValid(errorText, errorLabel, input) {
+
+    errorText.innerText = ''
+    errorLabel.classList.remove('errorColor')
+    input.classList.remove('isInvalid')
+    
+}
+
+export { receptionCompleteInputs, receptionCalculateCosts, receptionGetElements, receiveIsInvalid, receiveIsValid }

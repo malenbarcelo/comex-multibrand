@@ -73,6 +73,20 @@ const currenciesQueries = {
             return null
         }
     },
+    idCurrencyExchange: async(idCurrency, idBrunch) => {
+        const idCurrencyExchange = await db.Currencies_exchange.findOne({
+            where:{
+                id_currencies:idCurrency,
+                id_brunches: idBrunch
+            }
+        })
+
+        if (idCurrencyExchange) {
+            return idCurrencyExchange.id
+        }else{
+            return null
+        }
+    },
     findCurrencyById: async(idCurrency) => {
         const findCurrency = await db.Currencies_exchange.findAll({
             where:{id_currencies:idCurrency}
@@ -84,7 +98,8 @@ const currenciesQueries = {
             where:{id_currencies:idCurrency,id_brunches:idBrunch}
         })
         return findCurrency
-    }
+    },
+    
 }       
 
 module.exports = currenciesQueries

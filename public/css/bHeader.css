@@ -59,25 +59,8 @@
     font-weight: bold;
 }
 
-.divBrunchHeader{
-    margin-top: 5px;
-    color:#15A89D;
-    font-weight: bold;
-    display: flex;
-    justify-content:center ;
-    align-items: center;
-    column-gap: 8px;
-}
 
-.divFlexHeader{
-    display: flex;
-    align-items: center;
-}
 
-.imgBrunchHeader{
-    height: 13px;
-
-}
 
 .edit1{
     color: black;
@@ -117,7 +100,7 @@
     right:20px
 }
 
-.headerTitle{
+.headerTitlee{
     text-align: center;
     margin-top: 60px;
 }

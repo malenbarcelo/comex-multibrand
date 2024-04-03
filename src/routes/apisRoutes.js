@@ -5,7 +5,14 @@ const importsController = require('../controllers/importsController.js')
 const router = express.Router()
 
 //IMPORTS
-router.post('/receive-po',importsController.receivePo)
+router.post('/receive-import',importsController.receiveImport)
+
+
+//PURCHASE ORDERS
+router.get('/:idBrunch/filter-pos-details/:item',apisController.filterPosWithItem)
+router.get('/:idBrunch/imports-by-supplier',apisController.posBySupplier)
+router.get('/:idBrunch/imports-by-supplier-and-year/:year',apisController.posBySupplierAndYear)
+router.get('/:idBrunch/item-last-po',apisController.itemsLastPo)
 
 
 

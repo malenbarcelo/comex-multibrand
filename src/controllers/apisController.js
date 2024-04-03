@@ -168,6 +168,12 @@ const apisController = {
 
       const brunchPos = await purchaseOrdersQueries.brunchPos(idBrunch)
 
+      brunchPos.forEach(po => {
+        const date = new Date(po.po_date)
+        const dateString = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
+        po.dateString = dateString
+      })
+
       res.status(200).json(brunchPos)
 
     }catch(error){
@@ -262,7 +268,70 @@ const apisController = {
       console.log(error)
       return res.send('Ha ocurrido un error')
     }
-  }
+  },
+  filterPosWithItem: async(req,res) =>{
+    try{
+      
+      const idBrunch = req.params.idBrunch
+      const item = req.params.item
+      let posFiltered = []
+
+      const posDetailsFiltered = await purchaseOrdersQueries.getPosWithItem(idBrunch, item)
+
+      posDetailsFiltered.forEach(po => {
+        posFiltered.push(po.purchase_order_detail_po.id)
+      })
+
+      res.status(200).json(posFiltered)
+
+    }catch(error){
+      console.log(error)
+      return res.send('Ha ocurrido un error')
+    }
+  },
+  posBySupplier: async(req,res) =>{
+    try{
+
+      const idBrunch = req.params.idBrunch
+
+      const posBySupplier = await purchaseOrdersQueries.posBySupplier(idBrunch)
+
+      res.status(200).json(posBySupplier)
+
+    }catch(error){
+      console.log(error)
+      return res.send('Ha ocurrido un error')
+    }
+  },
+  posBySupplierAndYear: async(req,res) =>{
+    try{
+
+      const idBrunch = req.params.idBrunch
+      const year = req.params.year
+
+      const posBySupplierAndYear = await purchaseOrdersQueries.posBySupplierAndYear(idBrunch,year)
+
+      res.status(200).json(posBySupplierAndYear)
+
+    }catch(error){
+      console.log(error)
+      return res.send('Ha ocurrido un error')
+    }
+  },
+  itemsLastPo: async(req,res) =>{
+    try{
+
+      const idBrunch = req.params.idBrunch
+
+      const itemsLastPo = await purchaseOrdersQueries.itemsLastPo(idBrunch)
+
+      res.status(200).json(itemsLastPo)
+
+    }catch(error){
+      console.log(error)
+      return res.send('Ha ocurrido un error')
+    }
+  },
 }
 module.exports = apisController
 

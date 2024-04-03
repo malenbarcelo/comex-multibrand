@@ -1,39 +1,68 @@
 <%- include('../partials/head') %>
 <%- include('../partials/header') %>
 
-<div class="divBody1">
+<div class="mainTitle">
+    <div class="titleL">Detalle importaciones</div>
+</div>
 
-    <div class="aTitle1">Detalle de importaciones</div>
+<div class="content">
+    <!------------FILTERS------------>
+    <div class="divImportFilters">
+        
+        <div class="divInput">
 
-    <div class="aDivTable1">
-
-        <div class="divFilters">
-            <select name="" id="selectSupplier" class="inputImports selectSupplier">
-                <option value="default">Proveedor</option>
+            <label for="selectSupplier" class="label">Proveedor</label>
+            <select name="selectSupplier" id="filterSupplier" class="input1 M">
+                <option value="default"></option>
                 <% data.suppliers.forEach(supplier => { %>
-                    <option value="<%= supplier.supplier %>" <%= locals.dataToFilter && locals.dataToFilter.supplier == supplier.supplier ? 'selected' : null  %>>
+                    <option value="<%= supplier.id %>">
                         <%= supplier.supplier %>
                     </option>
                 <% }) %>
             </select>
-            <input type="text" placeholder="Año" class="inputImports" id="year" value="<%= locals.dataToFilter && locals.dataToFilter.year != 0 ? locals.dataToFilter.year : null %>">
-            <input type="text" placeholder="N° de OC" class="inputImports" id="po" value="<%= locals.dataToFilter && locals.dataToFilter.po != 0 ? locals.dataToFilter.po : null %>">
-            <input type="text" placeholder="Item" class="inputImports" id="item" value="<%= locals.dataToFilter && locals.dataToFilter.item != 0 ? locals.dataToFilter.item : null %>">
-            <div class="filterActions">
-                <i class="fa-solid fa-magnifying-glass filterPo" id="filterPo"></i>
-                <a href="/imports/<%= data.idBrunch %>/imports-data">
-                    <i class="fa-solid fa-xmark filterPo"></i>
-                </a>
-            </div>
+
         </div>
 
+        <div class="divInput">
 
+            <label for="year" class="label">Año</label>
+            <input type="text" name="year" class="input1 S" id="filterYear">
+
+        </div>
+
+        <div class="divInput">
+
+            <label for="purchaseOrder" class="label">Nº de OC</label>
+            <input type="text" name ="purchaseOrder" class="input1 S" id="filterPurchaseOrder">
+
+        </div>
+
+        <div class="divInput">
+
+            <label for="item" class="label">Item</label>
+            <input type="text" name="item" class="input1 S" id="filterItem">
+
+        </div>
+
+        <div class="filterAction">
+            <i class="fa-solid fa-filter-circle-xmark" id="unfilterPo"></i>
+        </div>
+
+    </div>
+
+    <div class="divFiltersData">
+        <div id="totalFilteredFob"></div>
+        <div id="totalFilteredQty"></div>
+    </div>
+
+    <!------------IMPORTS TABLE------------>
+    <div class="divTable">
         <table>
             <thead>
                 <tr>
                     <th class="theadM thPo thLeftBorder">
                         OC
-                        <i class="fa-solid fa-plus newPo" id="createPo"></i>
+                        <i class="fa-regular fa-square-plus newPo" id="createPo"></i>
                     </th>
                     <th class="theadL">Proveedor</th>
                     <th class="theadM">Fecha</th>
@@ -42,81 +71,29 @@
                     <th class="theadM">Volumen (m3)</th>
                     <th class="theadM">Cajas</th>
                     <th class="theadM">Fecha de recepción</th>
-                    <th class="theadM">Costo</th>
-                    <th class="theadM">Estado</th>
+                    <th class="theadM">Costo sobre el FOB</th>
+                    <th class="theadM">Costo real vs estimado</th>
+                    <th class="theadL">Estado</th>
                     <th class="theadXS"><i class="fa-regular fa-pen-to-square"></i></th>
                     <th class="theadXS"><i class="fa-regular fa-file-excel"></i></th>
                     <th class="theadXS"><i class="fa-solid fa-truck-ramp-box"></i></th>
-                    <th class="theadXS"><i class="fa-regular fa-folder-open"></i></th>
+                    <th class="theadXS"><i class="fa-solid fa-circle-info"></i></i></th>
                     <th class="theadXS thRightBorder"><i class="fa-solid fa-xmark"></i></th>
                 </tr>
             </thead>
-            <tbody id="tBody">
-                <% for( let i = 0; i < imports.length; i++ ) { %>
-                    <tr>
-                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= imports[i].purchase_order %></th>
-                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= imports[i].purchase_order_supplier.supplier %></th>
-                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= imports[i].dateString %></th>
-                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= parseFloat(imports[i].total_fob_supplier_currency,2).toLocaleString(undefined,{ style: 'decimal', minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></th>
-                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= imports[i].purchase_order_currency.currency %></th>
-                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= parseFloat(imports[i].total_volume_m3,2) %></th>
-                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= parseFloat(imports[i].total_boxes,2).toLocaleString(undefined,{ style: 'decimal', minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></th>
-                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= imports[i].reception_date %></th>
-                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= imports[i].costing %></th>
-                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= imports[i].status %></th>
-                        <th class="tBody1 thIcon1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>">
-                            <i class="fa-regular fa-pen-to-square" id="<%= 'editPo_' + imports[i].id %>"></i>
-                        </th>
-                        <th class="tBody1 thIcon1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>">
-                            <i class="fa-regular fa-file-excel" id="<%= 'printExcel_' + imports[i].id %>"></i>
-                        </th>
-                        <th class="tBody1 thIcon1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>">
-                            <i class="fa-solid fa-truck-ramp-box" id="<%= 'receiveImport_' + imports[i].id %>"></i>
-                        </th>
-                        <th class="tBody1 thIcon1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>">
-                            <i class="fa-regular fa-folder-open"></i>
-                        </th>
-                        <th class="tBody1 thIcon1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>">
-                            <i class="fa-solid fa-xmark" id="<%= 'cancel_' + imports[i].id %>"></i>
-                        </th>
-                    </tr>
-                <% } %>
-            </tbody>
+    
+            <tbody id="tBody"></tbody>
+            
         </table>
+    </div>    
 
-
-    </div>
-</div>
-
-<!---select popup--->
-<div class="cConfirmPopup" id="selectPopup">
-    <div class="cConfirmContent">
-        <div class="cConfirmTitle" id="selectText"></div>
-        <form action="" method="POST" id="formSelect">
-            <div class="cDivInputs" id="selectInputs"></div>
-            <div class="aDivError1" id="divError"></div>
-            <div class="cDivButtons">
-                <div class="cConfirmButtons" id="confirmButton">Aceptar</div>
-                <div class="cConfirmButtons" id="cancelButton">Cancelar</div>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!---include prices--->
-<div class="cConfirmPopup" id="showPricesPopup">
-    <div class="cShowPrices">
-        <div class="cConfirmText" id="confirmText">¿Desea mostrar precios?</div>
-        <div class="cDivButtons">
-            <a href="" id="yesButton" class="cButton">Si</a>
-            <a href="" id="noButton" class="cButton">No</a>
-            <div id="cancelPrintButton" class="cButton">Cancelar</div>
-        </div>
-    </div>
 </div>
 
 <%- include('../imports/createEditPo') %>
 <%- include('../imports/receiveImport') %>
+<%- include('../imports/importDetails') %>
+<%- include('../popups/yesNoPopup') %>
+<%- include('../popups/infoPopup') %>
 
 <script type="module" src="/js/imports.js"></script>
 

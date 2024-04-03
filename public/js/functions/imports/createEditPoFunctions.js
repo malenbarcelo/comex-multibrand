@@ -1,4 +1,5 @@
 import { dominio } from "../../dominio.js"
+import globals from "./globals.js"
 
 function getPoNumber(brunchData,brunchPos) {
 
@@ -38,7 +39,7 @@ async function completePoData(process,PO,poData,poDetails,idBrunch) {
     selectPoSupplier.value = 0
     selectItem.innerHTML = '<option value="0" selected></option>'
     createEditItemQty.value = ''
-    
+
     //update poData
     updatePoData(poDetails,poData)
 
@@ -46,14 +47,14 @@ async function completePoData(process,PO,poData,poDetails,idBrunch) {
 
         titleCreateEditPo.innerText = 'Crear orden de compra'
         createEditPoNumber.removeAttribute("readonly")
-        poSupplier.style.display = "none"        
+        poSupplier.style.display = "none"
         selectPoSupplier.style.display = "block"
 
     }else{
 
         const supplierId = PO.purchase_order_supplier.id
         const supplierPriceList = await (await fetch(dominio + 'apis/' + idBrunch + '/price-list/' + supplierId)).json()
-        
+
         titleCreateEditPo.innerText = 'Editar orden de compra'
         createEditPoNumber.setAttribute("readonly", "readonly")
         poSupplier.innerText = PO.purchase_order_supplier.supplier
@@ -86,7 +87,7 @@ function printTable(poDetails,poData,formatOptions) {
         const line2 = '<th class="' + rowClass + '">' + item.description + '</th>'
         const line3 = '<th class="' + rowClass + '">' + parseFloat(item.mu_quantity,2).toFixed(2) + '</th>'
         const line4 = '<th class="' + rowClass + '">' + item.measurement_unit + '</th>'
-        const line5 = '<th class="' + rowClass + '">' + parseFloat(item.fob_supplier_currency,2).toFixed(2) + '</th>'
+        const line5 = '<th class="' + rowClass + '">' + parseFloat(item.fob_supplier_currency,3).toFixed(3) + '</th>'
         const line6 = '<th class="' + rowClass + '">' + item.mu_per_box + '</th>'
         const line7 = '<th class="' + rowClass + '">' + parseFloat(item.volume_m3,2).toFixed(2) + '</th>'
         const line8 = '<th class="' + rowClass + '">' + parseFloat(item.weight_kg,2).toFixed(2) + '</th>'
@@ -95,8 +96,8 @@ function printTable(poDetails,poData,formatOptions) {
         const line11 = '<th class="' + rowClass + '">' + parseFloat(item.total_volume_m3,2).toFixed(2) + '</th>'
         const line12 = '<th class="' + rowClass + '">' + parseFloat(item.total_weight_kg,2).toFixed(2) + '</th>'
         const line13 = '<th class=" ' + rowClass + '"><input type="checkbox" id="dutiesTarifs_' + item.rowId + '" ' + check + '></th>'
-        const line14 = '<th class=" ' + rowClass + '"><i class="fa-regular fa-pen-to-square" id="edit_' + item.rowId + '"></th>'
-        const line15 = '<th class=" ' + rowClass + '"><i class="fa-regular fa-trash-can" id="delete_' + item.rowId + '"></th>'
+        const line14 = '<th class=" ' + rowClass + ' thIcon1"><i class="fa-regular fa-pen-to-square" id="edit_' + item.rowId + '"></th>'
+        const line15 = '<th class=" ' + rowClass + ' thIcon1"><i class="fa-regular fa-trash-can" id="delete_' + item.rowId + '"></th>'
 
         createEditPoTableBody.innerHTML += '<tr>' + line1 + line2 + line3 + line4 + line5 + line6 + line7 + line8 + line9 + line10 + line11 + line12 + line13 + line14 + line15 + '</tr>'
 
@@ -109,30 +110,48 @@ function printTable(poDetails,poData,formatOptions) {
 }
 
 function tableEventListeners(poDetails,poData,formatOptions) {
-    
+
+    //close popup
+    globals.acceptCancelClose.addEventListener("click", async() => {
+        globals.acceptCancelPopup.style.display = 'none'
+    })
+
+    //cancel edition
+    globals.cancelEdit.addEventListener("click", async() => {
+        globals.acceptCancelPopup.style.display = 'none'
+    })
+
+    //edit item event listeners
     poDetails.forEach(row => {
 
         const editRow = document.getElementById('edit_' + row.rowId)
         const deleteRow = document.getElementById('delete_' + row.rowId)
-        
+
         editRow.addEventListener("click", async() => {
-            console.log(row.rowId)
+
+            globals.editItemFob.value = parseFloat(row.fob_supplier_currency,2).toFixed(2)
+            globals.editItemQty.value = parseFloat(row.mu_quantity,2).toFixed(2)
+            globals.acceptEditTitle.innerText = 'Item ' + row.item
+            globals.editItemRow = row.id
+
+            globals.acceptCancelPopup.style.display = 'block'
         })
 
         deleteRow.addEventListener("click", async() => {
             const index = poDetails.findIndex(item => item.rowId === row.rowId);
             if (index !== -1) {
                 poDetails.splice(index, 1)
-                
+
                 //updatePoData
                 updatePoData(poDetails,poData,formatOptions)
 
                 //print table
                 printTable(poDetails,poData,formatOptions)
             }
-            
+
         })
     })
+
 }
 
 function updatePoData(poDetails,poData,formatOptions) {
@@ -168,24 +187,24 @@ function updatePoData(poDetails,poData,formatOptions) {
 
 }
 
-function isInvalid(label, input, error) {    
-    
-    label.style.color = 'rgb(221, 7, 7)'
+function isInvalid(label, input, error) {
+
+    label.classList.add('errorColor')
     input.classList.add('isInvalid')
     error.style.color = 'rgb(221, 7, 7)'
-
 }
 
 function isValid(label, input, error) {
-    
+    divPoErrors.innerHTML = ''
     input.classList.remove('isInvalid')
-    label.style.color = 'black'
+    label.classList.remove('errorColor')
     error.style.color = '#F5F5F5'
-
+    error.style.display = 'none'
+    squarePlusError.style.display = 'none'
 }
 
-async function getpoDataToEdit(divPoErrors,brunchPos,idPO,createEditPoNumber,idBrunch,formatOptions,createEditPoPopup) {
-    
+async function getPoDataToEdit(divPoErrors,brunchPos,idPO,createEditPoNumber,idBrunch,formatOptions,createEditPoPopup) {
+
     const processEdit = 'edit'
     const POEdit = brunchPos.filter(po => po.id == idPO)[0]
     const poNumber = POEdit.purchase_order
@@ -250,5 +269,4 @@ async function getpoDataToEdit(divPoErrors,brunchPos,idPO,createEditPoNumber,idB
 
 }
 
-
-export {getPoNumber,updatePoData,printTable,tableEventListeners,completePoData,isInvalid,isValid,getpoDataToEdit}
+export {getPoNumber,updatePoData,printTable,tableEventListeners,completePoData,isInvalid,isValid,getPoDataToEdit}

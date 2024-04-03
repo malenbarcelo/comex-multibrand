@@ -1,6 +1,16 @@
+:root{
+    --color1:#15A89D;
+    --color2: #F5F5F5;
+    --color3: #efeded;
+    --color5: #e2dfdf;
+    --color6:#d7dcdc;
+}
+
 /*-------Generals-------*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 body{
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:'Poppins', Arial, "sans-serif";
     margin: 0;
 }
 
@@ -26,3 +36,85 @@ a{
     text-decoration: none;
     color:black
 }
+
+.notVisible{
+    display: none;
+}
+
+.isInvalid{
+    border:rgb(221, 7, 7) solid 2px !important
+}
+
+.divError{
+    color:rgb(206, 10, 10);
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 2px;
+    margin-bottom: 10px;
+}
+
+.errorColor{
+    color:rgb(206, 10, 10);
+    font-weight: bold;
+}
+
+/*----------margins----------*/
+.mtS{
+    margin-top: 5px;
+}
+.mbS{
+    margin-bottom: 5px;
+}
+.mtM{
+    margin-top: 15px;
+}
+.mbM{
+    margin-bottom: 15px;
+}
+.mtL{
+    margin-top: 30px;
+}
+.mbL{
+    margin-bottom: 30px;
+}
+
+/*----------width----------*/
+.wS{
+    width: 100px;
+}
+.wM{
+    width: 130px;
+}
+.wL{
+    width: 160px;
+}
+
+/*----------inputs----------*/
+
+.divInputsRow{
+    display: flex;
+    justify-content: center;
+    column-gap: 10px;
+}
+
+.inputA{
+    text-align: center;
+    border: grey solid 1px;
+    border-radius: 5px;
+    background-color: var(--color2);
+    padding: 8px 0px 4px 0px;
+    font-size: 12px;
+}
+
+.labelA{
+    position: absolute;
+    font-size: 12px;
+    left: 8px;
+    top: -8px;
+    padding: 0px 5px;
+    background-color: var(--color2);
+}
+
+
+

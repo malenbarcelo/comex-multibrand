@@ -1,63 +1,54 @@
 <%- include('../../partials/head') %>
-<%- include('../../partials/userLogged') %>
 <%- include('../../partials/header') %>
 
-<% if (locals.successMessage) { %>
-    <% if (locals.successMessage == 'editSupplier') { %>
-        <script>
-            alertify.success('Proveedor editado con éxito');
-        </script>
-    <% } %>
-    <% if (locals.successMessage == 'createSupplier') { %>
-        <script>
-            alertify.success('Proveedor creado con éxito');
-        </script>
-    <% } %>
-    
-<% } %>
+<div class="mainTitle">
+    <div class="titleL">Proveedores</div>
+</div>
 
-<div class="aDivBody3">
+<div class="content">
 
-    <div class="aTitle1">Proveedores</div>
+    <div class="divTable">
+        <table>
 
-    <div class="aDivTable1">
-        <table class="aTable1">
             <thead>
                 <tr>
-                    <th class="aTh1">
+                    <th class="theadXL thLeftBorder thTall thData" id="create">
                         Proveedor
-                        <a href="/data/<%= data.idBrunch %>/create-supplier/">
-                            <i class="fa-solid fa-plus aAdd1"></i>
-                        </a>
+                        <i class="fa-regular fa-square-plus newSupplier"></i>
                     </th>
-                    <th class="aTh1">Razón social</th>
-                    <th class="aTh1">Domicilio</th>
-                    <th class="aTh1">País</th>
-                    <th class="aTh1">Moneda</th>
-                    <th class="aTh1"><i class="fa-regular fa-pen-to-square aEdit2"></i></th>
+                    <th class="theadXXL thTall">Razón social</th>
+                    <th class="theadXXL thTall">Domicilio</th>
+                    <th class="theadL thTall">Pais</th>
+                    <th class="theadM thTall">Moneda</th>
+                    <th class="theadM thTall">Costeo</th>
+                    <th class="theadS thRightBorder thTall"><i class="fa-regular fa-pen-to-square"></i></th>
                 </tr>
             </thead>
+
             <tbody>
                 <% for( let i = 0; i < data.suppliers.length; i++ ) { %>
                     <tr>
-                        <th class="aTh2"><%= data.suppliers[i].supplier %></th>
-                        <th class="aTh2"><%= data.suppliers[i].business_name %></th>
-                        <th class="aTh2"><%= data.suppliers[i].address %></th>
-                        <th class="aTh2"><%= data.suppliers[i].supplier_country.country %></th>
-                        <th class="aTh2"><%= data.suppliers[i].supplier_currency.currency %></th>
-                        <th class="aTh2">
-                            <a href="/data/<%= data.idBrunch %>/edit-supplier/<%= data.suppliers[i].id %>">
-                                <i class="fa-regular fa-pen-to-square aEdit1"></i>
-                            </a>
-                            
+                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= data.suppliers[i].supplier %></th>
+                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= data.suppliers[i].business_name %></th>
+                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= data.suppliers[i].address %></th>
+                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= data.suppliers[i].supplier_country.country %></th>
+                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= data.suppliers[i].supplier_currency.currency %></th>
+                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= data.suppliers[i].cost_calculation %></th>
+                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>" id="<%= 'edit_' +data.suppliers[i].id %>">
+                                <i class="fa-regular fa-pen-to-square thIcon1"></i>
                         </th>
                     </tr>
                 <% } %>
             </tbody>
+
         </table>
     </div>
 
 </div>
+
+<%- include('./createEditSupplier') %>
+<script type="module" src="/js/suppliers.js"></script>
+
 
 
 

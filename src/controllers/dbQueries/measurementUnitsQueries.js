@@ -24,10 +24,10 @@ const measurementQueries = {
             },
             {where:{id:idMU}}
     )},
-    createMU: async(mu,units_per_mu) => {
+    createMU: async(mu,unitsunitsPerMU) => {
         await db.Measurement_units.create({
             measurement_unit:mu,
-            units_per_um:units_per_mu
+            units_per_um:unitsunitsPerMU
         })
     }
 }       

@@ -1,10 +1,103 @@
 :root{
   --color1:#15A89D;
   --color2: #F5F5F5;
-  --color3: #efeded;
-  --color5: #e2dfdf;
-  --color6:#d7dcdc;
+  --color3:#d7dcdc;
+  --color4:white;
+  --color5:#787878;
+  --color6:rgb(91, 90, 90);
+  --color7: rgb(148,198,195);
+  --fontSize:14px;
 }
+
+
+/*--------imports.ejs--------*/
+.divImportFilters{
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+  column-gap: 10px;
+}
+
+.filterAction{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.filterAction:hover{
+  color:var(--color5)
+}
+
+.divFiltersData{
+  display: flex;
+  column-gap: 25px;
+  justify-content: center;
+  font-size: 14px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+/*--------importsDetails.ejs--------*/
+.divImportData{
+  display: flex;
+  flex-direction: column;
+  row-gap: 18px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+.importDataLine{
+  display: flex;
+  column-gap: 25px;
+  justify-content: center;
+  align-items: center;
+}
+
+.importData{
+  padding: 5px;
+  border-radius: 5px;
+  border: var(--color3) solid 1px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*GENERALS*/
 .relativePosition{
@@ -108,7 +201,7 @@
   width: 100px;
   margin: auto;
   margin-bottom: 20px;
-  background-color: var(--color2);
+  background-color: var(--color4);
   border: none;
   border-bottom: grey solid 1px;
   padding: 5px;
@@ -120,7 +213,7 @@
   width: 260px;
   margin: auto;
   margin-bottom: 20px;
-  background-color: var(--color2);
+  background-color: var(--color4);
   border: grey solid 1px;
   border-radius: 5px;
   padding: 6px 0px;
@@ -132,7 +225,7 @@
   width: 260px;
   margin: auto;
   margin-bottom: 20px;
-  background-color: var(--color2);
+  background-color: var(--color4);
   padding: 4px;
   font-weight: bold;
 }
@@ -221,7 +314,7 @@
 }
 
 .createEditPoInput{
-  background-color: var(--color2);
+  background-color: var(--color4);
   text-align: center;
   border: grey solid 1px;
   border-radius: 5px;
@@ -230,7 +323,7 @@
 }
 
 .createEditPoInput2{
-  background-color: var(--color2);
+  background-color: var(--color4);
   border: none;
   width: 80px;
   font-size: 15px;
@@ -240,13 +333,13 @@
   position: absolute;
   top: -8px;
   left: 8px;
-  background-color: var(--color2);
+  background-color: var(--color4);
   padding: 0px 5px;
   font-size: 13px;
 }
 
 .createEditPoLabel2{
-  background-color: var(--color2);
+  background-color: var(--color4);
   padding: 0px 5px;
   font-size: 15px;
   font-weight: bold;
@@ -323,7 +416,7 @@
   column-gap: 10px;
   justify-content: flex-end;
   position: absolute;
-  right: 12px;
+  right: -5px;
   top: 1px;
 }
 
@@ -364,7 +457,7 @@
     z-index: 2;
     top: 0;
     left: 0;
-    background-color: #F5F5F5;
+    background-color: var(--color4);
     overflow-x: hidden;
     height:100%;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
@@ -373,7 +466,7 @@
 }
 
 .divImportDataReceive{
-  background-color: var(--color2);
+  background-color: var(--color4);
   width: 580px;
   z-index: 4;
   margin: auto;
@@ -413,14 +506,16 @@
 .divReceiveImportInput{
   position: relative;
   display: flex;
+  flex-direction: column;
   width: 300px;
+  margin-bottom: 5px;
 }
 
 .receiveImportLabel{
   position: absolute;
   top: -8px;
   left: 8px;
-  background-color: var(--color2);
+  background-color: var(--color4);
   padding: 0px 5px;
   font-size: 13px;
 }
@@ -428,12 +523,28 @@
 .receiveImportInput{
   width: 100%;
   padding: 10px;
-  background-color: var(--color2);
+  background-color: var(--color4);
   text-align: center;
   font-size: 13px;
   border: grey solid 1px;
   border-radius: 5px;
-  margin-bottom: 15px;
+}
+
+.receiveImportError{
+  width: 300px;
+  padding: 0px 10px 0px 10px;
+
+}
+
+.divButtonsImports{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 10px;
+  padding: 0px 10px 0px 10px;
+  width: 300px;
+
 }
 
 .blockedInput{

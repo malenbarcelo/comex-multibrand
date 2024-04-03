@@ -8,6 +8,10 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement : true,
       allowNull: false
       },
+      id_brunches:{
+         type: DataTypes.INTEGER,
+         allowNull: false,
+      },
       id_pos:{
          type: DataTypes.INTEGER,
          allowNull: false,
@@ -73,6 +77,10 @@ module.exports = (sequelize, DataTypes) => {
          type: DataTypes.STRING,
          allowNull: false,
       },
+      total_fob_local_currency:{
+         type: DataTypes.DECIMAL,
+         allowNull: true,
+      },
       freight_and_insurance_local_currency:{
          type: DataTypes.DECIMAL,
          allowNull: true,
@@ -81,11 +89,7 @@ module.exports = (sequelize, DataTypes) => {
          type: DataTypes.DECIMAL,
          allowNull: true,
       },
-      total_expenses_local_currency:{
-         type: DataTypes.DECIMAL,
-         allowNull: true,
-      },
-      total_costs_local_currency:{
+      duties_tarifs_local_currency:{
          type: DataTypes.DECIMAL,
          allowNull: true,
       },
@@ -94,6 +98,14 @@ module.exports = (sequelize, DataTypes) => {
          allowNull: true,
       },
       total_price_expense_local_currency:{
+         type: DataTypes.DECIMAL,
+         allowNull: true,
+      },
+      total_expense_local_currency:{
+         type: DataTypes.DECIMAL,
+         allowNull: true,
+      },
+      total_cost_local_currency:{
          type: DataTypes.DECIMAL,
          allowNull: true,
       },

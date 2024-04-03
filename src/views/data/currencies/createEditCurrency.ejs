@@ -1,0 +1,35 @@
+<div class="sidePopup" id="popup">
+
+    <div class="notVisible" id="idBrunch"><%= data.idBrunch %></div>
+
+    <div class="divClosePopup">
+        <div class="closePopup" id="close">X</div>
+    </div>
+
+    <div class="titleM" id="title"></div>
+
+    <form action="/data/<%= data.idBrunch %>/create-edit-currency" method="POST">
+
+        <div class="popupContent">
+
+            <div class="divInput">
+                <label for="curencyName" class="label" id="currencyLabel">Moneda</label>
+                <input type="text" name="currencyName" class="input1 M" id="currencyName">
+                <div class="divError M" id="currencyNameErrorText"></div>
+            </div>            
+
+            <div class="divInput">
+                <label for="currencyExchange" class="label" id="exchangeLabel">Tasa de cambio</label>
+                <input type="text" name="currencyExchange" class="input1 M" id="currencyExchange">
+                <div class="divError M" id="currencyExchangeErrorText"></div>
+            </div>            
+
+            <div class="divButtonsColumn">
+                <button type="submit" class="button1 mButton" id="acceptCreate">Guardar</button>
+            </div>
+
+        </div>
+
+    </form>
+
+</div>

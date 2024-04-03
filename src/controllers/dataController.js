@@ -25,6 +25,161 @@ async function getData(idBrunch){
 }
 
 const dataController = {
+  currencies: async(req,res) =>{
+    try{
+      const idBrunch = req.params.idBrunch
+      const data = await getData(idBrunch)
+
+      return res.render('data/currencies/currencies',{title:'Monedas',data})
+
+    }catch(error){
+      console.log(error)
+      return res.send('Ha ocurrido un error')
+    }
+  },
+  createEditCurrencyProcess: async(req,res) =>{
+    try{
+      const idBrunch = req.params.idBrunch      
+      const currencyName = req.body.currencyName
+      const newCurrency =  parseFloat(req.body.currencyExchange)
+
+      ///Table currencies
+      //find currencyId
+      let idCurrency = await currenciesQueries.idCurrency(currencyName)
+
+      //create currency if it doesn´t exist
+      await currenciesQueries.createCurrency(currencyName)
+      idCurrency = await currenciesQueries.idCurrency(currencyName)
+
+      ///Table currencies_exchange
+      //find currencyExchangeId
+      const currencyExchangeId = await currenciesQueries.idCurrencyExchange(idCurrency, idBrunch)
+
+      //create currency exchange or edit currency exchange
+      if (currencyExchangeId == null) { //create currency exchange
+        await currenciesQueries.createCurrencyExchange(idBrunch,idCurrency,newCurrency)        
+      }else{ // update currency exchange
+        await currenciesQueries.editCurrency(currencyExchangeId,newCurrency)
+      }
+
+      data = await getData(idBrunch)
+      
+      return res.render('data/currencies/currencies',{title:'Monedas',data})
+
+    }catch(error){
+      console.log(error)
+      return res.send('Ha ocurrido un error')
+    }
+  },
+  measurementUnits: async(req,res) =>{
+    try{
+      const idBrunch = req.params.idBrunch
+      
+      const data = await getData(idBrunch)
+
+      return res.render('data/measurementUnits/measurementUnits',{title:'Unidades de medida',data})
+
+    }catch(error){
+      console.log(error)
+      return res.send('Ha ocurrido un error')
+    }
+  },
+  createMUProcess: async(req,res) =>{
+    try{
+      const idBrunch = req.params.idBrunch
+      const mu = req.body.measurementUnit
+      const unitsPerMU = req.body.unitsPerMU
+
+      //create measurement unit
+      await measurementUnitsQueries.createMU(mu,unitsPerMU)
+
+      const data = await getData(idBrunch)
+      
+      return res.render('data/measurementUnits/measurementUnits',{title:'Unidades de medida',data})
+
+    }catch(error){
+      console.log(error)
+      return res.send('Ha ocurrido un error')
+    }
+  },
+  pricesLists: async(req,res) =>{
+    try{
+      const idBrunch = req.params.idBrunch
+      const data = await getData(idBrunch)
+      const supplierId = req.params.idSupplier
+
+      return res.render('data/pricesLists/pricesLists',{title:'Listas de precios',data,supplierId})
+
+    }catch(error){
+      console.log(error)
+      return res.send('Ha ocurrido un error')
+    }
+  },
+  createEditItemProcess: async(req,res) =>{
+    try{
+
+      const idBrunch = req.params.idBrunch      
+      const data = await getData(idBrunch)
+      const date = new Date()
+      const itemData = req.body
+
+      const supplier = data.suppliers.filter(supplier => supplier.supplier == itemData.supplierName)[0]
+      const supplierId = supplier.id
+      const supplierPriceList = await pricesListsQueries.supplierPriceList(idBrunch,supplierId)
+      const priceListNumber = supplierPriceList[0].price_list_number
+
+      const findItem = supplierPriceList.filter(item => item.item == itemData.item)
+
+      if (findItem.length == 0) {
+        //create item
+        await pricesListsQueries.createItem(idBrunch,itemData,supplier,date,priceListNumber)  
+      }else{
+        //edit item
+        const itemId = findItem[0].id
+        await pricesListsQueries.editItem(idBrunch,itemData,date,itemId)
+      }
+
+      return res.render('data/pricesLists/pricesLists',{title:'Listas de precios',data,supplierId})
+
+    }catch(error){
+      console.log(error)
+      return res.send('Ha ocurrido un error')
+    }
+  },
+  deleteItem: async(req,res) =>{
+    try{
+
+      const idItem = req.params.idItem
+      const idBrunch = req.params.idBrunch
+      const supplierId = req.params.idSupplier
+
+      const data = await getData(idBrunch)
+
+      //delete item
+      await pricesListsQueries.deleteItem(idItem)
+
+      return res.render('data/pricesLists/pricesLists',{title:'Listas de precios',data,supplierId})
+
+    }catch(error){
+      console.log(error)
+      return res.send('Ha ocurrido un error')
+    }
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   countries: async(req,res) =>{
     try{
       const idBrunch = req.params.idBrunch
@@ -193,26 +348,7 @@ const dataController = {
       return res.send('Ha ocurrido un error')
     }
   },
-  createMUProcess: async(req,res) =>{
-    try{
-      const idBrunch = req.params.idBrunch
-      const mu = req.body.measurementUnit
-      const unitsPerUM = req.body.unitsPerUM
-
-      //create measurement unit
-      await measurementUnitsQueries.createMU(mu,unitsPerUM)
-
-      const successMessage = 'createMU'
-
-      const data = await getData(idBrunch)
-      
-      return res.render('data/measurementUnits/measurementUnits',{title:'Unidades de medida',data,successMessage})
-
-    }catch(error){
-      console.log(error)
-      return res.send('Ha ocurrido un error')
-    }
-  },
+  
   createSupplier: async(req,res) =>{
     try{
       const idBrunch = req.params.idBrunch
@@ -246,39 +382,8 @@ const dataController = {
       return res.send('Ha ocurrido un error')
     }
   },
-  currencies: async(req,res) =>{
-    try{
-      const idBrunch = req.params.idBrunch
-      const data = await getData(idBrunch)
-
-      return res.render('data/currencies/currencies',{title:'Monedas',data})
-
-    }catch(error){
-      console.log(error)
-      return res.send('Ha ocurrido un error')
-    }
-  },
-  deleteItem: async(req,res) =>{
-    try{
-
-      const idItem = req.params.idItem
-      const idBrunch = req.params.idBrunch
-      const supplierId = req.params.idSupplier
-
-      const data = await getData(idBrunch)
-
-      const successMessage = 'deleteItem'
-
-      //delete item
-      await pricesListsQueries.deleteItem(idItem)
-
-      return res.render('data/pricesLists/pricesLists',{title:'Listas de precios',data,successMessage,supplierId})
-
-    }catch(error){
-      console.log(error)
-      return res.send('Ha ocurrido un error')
-    }
-  },
+  
+  
   editCountry: async(req,res) =>{
     try{
 
@@ -519,32 +624,8 @@ const dataController = {
       return res.send('Ha ocurrido un error')
     }
   },
-  measurementUnits: async(req,res) =>{
-    try{
-      const idBrunch = req.params.idBrunch
-      
-      const data = await getData(idBrunch)
-
-      return res.render('data/measurementUnits/measurementUnits',{title:'Unidades de medida',data})
-
-    }catch(error){
-      console.log(error)
-      return res.send('Ha ocurrido un error')
-    }
-  },
-  pricesLists: async(req,res) =>{
-    try{
-      const idBrunch = req.params.idBrunch
-      const data = await getData(idBrunch)
-      const supplierId = req.params.idSupplier
-
-      return res.render('data/pricesLists/pricesLists',{title:'Listas de precios',data,supplierId})
-
-    }catch(error){
-      console.log(error)
-      return res.send('Ha ocurrido un error')
-    }
-  },
+  
+  
   suppliers: async(req,res) =>{
     try{
       const idBrunch = req.params.idBrunch
@@ -580,7 +661,6 @@ const dataController = {
         { header: 'Volumen (m3)', key: 'volume', width: 15, style: {alignment:{horizontal: 'center'}} },
         { header: 'Peso (kg)', key: 'weight', width: 10, style: {alignment:{horizontal: 'center'}} },
         { header: 'Precio por UM (' + currency + ')', key: 'price', width: 15, style: {alignment:{horizontal: 'center'}} },
-        { header: 'Costeo', key: 'costCalculation', width: 10, style: {alignment:{horizontal: 'center'}} },
         { header: 'Roturas', key: 'hasBreaks', width: 10, style: {alignment:{horizontal: 'center'}} },
         { header: 'Marca', key: 'brand', width: 10, style: {alignment:{horizontal: 'center'}} },
         { header: 'Origen', key: 'origin', width: 10, style: {alignment:{horizontal: 'center'}} }
@@ -597,7 +677,6 @@ const dataController = {
           'volume': parseFloat(item.volume_m3,4),
           'weight': parseFloat(item.weight_kg,4),
           'price': parseFloat(item.fob,4),
-          'costCalculation': item.cost_calculation,
           'hasBreaks': item.has_breaks == 1 ? "si" : 'no',
           'brand': item.brand,
           'origin': item.origin
@@ -640,7 +719,7 @@ const dataController = {
 
       priceListNumber +=1
 
-      /*const resultValidation = validationResult(req)
+      const resultValidation = validationResult(req)
 
       if (resultValidation.errors.length > 0){
 
@@ -654,8 +733,7 @@ const dataController = {
           uploadFormVisible,
           supplier
         })
-      }*/
-        
+      }      
 
       const file = req.file.filename
 
@@ -682,13 +760,11 @@ const dataController = {
 
       }
 
-      const successMessage = 'createList'
-
       //Delete file
       var filePath = 'public/images/' + file 
       fs.unlinkSync(filePath)
 
-      return res.render('data/pricesLists/pricesLists',{title:'Listas de precios',data,supplierId,successMessage})
+      return res.render('data/pricesLists/pricesLists',{title:'Listas de precios',data,supplierId})
 
     }catch(error){
       console.log(error)

@@ -2,21 +2,22 @@ const db = require('../../../database/models')
 const sequelize = require('sequelize')
 
 const pricesListsQueries = {
-    editItem: async(idItem,description,fob,idMu,muPerBox,weight,volume,brand,origin,costCalculation,hasBreaks) => {
+    editItem: async(idBrunch,itemData,date,itemId) => {
         await db.Prices_lists.update(
             {
-                description:description,
-                fob:fob,
-                id_measurenent_units:idMu,
-                mu_per_box:muPerBox,
-                weight_kg:weight,
-                volume_m3:volume,
-                brand:brand,
-                origin: origin,
-                cost_calculation:costCalculation,
-                has_breaks:hasBreaks
+                description:itemData.description,
+                fob:parseFloat(itemData.fob,3),
+                id_measurement_units:itemData.selectMU,
+                mu_per_box:itemData.muPerBox,
+                weight_kg:itemData.weight == '' ? 0 : parseFloat(itemData.weight,3),
+                volume_m3:itemData.volume == '' ? 0 : parseFloat(itemData.volume,3),
+                brand:itemData.brand,
+                origin: itemData.origin,
+                has_breaks:itemData.hasBreaks == 'Si' ? 1 : 0,
+                id_brunches: idBrunch,
+                update_date: date
             },
-            {where:{id:idItem}})
+            {where:{id:itemId}})
     },
     createItem: async(idBrunch,itemData,supplier,date,priceListNumber) => {
 
@@ -31,13 +32,14 @@ const pricesListsQueries = {
                 volume_m3:itemData.volume == '' ? 0 : parseFloat(itemData.volume,3),
                 brand:itemData.brand,
                 origin: itemData.origin,
-                has_breaks:itemData.hasBreaks,
+                has_breaks:itemData.hasBreaks == 'Si' ? 1 : 0,
                 id_suppliers: supplier.id,
                 id_brunches: idBrunch,
                 id_currencies: supplier.id_currencies,
                 price_list_number:priceListNumber,
                 update_date: date
             })
+            
     },
     deleteItem: async(idItem) => {
         await db.Prices_lists.destroy({where:{id:idItem}})

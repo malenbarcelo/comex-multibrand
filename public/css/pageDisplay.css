@@ -1,0 +1,13 @@
+.header{
+    height: 18vh;
+}
+.mainTitle{
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.content{
+    height: 72vh;
+    overflow: auto;
+}

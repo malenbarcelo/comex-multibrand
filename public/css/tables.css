@@ -2,7 +2,12 @@
     --color1:#15A89D;
     --color2: #F5F5F5;
     --color3:#d7dcdc;
-    --color4:white
+    --color4:white;
+    --color5:#787878;
+    --color6:rgb(91, 90, 90);
+    --color7: rgb(148,198,195);
+    --fontSize:14px;
+    --color8: #f3f0f0;
 }
 
 /*------GENERALS------*/
@@ -39,14 +44,14 @@ thead{
 }/*XSmall size*/
 
 .theadS{
-    width: 65px;
+    width: 75px;
     background-color: var(--color1);
     color: var(--color2);
     padding: 4px;
 }/*Small size*/
 
 .theadM{
-    width: 80px;
+    width: 85px;
     background-color: var(--color1);
     color: var(--color2);
     padding: 4px;
@@ -66,6 +71,13 @@ thead{
     padding: 4px;
 }/*XLarge size*/
 
+.theadXXL{
+    width: 250px;
+    background-color: var(--color1);
+    color: var(--color2);
+    padding: 4px;
+}/*XLarge size*/
+
 .thLeftBorder{
     border-top-left-radius: 10px;
 }/*Add radius to left top border*/
@@ -74,6 +86,10 @@ thead{
 border-top-right-radius: 10px;
 }/*Add radius to right top border*/
 
+.thTall{
+    height: 25px;
+}
+
 /*------Tbody------*/
 .tBody1{
     font-weight: lighter;
@@ -81,33 +97,101 @@ border-top-right-radius: 10px;
 }
 
 .tBodyEven{
-    background-color: var(--color2);
+    background-color: var(--color4);
 }/*background when row number is even*/
 
 .tBodyOdd{
-    background-color: var(--color3);
+    background-color: var(--color8);
 }/*background when row number is odd*/
 
 
 /*-----------SPECIFIC-----------*/
-
-/*------imports.ejs------*/
 .thPo{
     position: relative;
-}
+}/*imports.ejs*/
+
+.thData{
+    position: relative;
+}/*currencies.ejs - measurementUnits.ejs*/
 
 .newPo{
     color:var(--color2);
     position: absolute;
-    right: 10px;
-    top: 14px;
-    font-size: 11px;
+    right: 17px;
+    top: 12.5px;
+    font-size: 14px;
     cursor: pointer;
+}/*imports.ejs*/
+
+.newPo:hover{
+    color: var(--color7);
+}
+
+.newCurrency{
+    color:var(--color2);
+    position: absolute;
+    right: 25px;
+    top: 10px;
+    font-size: 14px;
+    cursor: pointer;
+}/*currencies.ejs*/
+
+.newCurrency:hover{
+    color: var(--color7);
+}
+
+.newUser{
+    color:var(--color2);
+    position: absolute;
+    right: 24px;
+    top: 9px;
+    font-size: 15px;
+    cursor: pointer;
+}/*users.ejs*/
+
+.newMU{
+    color:var(--color2);
+    position: absolute;
+    right: 5px;
+    top: 10px;
+    font-size: 14px;
+    cursor: pointer;
+}/*measurementUnits.ejs*/
+
+.newMU:hover{
+    color: var(--color7);
+}
+
+.newSupplier{
+    color:var(--color2);
+    position: absolute;
+    right: 25px;
+    top: 10px;
+    font-size: 14px;
+    cursor: pointer;
+}/*suppliers.ejs*/
+
+.newSupplier:hover{
+    color: var(--color7);
+}
+
+.newItem{
+    color:var(--color2);
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    font-size: 15px;
+    cursor: pointer;
+}/*pricesLists.ejs*/
+
+.newItem:hover{
+    color: var(--color7);
 }
 
 .thIcon1{
     font-size: 12px;
-}
+    cursor: pointer;
+}/*imports.ejs*/
 
 #divCbxDutiesTarifs{
     display: flex;

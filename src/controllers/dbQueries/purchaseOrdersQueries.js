@@ -18,6 +18,7 @@ const purchaseOrdersQueries = {
     },
     brunchPos: async(idBrunch) => {
         const brunchPos = await db.Purchase_orders.findAll({
+            order:[['po_year','DESC'],['po_number','DESC']],
             include: [
                 {association: 'purchase_order_supplier'},
                 {association: 'purchase_order_currency'},
@@ -90,18 +91,26 @@ const purchaseOrdersQueries = {
     },
     editPo: async(data,idPo) => {
 
+        const poData = await db.Purchase_orders.findOne({
+            where:{id:idPo},
+            raw:true,
+          })
+
         //edit po
         await db.Purchase_orders.update(
             {
                 total_fob_supplier_currency:(parseFloat(data.poFobSupplierCurrency,2)),
                 total_volume_m3:(parseFloat(data.poVolume,4)),
                 total_weight_kg:(parseFloat(data.poWeight,2)),
-                total_boxes: (parseFloat(data.poBoxes,2))
+                total_boxes: (parseFloat(data.poBoxes,2)),
+                status: poData.status == 'Recibida' ? 'Recibir' : poData.Status
             },
             {where:{id:idPo}}
         )
     },
-    receivePo: async(data) => {
+    receiveImport: async(data) => {
+
+        console.log(data)
 
         await db.Purchase_orders.update(
             {
@@ -124,10 +133,34 @@ const purchaseOrdersQueries = {
                 total_expenses_local_currency: data.total_expenses_local_currency,
                 total_costs_local_currency: data.total_costs_local_currency,
                 total_volume_expense_local_currency: data.total_volume_expense,
-                total_price_expense_local_currency: data.total_price_expense
+                total_price_expense_local_currency: data.total_price_expense,
+                cost_vs_fob: data.cost_vs_fob,
+                status:data.status
             },
             {where:{purchase_order:data.purchase_order}}
         )
+
+        //update purchase_orders_details if corresponds (only when process = 'acceptReception')
+        const receptionDetails = data.details
+
+        for (let i = 0; i < receptionDetails.length; i++) {
+            await db.Purchase_orders_details.update(
+                {
+                    total_fob_local_currency: receptionDetails[i].total_fob_local_currency,
+                    freight_and_insurance_local_currency: receptionDetails[i].freight_and_insurance_local_currency,
+                    cif_local_currency: receptionDetails[i].cif_local_currency,
+                    duties_tarifs_local_currency: receptionDetails[i].duties_tarifs_local_currency,
+                    total_volume_expense_local_currency: receptionDetails[i].total_volume_expense_local_currency,
+                    total_price_expense_local_currency: receptionDetails[i].total_price_expense_local_currency,
+                    total_expense_local_currency: receptionDetails[i].total_expense_local_currency,
+                    total_cost_local_currency: receptionDetails[i].total_cost_local_currency,
+                    unit_cost_local_currency: receptionDetails[i].unit_cost_local_currency,
+                    unit_cost_supplier_currency: receptionDetails[i].unit_cost_supplier_currency,
+                    pays_duties_tarifs: receptionDetails[i].pays_duties_tarifs
+                },
+                {where:{id:receptionDetails[i].id}}
+            )
+        }
     },
     createPoDetails: async(data,idPo) => {
 
@@ -137,6 +170,7 @@ const purchaseOrdersQueries = {
         for (let i = 0; i < poDetails.length; i++) {
             await db.Purchase_orders_details.create({
                 id_pos:idPo,
+                id_brunches:data.idBrunch,
                 item:poDetails[i].item,
                 description:poDetails[i].description,
                 id_measurement_units:poDetails[i].id_measurement_units,
@@ -202,20 +236,74 @@ const purchaseOrdersQueries = {
 
           return poDetails
     },
-    getPosWithItem: async(item) => {
-        const poDetails = await db.Purchase_orders_details.findAll({
-            where:{item:item},
+    getPosWithItem: async(idBrunch,item) => {
+        let poDetails = await db.Purchase_orders_details.findAll({
+            where:{
+                item:item,
+            },
             include: [
                 {association: 'purchase_order_detail_po'},
                 {association: 'purchase_order_detail_mu'}
             ],
             raw:true,
             nest:true
-          })
+        })
 
-          return poDetails
+        poDetails.filter(pos => pos.purchase_order_detail_po.id_brunches == idBrunch)
+        
+        return poDetails
     },
-    
+    posBySupplier: async(idBrunch) => {
+        
+        const posBySupplier = await db.Purchase_orders.findAll({
+            attributes: [
+                'id_suppliers',
+                'id_currencies',
+                [sequelize.literal('SUM(total_fob_supplier_currency)'), 'total_fob']
+            ],
+            include: [
+                {association: 'purchase_order_supplier'},
+                {association: 'purchase_order_currency'}
+            ],
+            group: ['id_suppliers','id_currencies'],
+            order: [[sequelize.literal('purchase_order_supplier.supplier'), 'ASC']],
+            where:{id_brunches:idBrunch},
+            raw:true,
+            nest:true
+        })
+        return posBySupplier
+    },
+    posBySupplierAndYear: async(idBrunch,year) => {
+        
+        const posBySupplier = await db.Purchase_orders.findAll({
+            attributes: [
+                'id_suppliers',
+                'id_currencies',
+                'po_year',
+                [sequelize.literal('SUM(total_fob_supplier_currency)'), 'total_fob']
+            ],
+            include: [
+                {association: 'purchase_order_supplier'},
+                {association: 'purchase_order_currency'}
+            ],
+            group: ['id_suppliers','id_currencies','po_year'],
+            order: [[sequelize.literal('purchase_order_supplier.supplier'), 'ASC']],
+            where:{id_brunches:idBrunch,po_year:year},
+            raw:true,
+            nest:true
+        })
+        return posBySupplier
+    },
+    itemsLastPo: async(idBrunch) => {
+        
+        const posBySupplier = await db.Purchase_orders_details.findAll({
+            attributes: [[sequelize.fn('max', sequelize.col('po_number')), 'po_number']],
+            where:{id_brunches:idBrunch},
+            raw:true,
+            nest:true
+        })
+        return posBySupplier
+    },
 }       
 
 module.exports = purchaseOrdersQueries

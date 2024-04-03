@@ -1,65 +1,92 @@
+<div class="header">
 
-
-<% if (locals.data && data.idBrunch) { %>
-    <div class="aNotVisible" id="idBrunch"><%= data.idBrunch %></div>
-    <div class="aNotVisible" id="brunchName"><%= data.brunchName %></div>
-<% } %>
-
-<div class="mobileHeader">
-    <img src="/images/companyLogo.jpg" alt="Company Logo" class="companyLogo">
-</div>
-
-<div class="sideNav">
-    <div class="divLogo">
-        <img src="/images/companyLogo.jpg" alt="Company Logo" class="companyLogo">
-    </div>
-
-    <% if (locals.data && data.idBrunch) { %>
-        <div class="divBrunchHeader">
-            <div class="divFlexHeader"><%= data.brunch.brunch.toUpperCase() %></div>
-            <div class="divFlexHeader"><img src="/images/<%= data.brunch.brunch.toLowerCase() %>.jpg" class="imgBrunchHeader" alt="country-flag"></div>
-            <a href="/select-brunch/">
-                <div class="divFlexHeader">
-                    <i class="fa-solid fa-pencil edit1"></i>
-                </div>
-            </a>
+    <div class="topHeader">
+        <div class="divHeaderCompanyLogo">
+            <img src="/images/companyLogo.jpg" alt="Multibrand" class="headerCompanyLogo">
         </div>
-    
-        <div class="divSideNav">
-            <div class="divHeaderMenu">
-                <div class="titleMenu">DATOS GENERALES</div>
-                <div class="divItemsMenu">
-                    <a class="itemMenu" id="hrefCurrencies" href="/data/<%= data.idBrunch %>/prices-lists/0">Listas de precios</a>
-                    <a class="itemMenu" id="hrefCurrencies" href="/data/<%= data.idBrunch %>/currencies">Monedas</a>    
-                    <a class="itemMenu" id="hrefCurrencies" href="/data/<%= data.idBrunch %>/countries">Países</a>
-                    <a class="itemMenu" href="/data/<%= data.idBrunch %>/suppliers">Proveedores</a>
-                    <a class="itemMenu" href="/data/<%= data.idBrunch %>/measurement-units">Unidades de medida</a>
-                </div>
-            </div>
-    
-            <div class="divHeaderMenu">
-                <div class="titleMenu">IMPORTACIONES</div>
-                <div class="divItemsMenu">
-                    <a class="itemMenu" href="/imports/<%= data.idBrunch %>/imports-data">Importaciones</a>
-                </div>
-            </div>
 
-            <% if (locals.userLogged && (userLogged.id_users_categories == 1 || userLogged.id_users_categories == 2) ) { %>
-                <div class="divHeaderMenu">
-                    <div class="titleMenu">USUARIOS</div>
-                    <div class="divItemsMenu">
-                        <a class="itemMenu" id="hrefCurrencies" href="">Categorías</a>
-                        <a class="itemMenu" id="hrefCurrencies" href="/users/<%= data.idBrunch %>/users">Usuarios</a>
+        <div class="divHeaderTitle">
+                <div class="headerTitle">COMEX</div>
+        </div>
+
+        <div class="divUserLogged">
+            <% if (locals.userLogged) { %>
+
+                <div class="userLogged">
+                    <i class="fa-regular fa-user iconUser"></i>
+                    <div class="userLoggedName">
+                        <%= userLogged.first_name + ' ' + userLogged.last_name %>
+                        <div class=""><a href="/logout" class="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a></div>
                     </div>
                 </div>
-            <% } %>
-    
-            
-        </div>
-    <% } %>
 
-    
-</div>  
+            <% } %>
+        </div>
+
+    </div>
+
+    <div class="bottomHeader">
+
+        <% if (locals.data && data.idBrunch) { %>
+
+            <div class="itemsMenu" id="itemsMenu1">
+                <div class="itemHeaderMenu" id="itemMenu1">Datos generales</div>
+                <div class="subItems" id="subItems1">
+                    <a href="/data/<%= data.idBrunch %>/prices-lists/0" class="subitemHeaderMenu">Listas de precios</a>
+                    <a href="/data/<%= data.idBrunch %>/currencies" class="subitemHeaderMenu">Monedas</a>
+                    <a href="/data/<%= data.idBrunch %>/suppliers" class="subitemHeaderMenu">Proveedores</a>
+                    <a href="/data/<%= data.idBrunch %>/measurement-units" class="subitemHeaderMenu">Unidades de medida</a>                    
+                </div>
+            </div>
+
+            <div class="itemsMenu" id="itemsMenu2">
+                <a href="/imports/<%= data.idBrunch %>/imports-data" class="subitemHeaderMenu">Importaciones</a>
+            </div>
+
+            <div class="itemsMenu" id="itemsMenu2">
+                <a href="/statistics/<%= data.idBrunch %>/import-history" class="subitemHeaderMenu">Estadísticas</a>
+            </div>
+            <div class="itemsMenu" id="itemsMenu2">
+                <a href="/statistics/<%= data.idBrunch %>/prices-and-costs" class="subitemHeaderMenu">Precios y Costos</a>
+            </div>
+
+            <div class="itemsMenu" id="itemsMenu3">
+                <div class="itemHeaderMenu" id="itemMenu1">Estadísticas</div>
+                <div class="subItems" id="subItems1">
+                    <a href="/statistics/<%= data.idBrunch %>/items" class="subitemHeaderMenu">Items</a>a>                    
+                </div>
+            </div>
+
+            <% if (locals.userLogged && (userLogged.id_users_categories == 1 || userLogged.id_users_categories == 2)) { %>
+                <div class="itemsMenu" id="itemsMenu4">
+                    <a href="/users/<%= data.idBrunch %>/users" class="itemHeaderMenu">Usuarios</a>
+                </div>
+            <% } %>
+
+            <div class="divBrunchHeader">
+                <div class="divFlexBrunch"><%= data.brunch.brunch.toUpperCase() %></div>
+                <div class="divFlexBrunch"><img src="/images/<%= data.brunch.brunch.toLowerCase() %>.jpg" class="imgBrunchHeader" alt="country-flag"></div>
+                <a href="/select-brunch/">
+                    <div class="divFlexBrunch">
+                        <i class="fa-solid fa-pencil edit1"></i>
+                    </div>
+                </a>
+            </div>
+        <% } %>
+
+    </div>
+
+</div>
+
+<% if (locals.data && data.idBrunch) { %>
+    <div class="notVisible" id="idBrunch"><%= data.idBrunch %></div>
+    <div class="notVisible" id="brunchName"><%= data.brunchName %></div>
+<% } %>
+
+
+<script type="module" src="/js/header.js"></script>
+
+
 
 
 

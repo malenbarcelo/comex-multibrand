@@ -29,6 +29,112 @@ const usersController = {
             return res.send('Ha ocurrido un error')
         }
     },
+    createEditUserProcess: async(req,res) => {
+        try{
+
+            const idBrunch = req.params.idBrunch
+            let data = await getData(idBrunch)
+
+            //create User
+            const userData = req.body
+
+            const findUser = data.users.filter(user => user.user_name == userData.userName)
+
+            if (findUser.length == 0) {
+                //create user
+                await usersQueries.createUser(userData)  
+            }else{
+                //edit user
+                await usersQueries.editUser(userData)
+            }
+
+            data = await getData(idBrunch)
+
+            return res.render('users/users',{title:'Usuarios',data})
+
+        }catch(error){
+            console.log(error)
+            return res.send('Ha ocurrido un error')
+        }
+    },
+    deleteUserProcess: async(req,res) => {
+        try{
+
+            const idUser = req.params.idUser
+            const idBrunch = req.params.idBrunch
+
+            await usersQueries.deleteUser(idUser)  
+            
+            data = await getData(idBrunch)
+
+            return res.render('users/users',{title:'Usuarios',data})
+
+        }catch(error){
+            console.log(error)
+            return res.send('Ha ocurrido un error')
+        }
+    },
+    restorePasswordProcess: async(req,res) =>{
+        try{
+
+            const idUser = req.params.idUser
+            const idBrunch = req.params.idBrunch
+
+            const userData = await usersQueries.findUserById(idUser)
+            const userName = userData.user_name
+            
+            const newPassword = bcrypt.hashSync(userName,10)
+
+            await db.Users.update(
+                { password: newPassword },
+                { where: { id: idUser } }
+            )
+
+            data = await getData(idBrunch)
+
+            const successMessage = 'restorePassword'
+
+            return res.render('users/users',{title:'Usuarios',data,successMessage})
+
+        }catch(error){
+            console.log(error)
+            return res.send('Ha ocurrido un error')
+        }
+    },
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     editUser: async(req,res) => {
         try{
 
@@ -87,39 +193,6 @@ const usersController = {
             const data = await getData(idBrunch)
 
             return res.render('users/createUser',{title:'Crear Usuario',data})
-
-        }catch(error){
-            console.log(error)
-            return res.send('Ha ocurrido un error')
-        }
-    },
-    createUserProcess: async(req,res) => {
-        try{
-
-            const idBrunch = req.params.idBrunch
-            let data = await getData(idBrunch)
-
-            const resultValidation = validationResult(req)
-
-            if (resultValidation.errors.length > 0){
-                return res.render('users/createUser',{
-                    errors:resultValidation.mapped(),
-                    oldData: req.body,
-                    title:'Crear Usuario',
-                    data
-                })
-            }
-
-            //create User
-            const userData = req.body
-
-            await usersQueries.createUser(userData)
-
-            data = await getData(idBrunch)
-
-            const successMessage = 'createUser'
-
-            return res.render('users/users',{title:'Usuarios',data,successMessage})
 
         }catch(error){
             console.log(error)

@@ -1,18 +1,26 @@
 import { dominio } from "./dominio.js"
-import { getPoNumber, updatePoData, completePoData, printTable, isInvalid, isValid, getpoDataToEdit} from "./functions/imports/createEditPoFunctions.js"
-import { receptionCompleteInputs, receptionCalculateCosts } from "./functions/imports/receiveImportFunctions.js"
+import globals from "./functions/imports/globals.js"
+import { getPoNumber, updatePoData, completePoData, printTable, isInvalid, isValid} from "./functions/imports/createEditPoFunctions.js"
+import { receptionCompleteInputs, receptionCalculateCosts, receptionGetElements, receiveIsInvalid, receiveIsValid } from "./functions/imports/receiveImportFunctions.js"
+import { printImportsTable, filterPos } from "./functions/imports/importsFunctions.js"
 
 window.addEventListener('load',async()=>{
 
+    /*-----------------IMPORTS DATA-----------------*/
     const idBrunch = document.getElementById('idBrunch').innerText
     const createPo = document.getElementById('createPo')
+    const filterSupplier= document.getElementById('filterSupplier')
+    const filterYear= document.getElementById('filterYear')
+    const filterPurchaseOrder= document.getElementById('filterPurchaseOrder')
+    const unfilterPo= document.getElementById('unfilterPo')
+    const filterItem= document.getElementById('filterItem')
     const createEditPoPopup = document.getElementById('createEditPoPopup')
-    const formatOptions = { style: 'decimal', minimumFractionDigits: 2, maximumFractionDigits: 3 }
+    const formatOptions = { style: 'decimal', minimumFractionDigits: 2, maximumFractionDigits: 2 }
     const brunchPos = await (await fetch(dominio + 'apis/' + idBrunch + '/purchase-orders')).json()
     const brunchData = await (await fetch(dominio + 'apis/' + idBrunch + '/filter-brunch')).json()
 
-    /*-------------CREATE AND EDIT POPUP DATA AND EVENT LISTENERS--------------*/
-    const closeCreateEditPoPopup = document.getElementById('closeCreateEditPoPopup')
+    /*-----------------CREATE EDIT PO DATA-----------------*/
+    const closeCreateEditPoPopup= document.getElementById('closeCreateEditPoPopup')
     const selectPoSupplier = document.getElementById('selectPoSupplier')
     const selectItem = document.getElementById('selectItem')
     const addItem = document.getElementById('addItem')
@@ -28,12 +36,47 @@ window.addEventListener('load',async()=>{
     const divPoErrors = document.getElementById('divPoErrors')
     const createEditPoNumber = document.getElementById('createEditPoNumber')
     const cbxDutiesTarifs = document.getElementById('cbxDutiesTarifs')
-    let process = ''
-    let poData = {'fob':0,'volume':0,'boxes':0,'weight':0}
-    let poDetails = []
-    let PO = ''
-    let supplierId = 0
-    let editFrom = ''
+
+    /*-----------------RECEIVE IMPORT DATA-----------------*/
+    const cancelReception = document.getElementById('cancelReception')
+    const receiveImportClosePopup = document.getElementById('receiveImportClosePopup')
+    const saveReception = document.getElementById('saveReception')
+    const acceptReception = document.getElementById('acceptReception')
+
+    /*---------------------------------------IMPORTS.EJS---------------------------------------*/
+    /*------IMPORTS.EJS: First load------*/
+    printImportsTable(brunchPos,formatOptions,divPoErrors,createEditPoNumber,idBrunch,createEditPoPopup,brunchData)
+
+    /*------IMPORTS.EJS: Filters------*/
+    /*---select supplier---*/
+    filterSupplier.addEventListener("change", async() => {
+        await filterPos(brunchPos,filterSupplier,filterYear,filterPurchaseOrder,filterItem,formatOptions,idBrunch,divPoErrors,brunchData)
+    })
+
+    /*---select year---*/
+    filterYear.addEventListener("change", async() => {
+        await filterPos(brunchPos,filterSupplier,filterYear,filterPurchaseOrder,filterItem,formatOptions,idBrunch,divPoErrors,brunchData)
+    })
+
+    /*---select purchase order---*/
+    filterPurchaseOrder.addEventListener("change", async() => {
+        await filterPos(brunchPos,filterSupplier,filterYear,filterPurchaseOrder,filterItem,formatOptions,idBrunch,divPoErrors,brunchData)
+    })
+
+    /*---select item---*/
+    filterItem.addEventListener("change", async() => {
+        await filterPos(brunchPos,filterSupplier,filterYear,filterPurchaseOrder,filterItem,formatOptions,idBrunch,divPoErrors,brunchData)
+    })
+
+    unfilterPo.addEventListener("click", async() => {
+        filterItem.value = ''
+        filterSupplier.value = ''
+        filterPurchaseOrder.value = ''
+        filterYear.value = ''
+        printImportsTable(brunchPos,formatOptions,divPoErrors,createEditPoNumber,idBrunch,createEditPoPopup,brunchData)
+    })
+
+    /*-------------CREATE AND EDIT POPUP EVENT LISTENERS--------------*/
 
     //close create edit popup event listener
     closeCreateEditPoPopup.addEventListener("click", async() => {
@@ -48,24 +91,19 @@ window.addEventListener('load',async()=>{
     //select supplier event listener
     selectPoSupplier.addEventListener("change", async() => {
 
-        divPoErrors.innerHTML = ''
-
-        itemError.style.display = 'none'
-        quantityError.style.display = 'none'
-        squarePlusError.style.display = 'none'
         isValid(itemLabel,selectItem, itemError)
         isValid(quantityLabel,createEditItemQty, quantityError)
 
-        supplierId = selectPoSupplier.value
-        const supplierPriceList = await (await fetch(dominio + 'apis/' + brunchData.id + '/price-list/' + supplierId)).json()
-        const supplierData = await (await fetch(dominio + 'apis/' + brunchData.id + '/filter-supplier/' + supplierId)).json()
+        globals.supplierId = selectPoSupplier.value
+        const supplierPriceList = await (await fetch(dominio + 'apis/' + brunchData.id + '/price-list/' + globals.supplierId)).json()
+        const supplierData = await (await fetch(dominio + 'apis/' + brunchData.id + '/filter-supplier/' + globals.supplierId)).json()
         const supplierCostCalculation = supplierData.cost_calculation
 
-        poData = {'fob':0,'volume':0,'boxes':0,'weight':0,'costCalculation':supplierCostCalculation}
-        poDetails = []
+        globals.poData = {'fob':0,'volume':0,'boxes':0,'weight':0,'costCalculation':supplierCostCalculation}
+        globals.poDetails = []
 
         //print table
-        printTable(poDetails,poData,formatOptions)
+        printTable(globals.poDetails,globals.poData,formatOptions)
 
         //complete fob label
         totalFobLabel.innerText = 'FOB ('  + supplierData.supplier_currency.currency + '): '
@@ -86,7 +124,7 @@ window.addEventListener('load',async()=>{
 
         divPoErrors.innerHTML = ''
 
-        const supplierPriceList = await (await fetch(dominio + 'apis/' + brunchData.id + '/price-list/' + supplierId)).json()
+        const supplierPriceList = await (await fetch(dominio + 'apis/' + brunchData.id + '/price-list/' + globals.supplierId)).json()
 
         const itemToAdd = selectItem.value
         const qtyToAdd = createEditItemQty.value
@@ -106,14 +144,11 @@ window.addEventListener('load',async()=>{
                 isValid(quantityLabel,createEditItemQty, quantityError)
             }
         } else{
-            itemError.style.display = 'none'
-            quantityError.style.display = 'none'
-            squarePlusError.style.display = 'none'
             isValid(itemLabel,selectItem, itemError)
             isValid(quantityLabel,createEditItemQty, quantityError)
 
             const item = supplierPriceList.filter(supplierItem => supplierItem.id == itemToAdd)[0]
-            const rowId = poDetails.length + 1
+            const rowId = globals.poDetails.length + 1
 
             const boxes = parseFloat(qtyToAdd / item.mu_per_box,2)
             const totalWeightKg = parseFloat(item.weight_kg * boxes,2)
@@ -130,7 +165,7 @@ window.addEventListener('load',async()=>{
                 'description':item.description,
                 'id_measurement_units':item.id_measurement_units,
                 'mu_quantity':qtyToAdd,
-                'units_quantity':0,
+                'units_quantity':qtyToAdd * item.price_list_mu.units_per_um,
                 'mu_per_box':item.mu_per_box,
                 'boxes':boxes,
                 'weight_kg':parseFloat(item.weight_kg,2),
@@ -145,13 +180,13 @@ window.addEventListener('load',async()=>{
             }
 
             //add item to poDetails
-            poDetails.push(newRow)
+            globals.poDetails.push(newRow)
 
             //updatePoData
-            updatePoData(poDetails,poData,formatOptions)
+            updatePoData(globals.poDetails,globals.poData,formatOptions)
 
             //print table
-            printTable(poDetails,poData,formatOptions)
+            printTable(globals.poDetails,globals.poData,formatOptions)
         }
 
     })
@@ -165,7 +200,7 @@ window.addEventListener('load',async()=>{
 
     //check all pays duties tarifs
     cbxDutiesTarifs.addEventListener("click", function(e) {
-        poDetails.forEach(element => {
+        globals.poDetails.forEach(element => {
             const dutiesTarifs= document.getElementById('dutiesTarifs_' + element.rowId)
             if (cbxDutiesTarifs.checked == true) {
                 dutiesTarifs.checked = true
@@ -182,36 +217,36 @@ window.addEventListener('load',async()=>{
 
         const findPo = brunchPos.filter(po => po.purchase_order == createEditPoNumber.value)
 
-        if (findPo.length != 0 && process != 'edit') {
+        if (findPo.length != 0 && globals.process != 'edit') {
             divPoErrors.innerHTML += '<div class="divPoError"><i class="fa-solid fa-circle-exclamation"></i>La order de compra ' + findPo[0].purchase_order + ' ya existe</div>'
         }
 
-        if (poDetails.length == 0) {
+        if (globals.poDetails.length == 0) {
             divPoErrors.innerHTML += '<div class="divPoError"><i class="fa-solid fa-circle-exclamation"></i>Debe agregar al menos un ítem a la orden de compra</div>'
         }
 
-        if ((findPo.length == 0 && process == 'create' || process == 'edit') && poDetails.length != 0) {
-            const supplierData = await (await fetch(dominio + 'apis/' + brunchData.id + '/filter-supplier/' + supplierId)).json()
+        if ((findPo.length == 0 && globals.process == 'create' || globals.process == 'edit') && globals.poDetails.length != 0) {
+            const supplierData = await (await fetch(dominio + 'apis/' + brunchData.id + '/filter-supplier/' + globals.supplierId)).json()
 
             //find if each item pays duties tarifs
-            poDetails.forEach(element => {
+            globals.poDetails.forEach(element => {
                 const dutiesTarifs= document.getElementById('dutiesTarifs_' + element.rowId)
                 element.pays_duties_tarifs = dutiesTarifs.checked ? 'si' : 'no'
             })
-            
+
             const data = {
                 'purchaseOrder':createEditPoNumber.value,
                 'poNumber':parseInt(createEditPoNumber.value.split('.')[1]),
                 'date':new Date(),
                 'idBrunch':parseInt(idBrunch),
-                'idSupplier':supplierId,
+                'idSupplier':globals.supplierId,
                 'idCurrency':supplierData.id_currencies,
-                'poFobSupplierCurrency':parseFloat(poData.fob,2),
-                'poWeight':parseFloat(poData.weight,2),
-                'poVolume':parseFloat(poData.volume,2),
-                'poBoxes':parseFloat(poData.boxes,2),
-                'costCalculation':poData.costCalculation,
-                'poData':poDetails
+                'poFobSupplierCurrency':parseFloat(globals.poData.fob,2),
+                'poWeight':parseFloat(globals.poData.weight,2),
+                'poVolume':parseFloat(globals.poData.volume,2),
+                'poBoxes':parseFloat(globals.poData.boxes,2),
+                'costCalculation':globals.poData.costCalculation,
+                'poData':globals.poDetails
             }
 
             await fetch(dominio + 'apis/create-purchase-order',{
@@ -220,16 +255,32 @@ window.addEventListener('load',async()=>{
                 body: JSON.stringify(data)
             })
 
-            if (editFrom == 'receiveImport') {
+            if (globals.editFrom == 'receiveImport') {
 
                 //get updated import data
-                importData = await (await fetch(dominio + 'apis/filter-purchase-order/' + findPo[0].purchase_order)).json()
+                globals.importData = await (await fetch(dominio + 'apis/filter-purchase-order/' + findPo[0].purchase_order)).json()
 
                 //get and complete import data
-                const {inputs, calculations} = receptionCompleteInputs(importData,brunchData,formatOptions)
+                const {inputs, calculations} = receptionCompleteInputs(globals.importData,brunchData,formatOptions)
+
+                //complete temporal data
+                inputs.currencyExchange.value = globals.inputCurrencyExchange
+                inputs.receptionDate.value = globals.inputReceptionDate
+                inputs.freight.value = globals.inputFreight
+                inputs.insurance.value = globals.inputInsurance
+                inputs.forwarder.value = globals.inputForwarder
+                inputs.domesticFreight.value = globals.inputDomesticFreight
+                inputs.dispatchExpenses.value = globals.inputDispatchExpenses
+                inputs.officeFees.value = globals.inputOfficeFees
+                inputs.containerCosts.value = globals.inputContainerCosts
+                inputs.portExpenses.value = globals.inputPortExpenses
+                inputs.dutiesTarifs.value = globals.inputDutiesTarifs
+                inputs.containerInsurance.value = globals.inputContainerInsurance
+                inputs.portContribution.value = globals.inputPortContribution
+                inputs.otherExpenses.value = globals.inputOtherExpenses
 
                 //complete inputs data
-                receptionCalculateCosts(importData,formatOptions)
+                receptionCalculateCosts(globals.importData,formatOptions)
 
                 createEditPoPopup.style.display = 'none'
 
@@ -241,17 +292,52 @@ window.addEventListener('load',async()=>{
         }
     })
 
+    //change po data
+    //accept edition event listener
+    globals.acceptEdit.addEventListener("click", async() => {
+
+        const idRow = globals.editItemRow
+        const newFob = parseFloat(globals.editItemFob.value,3)
+        const newQty = parseFloat(globals.editItemQty.value,3)
+        const newTotalFob = newFob * newQty
+
+        let rowData = globals.poDetails.find(item => item.id == idRow)
+
+        if (rowData) {
+
+            rowData.fob_supplier_currency = newFob
+            rowData.mu_quantity = newQty
+            rowData.boxes = newQty / rowData.mu_per_box
+            rowData.total_fob_supplier_currency = newTotalFob
+            rowData.total_weight_kg = (newQty / rowData.mu_per_box) * rowData.weight_kg
+            rowData.total_volume_m3 = (newQty / rowData.mu_per_box) * rowData.volume_m3
+        }
+
+        //updatePoData
+        updatePoData(globals.poDetails,globals.poData,formatOptions)
+
+        //print table
+        printTable(globals.poDetails,globals.poData,formatOptions)
+
+        globals.acceptCancelPopup.style.display = 'none'
+
+    })
+
     /*-------------CREATE PO EVENT LISTENERS--------------*/
     createPo.addEventListener("click", async() => {
 
-        process = 'create'
-        poData = {'fob':0,'volume':0,'boxes':0,'weight':0}
-        poDetails = []
+        //clear data
+        isValid(itemLabel,selectItem, itemError)
+        isValid(quantityLabel,createEditItemQty, quantityError)
+
+        globals.process = 'create'
+        globals.poData = {'fob':0,'volume':0,'boxes':0,'weight':0}
+        globals.poDetails = []
 
         //get and complete import data
-        PO = getPoNumber(brunchData,brunchPos)
+        globals.PO = getPoNumber(brunchData,brunchPos)
 
-        completePoData(process,PO,poData,poDetails,idBrunch)
+        completePoData(globals.process,globals.PO,globals.poData,globals.poDetails,idBrunch)
 
         //show popup
         createEditPoPopup.style.display = "block"
@@ -259,11 +345,7 @@ window.addEventListener('load',async()=>{
     })
 
     /*-------------EDIT PO AND RECEIVE IMPORT EVENT LISTENERS--------------*/
-    const cancelReception = document.getElementById('cancelReception')
-    const receiveImportClosePopup = document.getElementById('receiveImportClosePopup')
-    const saveReception = document.getElementById('saveReception')
-    let importData = ''
-    
+
     //cancel reception event listener
     cancelReception.addEventListener("click", async() => {
         window.location.href = '/imports/' + idBrunch + '/imports-data'
@@ -276,111 +358,76 @@ window.addEventListener('load',async()=>{
 
     //save reception data
     saveReception.addEventListener("click", async() => {
+        
+        globals.process = 'saveReceptionData'
 
         //complete inputs data
-        const {data, details} = receptionCalculateCosts(importData,formatOptions)
+        const {data,alertCounter} = await receptionCalculateCosts(globals.importData,globals.process,formatOptions)
 
-        //console.log(details)
-
-        await fetch(dominio + 'apis/receive-po',{
+        await fetch(dominio + 'apis/receive-import',{
             method:'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(data)
         })
-        
-        //window.location.href = '/imports/' + idBrunch + '/imports-data'
+
+        window.location.href = '/imports/' + idBrunch + '/imports-data'
 
     })
-    
-    for (let i = 0; i < brunchPos.length; i++) {
 
-        const idPO = brunchPos[i].id
-        importData = brunchPos[i]
+    //accept reception
+    acceptReception.addEventListener("click", async() => {
 
-        //EDIT PO
-        const editPo = document.getElementById('editPo_' + idPO)
-        
-        if (editPo != null) {
+        globals.process = 'acceptReception'
+        let errors = 0
 
-            editPo.addEventListener("click", async() => {
+        const {inputs} = receptionGetElements()
 
-                const {processEdit, poDataEdit, poDetailsEdit, POEdit, supplierIdEdit} = await getpoDataToEdit(divPoErrors,brunchPos,idPO,createEditPoNumber,idBrunch,formatOptions,createEditPoPopup)
+        const textsToValidate = [inputs.receptionDate,inputs.currencyExchange,inputs.freight,inputs.insurance,inputs.forwarder,inputs.domesticFreight,inputs.dispatchExpenses,inputs.officeFees]
+        const valuesToValidate = [inputs.currencyExchange,inputs.freight,inputs.insurance,inputs.forwarder,inputs.domesticFreight,inputs.dispatchExpenses,inputs.officeFees]
 
-                editFrom = 'imports'
-                process = processEdit
-                poData = poDataEdit
-                poDetails = poDetailsEdit
-                PO = POEdit
-                supplierId = supplierIdEdit
-
-            })
-        }
-
-        //RECEIVE IMPORT
-        const receiveImport = document.getElementById('receiveImport_' + idPO)
-        const receiveImportPopup = document.getElementById('receiveImportPopup')
-        const pencilEditPo = document.getElementById('pencilEditPo')
-        
-        if (receiveImport != null) {
-
-            receiveImport.addEventListener("click", async() => {
-
-                const idPO = brunchPos[i].id
-                importData = brunchPos[i]
-
-                //get and complete import data
-                const {inputs, calculations, elements} = receptionCompleteInputs(importData,brunchData,formatOptions)
-
-                //complete inputs data
-                receptionCalculateCosts(importData,formatOptions)
-
-                //add event listeners
-                pencilEditPo.addEventListener("click", async() => {
-
-                    const {processEdit, poDataEdit, poDetailsEdit, POEdit, supplierIdEdit} = await getpoDataToEdit(divPoErrors,brunchPos,idPO,createEditPoNumber,idBrunch,formatOptions,createEditPoPopup)
-
-                    editFrom = 'receiveImport'
-                    process = processEdit
-                    poData = poDataEdit
-                    poDetails = poDetailsEdit
-                    PO = POEdit
-                    supplierId = supplierIdEdit
-
-                })
-
-                //add event listeners to every input
-                for (const key in inputs) {
-                    const inputElement = inputs[key]
-                    inputElement.addEventListener("change", async() => {
-                        
-                        receptionCalculateCosts(importData,formatOptions)
-
-                    })
+        //not empty validations
+        textsToValidate.forEach(input => {
+            const inputName = input.name
+            const errorText = document.querySelector(`#${inputName}ErrorText`)
+            const errorLabel = document.querySelector(`#${inputName}Label`)
+            if (input.value == '' || input.value == 0) {
+                errors += 1
+                errorText.innerText = 'El campo no puede estar vacío'
+                receiveIsInvalid(errorLabel, input)
+            }else{
+                //number validations
+                if (valuesToValidate.includes(input)) {
+                    if (isNaN(input.value)) {
+                        errors += 1
+                        errorText.innerText = 'El valor debe ser numérico. Utilice "." como separador de decimales.'
+                        receiveIsInvalid(errorLabel, input)
+                    }else{
+                        receiveIsValid(errorText,errorLabel, input)
+                    }                    
+                }else{
+                    receiveIsValid(errorText,errorLabel, input)
                 }
+            }
+        })
 
-                //show popup
-                receiveImportPopup.style.display = "block"
-                receiveImportPopup.scrollTop = 0
+        //complete inputs data
+        const {data, alertCounter} = await receptionCalculateCosts(globals.importData,globals.process,formatOptions)
 
+        if (alertCounter == 0 && errors == 0) {
+            await fetch(dominio + 'apis/receive-import',{
+                method:'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
             })
+    
+            window.location.href = '/imports/' + idBrunch + '/imports-data'
+            
         }
-
-        //PRINT EXCEL
-        /*const printExcel = document.getElementById('printExcel_' + idPO)
-
-        if (printExcel != null) {
-            printExcel.addEventListener("click", async() => {
-                showPricesPopup.style.display = "block"
-                yesButton.href = '/imports/' + idBrunch + '/download-purchase-order/' + idPO + '/1'
-                noButton.href = '/imports/' + idBrunch + '/download-purchase-order/' + idPO + '/0'
-            })
-        }*/
-
-    }
-
-
-
+        
+    })
+    
 })
+
 
 
 

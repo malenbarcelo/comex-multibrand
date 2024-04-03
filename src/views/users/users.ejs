@@ -1,56 +1,53 @@
 <%- include('../partials/head') %>
 <%- include('../partials/header') %>
-<%- include('../partials/userLogged') %>
 
 <% if (locals.successMessage) { %>
-    <% if (locals.successMessage == 'editUser') { %>
+    <% if (locals.successMessage == 'restorePassword') { %>
         <script>
-            alertify.success('Usuario editado con éxito');
-        </script>
-    <% } %>
-    <% if (locals.successMessage == 'createUser') { %>
-        <script>
-            alertify.success('Usuario con éxito');
+            alertify.success('Contraseña restablecida con éxito');
         </script>
     <% } %>
 <% } %>
 
-<div class="divBody1">
+<div class="notVisible" id="idBrunch"><%= data.idBrunch %></div>
 
-    <div class="title1">Usuarios</div>
+<div class="mainTitle">
+    <div class="titleL">Usuarios</div>
+</div>
 
-    <div class="aDivTable1">
-        <table class="aTable1">
+<div class="content">
+
+    <div class="divTable">
+        <table>
             <thead>
                 <tr>
-                    <th class="aTh1">
+                    <th class="theadL thLeftBorder thTall thData" id="create">
                         Usuario
-                        <a href="/users/<%= data.idBrunch %>/create-user/">
-                            <i class="fa-solid fa-plus aAdd1"></i>
-                        </a>
+                        <i class="fa-regular fa-square-plus newUser"></i></i>
                     </th>
-                    <th class="aTh1">Nombre y apellido</th>
-                    <th class="aTh1">Email</th>
-                    <th class="aTh1">Perfil</th>
-                    <th class="aTh1"><i class="fa-regular fa-pen-to-square aEdit2"></i></th>
-                    <th class="aTh1"><i class="fa-solid fa-unlock-keyhole aEdit2"></i></th>
-                    
+                    <th class="theadXL thTall">Nombre y apellido</th>
+                    <th class="theadXL thTall">Email</th>
+                    <th class="theadL thTall">Perfil</th>
+                    <th class="theadXS thTall"><i class="fa-regular fa-pen-to-square"></i></th>
+                    <th class="theadXS thTall"><i class="fa-solid fa-unlock-keyhole"></i></th>
+                    <th class="theadXS thRightBorder thTall"><i class="fa-regular fa-trash-can"></i></th>
                 </tr>
             </thead>
             <tbody>
                 <% for( let i = 0; i < data.users.length; i++ ) { %>
                     <tr>
-                        <th class="aTh2"><%= data.users[i].user_name %></th>
-                        <th class="aTh2"><%= data.users[i].first_name + ' ' + data.users[i].last_name %></th>
-                        <th class="aTh2"><%= data.users[i].email %></th>
-                        <th class="aTh2"><%= data.users[i].user_user_category.category_name %></th>
-                        <th class="aTh2">
-                            <a href="/users/<%= data.idBrunch %>/edit-user/<%= data.users[i].id %>">
-                                <i class="fa-regular fa-pen-to-square aEdit1"></i>  
-                            </a>
+                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= data.users[i].user_name %></th>
+                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= data.users[i].first_name + ' ' + data.users[i].last_name %></th>
+                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= data.users[i].email %></th>
+                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= data.users[i].user_user_category.category_name %></th>
+                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>" id="<%= 'edit_' + data.users[i].id %>">
+                                <i class="fa-regular fa-pen-to-square thIcon1"></i>
                         </th>
-                        <th class="aTh2">
-                            <i class="fa-solid fa-unlock-keyhole aEdit1" id="<%= 'restore_' + data.users[i].id %>"></i>
+                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>" id="<%= 'restore_' + data.users[i].id %>">
+                            <i class="fa-solid fa-unlock-keyhole thIcon1"></i>                                
+                        </th>                        
+                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>" id="<%= 'delete_' + data.users[i].id %>">
+                            <i class="fa-regular fa-trash-can thIcon1"></i>
                         </th>
                     </tr>
                 <% } %>
@@ -59,20 +56,48 @@
     </div>
 </div>
 
-<!-----Restore Password----->
-<div class="cConfirmPopup" id="confirmPopup">
-    <div class="cConfirmContent">
-        <div class="cConfirmText" id="confirmText"></div>
-        <div class="divButtons3">
-            <button type="submit" class="button3" id="confirmButton">Confirmar</button>
-            <div class="button3" id="cancelButton">Cancelar</div>
-        </div>
-    </div>
+<!--delete user popup--->
+<div class="yesNoPopup" id="deleteUserPopup">
+    <form action="" method="POST" id="formDeleteUser" enctype="multipart/form-data" >    
+        <div class="acceptCancelContent">
+    
+            <div class="divClosePopup">
+                <div class="acceptCancelClosePopup" id="deleteUserClose">X</div>
+            </div>
+    
+            <div class="deleteItemText" id="deleteUserText"></div>
+    
+            <div class="divButtonsRow">
+                <div class="button1 mButton" >
+                    <button class="submitButton" type="submit" >Confirmar</button>
+                </div>
+                
+                <div class="button1 mButton" id="cancelDelete">Cancelar</div>
+            </div>
+        </div>    
+    </form>
 </div>
 
+<!--Restore password--->
+<div class="yesNoPopup" id="restorePswPopup">
+    <form action="" method="POST" id="formRestorePwd" enctype="multipart/form-data" >    
+        <div class="acceptCancelContent">
+    
+            <div class="divClosePopup">
+                <div class="acceptCancelClosePopup" id="restorePswClose">X</div>
+            </div>
+    
+            <div class="deleteItemText" id="restorePswText"></div>
+    
+            <div class="divButtonsRow">
+                <div class="button1 mButton">
+                    <button class="submitButton" type="submit" >Confirmar</button>
+                </div>
+                <div class="button1 mButton" id="cancelRestore">Cancelar</div>
+            </div>
+        </div>    
+    </form>
+</div>
+
+<%- include('./createEditUser') %>
 <script type="module" src="/js/users.js"></script>
-
-
-
-
-

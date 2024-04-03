@@ -52,7 +52,11 @@ module.exports = (sequelize, DataTypes) => {
          type: DataTypes.DECIMAL,
          allowNull: false,
       },
-      costing:{
+      cost_vs_fob:{
+         type: DataTypes.DECIMAL,
+         allowNull: true,
+      },
+      cost_real_vs_estimated:{
          type: DataTypes.DECIMAL,
          allowNull: true,
       },

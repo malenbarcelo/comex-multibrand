@@ -19,12 +19,12 @@ async function getData(idBrunch){
 
 const importsController = {
   //APIS
-  receivePo: async(req,res) =>{
+  receiveImport: async(req,res) =>{
     try{
 
       const data = req.body
         
-      await purchaseOrdersQueries.receivePo(data)      
+      await purchaseOrdersQueries.receiveImport(data)      
 
       res.status(200).json()
 
@@ -276,8 +276,8 @@ downloadPoExcel: async(req,res) =>{
         'description': detail.description,
         'itemQty': parseFloat(detail.mu_quantity,2).toFixed(2),
         'mu': detail.purchase_order_detail_mu.measurement_unit,
-        'unitPrice': parseFloat(detail.fob,2).toFixed(2),
-        'extendedPrice': parseFloat(detail.total_fob,2).toFixed(2)
+        'unitPrice': parseFloat(detail.fob_supplier_currency,2).toFixed(2),
+        'extendedPrice': parseFloat(detail.total_fob_supplier_currency,2).toFixed(2)
       })
     })
 
