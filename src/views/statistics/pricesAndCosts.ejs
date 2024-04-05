@@ -14,113 +14,13 @@
         <div class="divStatistic">
 
             <div class="titleM mtM mbM">Precios de compra</div>
-
-            <!------------FILTERS------------>
-            <div class="divImportFilters">
-                
-                <div class="divInput">
-
-                    <label for="selectSupplier" class="label">Proveedor</label>
-                    <select name="selectSupplier" id="filterSupplier1" class="input1 M">
-                        <option value="default"></option>
-                        <% data.suppliers.forEach(supplier => { %>
-                            <option value="<%= supplier.id %>">
-                                <%= supplier.supplier %>
-                            </option>
-                        <% }) %>
-                    </select>
-
-                </div>
-
-                <div class="divInput">
-                    <label for="year" class="label">Año</label>
-                    <input type="text" name="year" class="input1 S" id="filterYear1">
-                </div>
-
-                <div class="filterAction">
-                    <i class="fa-solid fa-filter-circle-xmark" id="deleteFilters1"></i>
-                </div>
-
-            </div>
-
-            <div class="divFiltersData">
-                <div id="totalFob1"></div>
-                <div id="totalQty1"></div>
-            </div>
-
-            <!------------TABLE------------>
-            <div class="divTable">
-                <table>
-                    <thead>
-                        <tr>
-                            <th class="theadXL thTall thLeftBorder">Proveedor</th>
-                            <th class="theadM thTall">FOB</th>
-                            <th class="theadS thTall thRightBorder">Moneda</th>                         
-                        </tr>
-                    </thead>
-                    <tbody id="importsBody1">
-                        
-                    </tbody>
-                </table>
-            </div>    
+            
         </div>
 
         <div class="divStatistic">
 
             <div class="titleM mtM mbM">Costo por item</div>
-
-            <!------------FILTERS------------>
-            <div class="divImportFilters">
-                
-                <div class="divInput">
-
-                    <label for="selectSupplier" class="label">Proveedor</label>
-                    <select name="selectSupplier" id="filterSupplier2" class="input1 M">
-                        <option value="default"></option>
-                        <% data.suppliers.forEach(supplier => { %>
-                            <option value="<%= supplier.id %>">
-                                <%= supplier.supplier %>
-                            </option>
-                        <% }) %>
-                    </select>
-
-                </div>
-
-                <div class="divInput">
-                    <label for="year" class="label">Año</label>
-                    <input type="text" name="year" class="input1 S" id="filterYear2">
-                </div>
-
-                <div class="filterAction">
-                    <i class="fa-solid fa-filter-circle-xmark" id="deleteFilters2"></i>
-                </div>
-
-            </div>
-
-            <div class="divFiltersData">
-                <div id="totalFob2"></div>
-                <div id="totalQty2"></div>
-            </div>
-
-            <!------------TABLE------------>
-            <div class="divTable">
-                <table>
-                    <thead>
-                        <tr>
-                            <th class="theadM thTall thLeftBorder">Importación</th>
-                            <th class="theadM thTall">Recepción</th>
-                            <th class="theadXL thTall">Proveedor</th>
-                            <th class="theadM thTall">FOB</th>
-                            <th class="theadS thTall">Moneda</th>
-                            <th class="theadS thTall thRightBorder">Costo %</th>                            
-                        </tr>
-                    </thead>
-                    <tbody id="importsBody2">
-                        
-                    </tbody>
-                </table>
-            </div>    
-        </div>
+            
     </div>
 </div>
 

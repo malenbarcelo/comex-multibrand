@@ -39,8 +39,6 @@ window.addEventListener('load',async()=>{
             const idSupplier = filterSupplier1.value
             const year = filterYear1.value
             let filteredImports = []
-
-            console.log(year)
     
             //get filtered imports
             if (year == '') {
@@ -106,14 +104,12 @@ function printResumedImports(importsToPrint) {
 
     //get and complete resumed data
     const totalFob1 = document.getElementById('totalFob1')
-    const totalQty1 = document.getElementById('totalQty1')
 
     const fobToPrint = importsToPrint.reduce((accumulator, importData) => {
         return accumulator + parseFloat(importData.total_fob,4)
     }, 0)
 
     totalFob1.innerHTML = '<b>FOB:</b> ' + fobToPrint.toLocaleString(undefined,formatOptions)
-    totalQty1.innerHTML = '<b>Cantidad:</b> ' + importsToPrint.length 
 
     //print table
     let counter = 0
