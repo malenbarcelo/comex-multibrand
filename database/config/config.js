@@ -1,6 +1,6 @@
-const username = "root"
-const password = "30941767"
-const database = "multibrand_db"
+const username = "multibrandwnpowe_multibrand_adm"
+const password = "multibrandcomex"
+const database = "multibrandwnpowe_db"
 
 module.exports = 
 {

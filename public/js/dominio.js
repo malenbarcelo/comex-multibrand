@@ -1,1 +1,1 @@
-export const dominio = 'http://localhost:3001/'
+export const dominio = 'https://multibrand.wnpower.host/'
