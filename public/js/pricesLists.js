@@ -184,17 +184,18 @@ window.addEventListener('load',async()=>{
                         popup.style.display = 'block'
                     })
 
-                    deleteItem.addEventListener("click", () => {
+                    if (deleteItem) {
+                        deleteItem.addEventListener("click", () => {
 
-                        formDeleteItem.action = '/data/' + idBrunch + '/delete-item/' + supplier + '/' + element.id
-
-                        //complete text
-                        deleteItemText.innerHTML = 'Confirma que desea eliminar el item <b>' + element.item + '</b> ?'
+                            formDeleteItem.action = '/data/' + idBrunch + '/delete-item/' + supplier + '/' + element.id
     
-                        //show popup
-                        deleteItemPopup.style.display = 'block'
-                    })
-                    
+                            //complete text
+                            deleteItemText.innerHTML = 'Confirma que desea eliminar el item <b>' + element.item + '</b> ?'
+        
+                            //show popup
+                            deleteItemPopup.style.display = 'block'
+                        })
+                    }
                 })
             }
         }
