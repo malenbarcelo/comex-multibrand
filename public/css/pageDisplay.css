@@ -6,6 +6,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
 }
 .content{
     height: 72vh;

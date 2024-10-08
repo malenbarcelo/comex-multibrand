@@ -1,14 +1,5 @@
 /*@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');*/
 
-:root{
-    --color1:#15A89D;
-    --color2: #F5F5F5;
-    --color3:#d7dcdc;
-    --color4:white;
-    --color5:#787878;
-    --color6:rgb(91, 90, 90);
-    --fontSize:14px;
-}
 
 .topHeader{
     display: flex;
@@ -74,7 +65,7 @@
     height: 25%;
     background-color: var(--color4);
     border-bottom: var(--color3) solid 1px;
-    position: relative;
+    position: relative; 
 }
 
 .itemsMenu{

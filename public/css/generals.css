@@ -1,9 +1,9 @@
 :root{
     --color1:#15A89D;
-    --color2: #F5F5F5;
-    --color3: #efeded;
-    --color5: #e2dfdf;
-    --color6:#d7dcdc;
+    --color2:#F4F4F4;
+    --color3:#94C6C4;
+    
+    --errorColor:rgb(221, 7, 7);
 }
 
 /*-------Generals-------*/
@@ -59,23 +59,32 @@ a{
     font-weight: bold;
 }
 
+.invalidInput{
+    border: var(--errorColor) solid 2px !important;
+}
+
+.invalidLabel{
+    color: var(--errorColor);
+    font-weight: bold;
+}
+
 /*----------margins----------*/
-.mtS{
+.mts{
     margin-top: 5px;
 }
-.mbS{
+.mbs{
     margin-bottom: 5px;
 }
-.mtM{
+.mtm{
     margin-top: 15px;
 }
-.mbM{
+.mbm{
     margin-bottom: 15px;
 }
-.mtL{
+.mtl{
     margin-top: 30px;
 }
-.mbL{
+.mbl{
     margin-bottom: 30px;
 }
 

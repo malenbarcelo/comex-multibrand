@@ -1,71 +1,189 @@
-:root{
-    --color1:#15A89D;
-    --color2: #F5F5F5;
-    --color3:#d7dcdc;
-    --color4:white;
-    --color5:#787878;
-    --color6:rgb(91, 90, 90);
-    --fontSize:14px;
+/*----------GENERAL----------*/
+input, select, textarea{
+    outline:none
 }
 
-.enabledInput{
-    color:var(--color6)
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}/*Hide arrows from input type number*/
+
+input[type="checkbox"]:checked {
+    accent-color: black
 }
 
+input[type="radio"]:checked {
+accent-color: black
+}
+
+/*----------DIV INPUTS----------*/
+.divInputsRow{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 15px;
+    position: relative;
+}
+
+.divInputsColumn{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/*----------INPUTS ADN LABELS----------*/
 .divInput{
     position: relative;
     display: flex;
     flex-direction: column;
 }
 
-.divInputs{
-    display: flex;
-    justify-content: center;
-    margin-bottom: 25px;
-}
-
-/*--------INPUTS--------*/
 .input1{
     text-align: center;
-    border: grey solid 1px;
-    border-radius: 5px;
-    padding: 8px 0px 6px 0px;
-    font-size: 13px;
-    background-color: var(--color4);
+    border:black solid 1px;
 }
 
-.S{ 
-    width: 100px;
+.unabledInput{
+    border: #6d6c6c solid 1px;
+    color: #6d6c6c;
 }
 
-.L{
-    width: 130px;
-}
-
-.M{
-    width: 160px;
-}
-
-.XL{
-    width: 250px;
-}
-
-.XXL{
-    width: 280px;
-    padding: 12px 0px 10px 0px;
-}
-
-.XXXL{
-    width: 300px;
-}
-
-
-/*--------LABELS--------*/
-.label{
+.label1{
     position: absolute;
-    font-size: 13px;
     left: 8px;
     top: -8px;
     padding: 0px 5px;
+    font-weight: bold;
     background-color: white;
+}
+
+.label2{
+    position: absolute;
+    left: 8px;
+    top: -8px;
+    padding: 0px 5px;
+    font-size: 13px;
+    background-color: white;
+}
+
+.label3{
+    position: absolute;
+    left: 8px;
+    top: -8px;
+    padding: 0px 5px;
+    font-size: 13px;
+    background-color: white;
+    font-weight: bold;
+}
+
+.unabledLabel{
+    color: #6d6c6c;
+}
+
+/*----------INPUTS AND SELECTS SIZES----------*/
+
+.ixs{
+    width: 55px;
+}
+
+.is{
+    width: 110px;
+}
+
+.ss{
+    width: 110px;
+}
+
+.im{
+    width: 150px;
+}
+
+.sm{
+    width: 200px;
+}
+
+.il{
+    width: 250px;
+}
+
+.sl{
+    width: 250px;
+}
+
+.ixl{
+    width: 300px;
+}
+
+.sxl{
+    width: 300px;
+}
+
+.ixxl{
+    width: 350px;
+}
+
+.sxxl{
+    width: 350px;
+}
+
+.sxxxl{
+    width: 400px;
+}
+
+.ixxxl{
+    width: 300px;
+}
+
+.sxxxxl{
+    width: 500px;
+}
+
+.ixxxxl{
+    width: 500px;
+}
+
+.ips{
+    padding: 3px 0px 3px 0px;
+}
+
+.ipm{
+    padding: 7px 0px 7px 0px;
+}
+
+.spm{
+    padding: 7px 0px 7px 0px;
+}
+
+.ipl{
+    padding: 10px 0px 8px 0px;
+}
+
+.spl{
+    padding: 10px 0px 8px 0px;
+}
+
+/*----------DIV CHECKBOX----------*/
+.divCheckbox1{
+    font-size: 13px;
+    font-weight: lighter;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.divCheckbox2{
+    font-size: 13px;
+    display: flex;
+    align-items:center;
+    width: 200px;
+    background-color: white;
+    padding: 3px 0px;
+    height: 1.5rem;    
+}
+
+.absoluteCheck{
+    position: absolute;
+    bottom: 3px;
 }

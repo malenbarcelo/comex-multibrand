@@ -34,8 +34,8 @@ module.exports = (sequelize, DataTypes) => {
       }
    }
    const config = {
-   tableName : 'suppliers',
-   timestamps : false
+      tableName : 'suppliers',
+      timestamps : false
    }
 
    const Supplier = sequelize.define(alias, cols, config)
@@ -48,7 +48,15 @@ module.exports = (sequelize, DataTypes) => {
       Supplier.belongsTo(models.Countries,{
          as:'supplier_country',
          foreignKey: 'id_countries'
-     })
+      }),
+      Supplier.hasMany(models.Data_suppliers_volume_factors,{
+         as:'supplier_factors',
+         foreignKey: 'id_suppliers'
+      })
+      Supplier.hasMany(models.Data_suppliers_brunches,{
+         as:'supplier_brunches',
+         foreignKey: 'id_suppliers'
+      })
    }
    
    return Supplier

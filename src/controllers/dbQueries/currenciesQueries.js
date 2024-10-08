@@ -9,15 +9,24 @@ const currenciesQueries = {
         return currencies
     },
     brunchCurrencies: async(idBrunch) => {
-        const brunchCurrencies = await db.Currencies_exchange.findAll({
-            where:{id_brunches:idBrunch},
+        const currencies = await db.Currencies.findAll({
             include: [
-                { association: 'currency_exchange_currency'}
+                {
+                    association: 'currency_exchange',
+                    where:{
+                        id_brunches: idBrunch
+                    },
+                }
             ],
-            raw:true,
-            nest:true
+            order:[['currency','ASC']],
+            nest:true,
         })
-        return brunchCurrencies
+
+        currencies.forEach(currency => {
+            currency.currency_exchange.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+        })
+
+        return currencies
     },
     createCurrency: async(currencyName) => {
         const currency = await db.Currencies.findOne({
@@ -30,12 +39,13 @@ const currenciesQueries = {
             })
         }
     },
-    createCurrencyExchange: async(idBrunch,idCurrency,currencyExchange) => {
+    createExchangeRate: async(idBrunch,idUser,idCurrency,exchange) => {
         await db.Currencies_exchange.create({
             id_brunches:idBrunch,
             id_currencies: idCurrency,
-            currency_exchange:currencyExchange
-            })
+            currency_exchange:exchange,
+            id_users: idUser
+        })
     },
     currencyExchangeData: async(idCurrencyExchange) => {
         const currencyExchangeData = await db.Currencies_exchange.findOne({

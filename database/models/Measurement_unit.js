@@ -18,8 +18,8 @@ module.exports = (sequelize, DataTypes) => {
       }
    }
    const config = {
-   tableName : 'measurement_units',
-   timestamps : false
+      tableName : 'measurement_units',
+      timestamps : false
    }
    const Measurement_unit = sequelize.define(alias, cols, config)
    

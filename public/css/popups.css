@@ -1,189 +1,5 @@
-:root{
-    --color1:#15A89D;
-    --color2: #F5F5F5;
-    --color3: #efeded;
-    --color4: white;
-    --color5: #e2dfdf;
-    --color6:#d7dcdc;
-}
-
-/*------SIDE POPUPS------*/
-.sidePopup{
-    position: fixed;
-    top: 0;
-    left: 0;
-    overflow-x: hidden;
-    height:100%;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
-    display: none;
-    animation: slideIn 0.6s forwards;
-    background-color: var(--color4);
-    width: 500px;
-    z-index: 5;
-}
-
-.divClosePopup{
-    display: flex;
-    justify-content: end;
-}
-
-.closePopup{
-    background-color: var(--color1);
-    color: var(--color2);
-    padding: 5px 8px;
-    margin-top: 10px;
-    margin-right: 10px;
-    margin-bottom: 35px;
-    cursor: pointer;
-    border-radius: 3px;
-}
-
-.closePopup:hover{
-    background-color: var(--color7);
-}
-
-.popupContent{
-    margin: auto;
-    margin-top: 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    row-gap: 10px;
-}
-
-/*-----acceptCancelPopup.ejs------*/
-.acceptCancelPopup {
-    display: none;
-    position: fixed;
-    z-index: 9;
-    left: 0;
-    top: 0;
-    width: 1300px;
-    height: 100%;
-    background-color: rgba(0,0,0,0.6);
-}
-
-.acceptCancelContent{
-    margin: 20% auto;
-    padding: 10px;
-    width: 280px;
-    border-radius: 5px;
-    background-color: white;
-    position: relative;
-    border: var(--color1) solid 3px;
-    display: flex;
-    flex-direction: column;
-    row-gap: 5px;
-}
-
-.acceptCancelClosePopup{
-    position: absolute;
-    top: 6px;
-    right: 6px;
-    font-size: 11px;
-    border: var(--color1) solid 2px;
-    color: var(--color1);
-    padding: 2px 4px;
-    border-radius: 3px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.acceptCancelClosePopup:hover{
-    background-color: var(--color1);
-    color: var(--color2);
-}
-
-.divAcceptCancelText{
-    display: flex;
-    flex-direction: column;
-    row-gap: 30px;
-    margin-top: 25px;
-    margin-bottom: 25px;
-    justify-content: center;
-    align-items: center;
-    border: red solid 1px;
-}
-.divAcceptCancelInputs{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: -10px;
-}
-
-/*-----infoPopup.ejs------*/
-.infoPopup{
-    display: none;
-    padding: 10px;
-    width: 250px;
-    border-radius: 5px;
-    border: black solid 1px;
-    background-color: var(--color8);
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    z-index: 5;
-}
-
-.divInfoText{
-    display: flex;
-    column-gap: 15px;
-    justify-content: center;
-    align-items: center;
-}
-
-.infoText{
-    font-size: 12px;
-    display: flex;
-    flex-direction: column;
-    row-gap: 7px;
-}
-
-.infoIcon{
-    font-size: 25px;
-    color:red;
-}
-
-/*-----alertPopup.ejs------*/
-.alertPopup{
-    display: none;
-    margin: 20% auto;
-    padding: 10px;
-    width: 350px;
-    border-radius: 5px;
-    border: #F7C630 solid 2px;
-    background-color: var(--color4);
-    position: absolute;
-    bottom: -700px;
-    left: 105px;
-    z-index: 5;
-}
-
-.divAlertText{
-    display: flex;
-    column-gap: 10px;
-    margin-top: 15px;
-    margin-bottom: 20px;
-    justify-content: center;
-    align-items: center;
-}
-
-.alertText{
-text-align: center;
-font-size: 13px;
-display: flex;
-flex-direction: column;
-row-gap: 5px;
-}
-
-.alertIcon{
-    font-size: 25px;
-    color:#F7C630;
-}
-
-/*------yesNoPopup.ejs------*/
-.yesNoPopup {
+/*------------POPUPS------------*/
+.pp{
     display: none;
     position: fixed;
     z-index: 1;
@@ -191,66 +7,163 @@ row-gap: 5px;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(0,0,0,0.6);    
 }
 
-.yesNoContent{
-    margin: 20% auto;
-    padding: 10px;
-    width: 280px;
+.pp2{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);    
+}
+
+.ppContent{    
+    padding: 5px 7px;    
     border-radius: 5px;
     background-color: white;
     position: relative;
     border: var(--color1) solid 3px;
+    font-size: 14px;
+    overflow: auto;
 }
 
-.divYesNoText{
+.ppIcons{
     display: flex;
-    column-gap: 5px;
-    margin-top: 25px;
-    margin-bottom: 25px;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 }
 
-.yesNoIcon{
-    font-size: 25px;
+/*ICONS*/
+.ppIcon1{
+    font-size: 18px;
     color: var(--color1);
-
 }
 
-.yesNoText{
-text-align: center;
-font-size: 14px;
+.ppIcon2{
+    font-size: 23px;
+    color: var(--color1);
 }
 
-.yesNoClosePopup{
-    position: absolute;
-    top: 6px;
-    right: 6px;
-    font-size: 11px;
-    border: var(--color1) solid 2px;
+.ppIcon3{
+    font-size: 26px;
     color: var(--color1);
-    padding: 2px 4px;
-    border-radius: 3px;
+}
+
+/*CLOSE*/
+.ppClose1{
+    font-size: 20px;
     cursor: pointer;
+    color: var(--color1);
+}
+
+.ppClose2{
+    font-size: 23px;
+    cursor: pointer;
+    color: var(--color1);
+}
+
+.ppClose3{
+    font-size: 26px;
+    cursor: pointer;
+    color: var(--color1);
+}
+
+.ppCloseIcon:hover{
+    color: var(--color3);
+}
+
+/*TITLES AND TEXTS*/
+.ppTitleS{
+    font-size: 16px;
     font-weight: bold;
+    text-align: center;
 }
 
-.yesNoClosePopup:hover{
-    background-color: var(--color1);
-    color: var(--color2);
+.ppTitleM{
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.ppText{
+    font-size: 14px;
+    text-align: center;
+    line-height: 1.8;
 }
 
 
-/*------------SPECIFIC------------*/
-/*-----createEditPo.ejs------*/
-#createEditPoPopup{
-    width: 1300px;
-    z-index: 6;
+
+/*----------okPopup----------*/
+.okPopup{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
 }
 
-#importDetailsPopup{
-    width: 900px;
-    z-index: 6;
+.okContent{    
+    padding: 5px 7px;    
+    border-radius: 5px;
+    position: relative;
+    border: green solid 3px;
+    background-color: rgb(173, 204, 173);
+    font-size: 16px;
+    padding: 15px 30px;
+    color: green;
+    top: 40%;
+    left: calc(50vw - 150px);
 }
+
+.okDiv{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 10px;
+}
+
+.okIcon1{
+    font-size: 25px;
+}
+
+/*----------errorPopup----------*/
+.errorPopup{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.errorContent{    
+    padding: 5px 7px;    
+    border-radius: 5px;
+    position: relative;
+    border: var(--errorColor) solid 3px;
+    background-color:rgb(228, 156, 156);
+    font-size: 16px;
+    padding: 15px 30px;
+    color: var(--errorColor);
+}
+
+.errorDiv{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 10px;
+}
+
+.errorIcon1{
+    font-size: 25px;
+}
+

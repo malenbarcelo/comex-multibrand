@@ -17,13 +17,23 @@ module.exports = (sequelize, DataTypes) => {
          allowNull: false,
       },
       currency_exchange:{
-      type: DataTypes.DECIMAL,
-      allowNull: false,
-      }
+         type: DataTypes.DECIMAL,
+         allowNull: false,
+      },
+      id_users:{
+         type: DataTypes.INTEGER,
+         allowNull: false,
+      },
+      created_at:{
+         type: DataTypes.DATE,
+         allowNull: false,
+      },
    }
    const config = {
-   tableName : 'currencies_exchange',
-   timestamps : false
+      tableName : 'currencies_exchange',
+      timestamps : true,
+      createdAt: 'created_at',
+      updatedAt: false
    }
 
    const Currency_exchange = sequelize.define(alias, cols, config)

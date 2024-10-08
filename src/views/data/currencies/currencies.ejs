@@ -2,44 +2,30 @@
 <%- include('../../partials/header') %>
 
 <div class="mainTitle">
-    <div class="titleL">Monedas</div>
+    MONEDAS
 </div>
 
-<div class="content">
+<!------MAIN CONTENT------>
+<div class="divTable" id="currrenciesTable">
 
-    <div class="divTable">
-        <table>
-            <thead>
-                <tr>
-                    <th class="theadL thLeftBorder thTall thData" id="create">
-                        Moneda
-                        <i class="fa-regular fa-square-plus newCurrency"></i>
-                    </th>
-                    <th class="theadL thTall">Tasa de cambio</th>
-                    <th class="theadS thRightBorder thTall"><i class="fa-regular fa-pen-to-square"></i></th>
-                </tr>
-            </thead>
-            <tbody>
-                <% for( let i = 0; i < data.brunchCurrencies.length; i++ ) { %>
-                    <tr>
-                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= data.brunchCurrencies[i].currency_exchange_currency.currency %></th>
-                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= data.brunchCurrencies[i].currency_exchange %></th>
-                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>" id="<%= 'edit_' + data.brunchCurrencies[i].id %>">
-                                <i class="fa-regular fa-pen-to-square thIcon1"></i>
-                        </th>
-                    </tr>
-                <% } %>
-            </tbody>
-        </table>
-    </div>
-
+    <table>
+        <thead>
+            <tr>
+                <th class="thCss thm thLeftBorder">Moneda</th>
+                <th class="thCss thm">Tasa de cambio</th>
+                <th class="thCss thxxs thRightBorder">
+                    <i class="fa-regular fa-pen-to-square icon"></i>
+                </th>
+        </thead>
+        <tbody id="bodyCurrencies"></tbody>
+    </table>
 </div>
 
-<%- include('./createEditCurrency') %>
-<script type="module" src="/js/currencies.js"></script>
+<!----------LOADER---------->
+<div class="loader" id="currenciesLoader"></div>
 
+<!----------POPUPS---------->
+<%- include('./currenciesCECPP') %>
 
-
-
-
-
+<!----------SCRIPTS---------->
+<script type="module" src="/js/data/currencies/currencies.js"></script>

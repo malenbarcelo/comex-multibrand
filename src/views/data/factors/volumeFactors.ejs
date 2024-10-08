@@ -1,0 +1,70 @@
+<%- include('../../partials/head') %>
+<%- include('../../partials/header') %>
+
+<div class="mainTitle">
+    FACTORES POR VOLUMEN
+</div>
+
+<!------GENERAL ACTIONS------>
+<div class="divDGAs" id="dgasVolumeFactors">
+    <div class="divDGA divDGAm" id="createVolumeFactor">
+        <i class="fa-regular fa-square-plus"></i>
+        <div class="DGAinfoAside">
+            Crear factor
+        </div>        
+    </div>
+</div>
+
+<!------MAIN CONTENT------>
+<div class="divTable" id="factorsTable">
+
+    <table>
+        <thead>
+            <tr>
+                <th rowspan="2" class="thCss2 thm thLeftBorder">Proveedor</th>
+                <th colspan="2" class="thCss2">Volumen standard</th>
+                <th rowspan="2" class="thCss2 thxxs">Cont. std</th>
+                <th colspan="2" class="thCss2">Flete</th>
+                <th colspan="2" class="thCss2">Gastos terminal</th>
+                <th colspan="2" class="thCss2">Gastos despacho</th>
+                <th colspan="2" class="thCss2">Gastos agencia marítima</th>
+                <th colspan="2" class="thCss2">Flete interno</th>
+                <th rowspan="2" class="thCss2 thxs">Gastos por volumen</th>
+                <th rowspan="2" class="thCss2 ths">UM</th>
+                <th rowspan="2" class="thCss2 thxxs">Agente aduana</th>
+                <th rowspan="2" class="thCss2 thxxs">Seguro</th>
+                <th rowspan="2" class="thCss2 thxxs">Transf.</th>
+                <th rowspan="2" class="thCss2 thxs">Derecho de importación</th>
+                <th rowspan="2" class="thCss2 thxxs">Margen de venta</th>
+                <th rowspan="2" class="thCss2 thxxxs thRightBorder">
+                    <i class="fa-regular fa-pen-to-square icon"></i>
+                </th>
+            </tr>
+            <tr>
+                <th class="thCss2 thxs">Volumen</th>
+                <th class="thCss2 thxxs">UM</th>
+                <th class="thCss2 thxxs">vol std</th>
+                <th class="thCss2 thxxs">por UM</th>
+                <th class="thCss2 thxxs">vol std</th>
+                <th class="thCss2 thxxs">por UM</th>
+                <th class="thCss2 thxxs">vol std</th>
+                <th class="thCss2 thxxs">por UM</th>
+                <th class="thCss2 thxxs">vol std</th>
+                <th class="thCss2 thxxs">por UM</th>
+                <th class="thCss2 thxxs">vol std</th>
+                <th class="thCss2 thxxs">por UM</th>
+            </tr>
+        </thead>
+        <tbody id="bodyVolumeFactors"></tbody>
+    </table>
+</div>
+
+<!----------LOADER---------->
+<div class="loader" id="volumeFactorsLoader"></div>
+
+<!----------POPUPS---------->
+<%- include('./volumeFactorsCVFPP') %>
+
+<!----------SCRIPTS---------->
+<script type="module" src="/js/data/volumeFactors/volumeFactors.js"></script>
+

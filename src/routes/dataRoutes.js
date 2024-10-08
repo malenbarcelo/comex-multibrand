@@ -1,8 +1,7 @@
 const express = require('express')
-const dataController = require('../controllers/dataController.js')
-const currenciesValidations = require('../validations/currenciesValidations.js')
-const countriesValidations = require('../validations/countriesValidations.js')
-const pricesListsValidations = require('../validations/pricesListsValidations.js')
+const currenciesController = require('../controllers/data/currenciesController.js')
+const factorsController = require('../controllers/data/factorsController.js')
+const suppliersController = require('../controllers/data/suppliersController.js')
 
 const multer = require('multer')
 const path = require('path')
@@ -22,41 +21,58 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage: storage})
 
-router.get('/:idBrunch/currencies',dataController.currencies)
-router.post('/:idBrunch/create-edit-currency',dataController.createEditCurrencyProcess)
-router.get('/:idBrunch/measurement-units',dataController.measurementUnits)
-router.post('/:idBrunch/create-mu',dataController.createMUProcess)
-router.get('/:idBrunch/prices-lists/:idSupplier',dataController.pricesLists)
-router.post('/:idBrunch/create-edit-item',dataController.createEditItemProcess)
+//////CURRENCIES//////
+//BACKEND
+router.get('/:idBrunch/currencies',currenciesController.currencies)
+//APIS
+router.get('/currencies/:idBrunch/brunch-currencies',currenciesController.brunchCurrencies)
+router.post('/currencies/:idBrunch/create-exchange-rate',currenciesController.createExchangeRate)
+
+//////FACTORS//////
+//BACKEND
+router.get('/:idBrunch/volume-factors',factorsController.volumeFactors)
+//APIS
+router.get('/factors/:idBrunch/volume-factors',factorsController.suppliersVolumeFactors)
+
+//////SUPPLIERS//////
+//BACKEND
+//router.get('/:idBrunch/volume-factors',factorsController.volumeFactors)
+//APIS
+router.get('/suppliers',suppliersController.suppliers)
 
 
 
 
-router.get('/:idBrunch/edit-currency/:idCurrencyExchange',dataController.editCurrency)
-router.post('/:idBrunch/edit-currency/:idCurrencyExchange',currenciesValidations.editCurrency,dataController.editCurrencyProcess)
-router.get('/:idBrunch/create-currency',dataController.createCurrency)
-router.post('/:idBrunch/create-currency',currenciesValidations.createCurrency,dataController.createCurrencyProcess)
-router.get('/:idBrunch/countries',dataController.countries)
-router.get('/:idBrunch/create-country',dataController.createCountry)
-router.post('/:idBrunch/create-country',countriesValidations.createCountry,dataController.createCountryProcess)
-router.get('/:idBrunch/edit-country/:idCountry',dataController.editCountry)
-router.post('/:idBrunch/edit-country/:idCountry',countriesValidations.editCountry,dataController.editCountryProcess)
-router.post('/:idBrunch/upload-price-list/:idSupplier', upload.single('priceList'),pricesListsValidations.uploadPriceList,dataController.uploadPriceList)
-router.get('/:idBrunch/create-item/:idSupplier',dataController.createItem)
+// router.post('/:idBrunch/create-edit-currency',dataController.createEditCurrencyProcess)
+// router.get('/:idBrunch/measurement-units',dataController.measurementUnits)
+// router.post('/:idBrunch/create-mu',dataController.createMUProcess)
+// router.get('/:idBrunch/prices-lists/:idSupplier',dataController.pricesLists)
+// router.post('/:idBrunch/create-edit-item',dataController.createEditItemProcess)
+// router.get('/:idBrunch/edit-currency/:idCurrencyExchange',dataController.editCurrency)
+// router.post('/:idBrunch/edit-currency/:idCurrencyExchange',currenciesValidations.editCurrency,dataController.editCurrencyProcess)
+// router.get('/:idBrunch/create-currency',dataController.createCurrency)
+// router.post('/:idBrunch/create-currency',currenciesValidations.createCurrency,dataController.createCurrencyProcess)
+// router.get('/:idBrunch/countries',dataController.countries)
+// router.get('/:idBrunch/create-country',dataController.createCountry)
+// router.post('/:idBrunch/create-country',countriesValidations.createCountry,dataController.createCountryProcess)
+// router.get('/:idBrunch/edit-country/:idCountry',dataController.editCountry)
+// router.post('/:idBrunch/edit-country/:idCountry',countriesValidations.editCountry,dataController.editCountryProcess)
+// router.post('/:idBrunch/upload-price-list/:idSupplier', upload.single('priceList'),pricesListsValidations.uploadPriceList,dataController.uploadPriceList)
+// router.get('/:idBrunch/create-item/:idSupplier',dataController.createItem)
 
-router.get('/:idBrunch/download-price-list/:idSupplier',dataController.downloadPriceList)
-router.post('/:idBrunch/delete-item/:idSupplier/:idItem',dataController.deleteItem)
-router.get('/:idBrunch/suppliers',dataController.suppliers)
-router.get('/:idBrunch/edit-supplier/:idSupplier',dataController.editSupplier)
-router.post('/:idBrunch/edit-supplier/:idSupplier',dataController.editSupplierProcess)
-router.get('/:idBrunch/create-supplier',dataController.createSupplier)
-router.post('/:idBrunch/create-supplier',dataController.createSupplierProcess)
-router.get('/:idBrunch/edit-mu/:idMU',dataController.editMU)
-router.post('/:idBrunch/edit-mu/:idMU',dataController.editMUProcess)
-router.get('/:idBrunch/prices-lists/:idSupplier',dataController.pricesLists)
-router.post('/:idBrunch/prices-lists/:idSupplier',dataController.pricesLists)
-router.get('/:idBrunch/edit-item/:idItem',dataController.editItem)
-router.post('/:idBrunch/edit-item/:idItem',dataController.editItemProcess)
+// router.get('/:idBrunch/download-price-list/:idSupplier',dataController.downloadPriceList)
+// router.post('/:idBrunch/delete-item/:idSupplier/:idItem',dataController.deleteItem)
+// router.get('/:idBrunch/suppliers',dataController.suppliers)
+// router.get('/:idBrunch/edit-supplier/:idSupplier',dataController.editSupplier)
+// router.post('/:idBrunch/edit-supplier/:idSupplier',dataController.editSupplierProcess)
+// router.get('/:idBrunch/create-supplier',dataController.createSupplier)
+// router.post('/:idBrunch/create-supplier',dataController.createSupplierProcess)
+// router.get('/:idBrunch/edit-mu/:idMU',dataController.editMU)
+// router.post('/:idBrunch/edit-mu/:idMU',dataController.editMUProcess)
+// router.get('/:idBrunch/prices-lists/:idSupplier',dataController.pricesLists)
+// router.post('/:idBrunch/prices-lists/:idSupplier',dataController.pricesLists)
+// router.get('/:idBrunch/edit-item/:idItem',dataController.editItem)
+// router.post('/:idBrunch/edit-item/:idItem',dataController.editItemProcess)
 
 
 

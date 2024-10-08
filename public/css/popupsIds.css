@@ -1,0 +1,38 @@
+/*-----createEditPo.ejs------*/
+#createEditPoPopup{
+    width: 1300px;
+    z-index: 6;
+}
+
+#importDetailsPopup{
+    width: 900px;
+    z-index: 6;
+}
+
+/*-----currencies.ejs------*/
+/*cecpp*/
+#cecppContent{
+    top: 25%;
+    width: 400px;
+    left: calc(50vw - 210px);
+}
+
+#cecppOkContent{
+    width: 300px;
+    top: 40%;
+    left: calc(50vw - 183px);
+}
+
+/*-----factors.ejs------*/
+#cvfppContent{
+    top: 5%;
+    width: 500px;
+    left: calc(50vw - 210px);
+    max-height: 600px;
+}
+
+#cvfppOkContent{
+    width: 300px;
+    top: 40%;
+    left: calc(50vw - 183px);
+}

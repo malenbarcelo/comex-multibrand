@@ -46,7 +46,10 @@ app.listen(APP_PORT,() => console.log("Servidor corriendo en puerto " + APP_PORT
 //Routes
 app.use('/',indexRoutes)
 app.use('/users',usersRoutes)
+
 app.use('/data',dataRoutes)
+app.use('/data/apis',dataRoutes)
+
 app.use('/imports',importsRoutes)
 app.use('/statistics',statisticsRoutes)
 app.use('/apis',apisRoutes)

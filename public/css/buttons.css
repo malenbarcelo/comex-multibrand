@@ -1,19 +1,7 @@
-:root{
-    --color1:#15A89D;
-    --color2: #F5F5F5;
-    --color3:#d7dcdc;
-    --color4:white;
-    --color5:#787878;
-    --color6:rgb(91, 90, 90);
-    --color7: rgb(148,198,195);
-    --fontSize:14px;
-}
-
 .divButtonsRow{
     display: flex;
     column-gap: 7px;
     justify-content: center;
-    margin-top: 20px;
 }
 
 .divButtonsColumn{
@@ -33,8 +21,17 @@
     font-weight: bold;
     border: none;
     font-size: 13px;
-    color: var(--color4);
+    color: var(--color2);
     border: var(--color1) solid 2px;
+}
+
+.button1:hover{
+    background-color: var(--color3);
+    border: var(--color3) solid 2px;
+}
+
+.button2:hover{
+    background-color:black
 }
 
 .yellowButton{
@@ -66,14 +63,7 @@
     font-size: 14px;
 }/*xlarge button*/
 
-.button1:hover{
-    background-color: var(--color4);
-    color: var(--color1);
-}
 
-.button2:hover{
-    background-color:black
-}
 
 .yellowButton:hover{
     background-color: white;

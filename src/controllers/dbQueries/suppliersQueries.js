@@ -1,15 +1,18 @@
 const db = require('../../../database/models')
 const sequelize = require('sequelize')
 
+
 const suppliersQueries = {
     allSuppliers: async() => {
         const allSuppliers = await db.Suppliers.findAll({
             order:['supplier'],
             include: [
                 {association: 'supplier_currency'},
-                {association: 'supplier_country'}
+                {association: 'supplier_country'},
+                {association: 'supplier_factors'},
+                {association: 'supplier_brunches'},
+
             ],
-            raw:true,
             nest:true
         })
         return allSuppliers

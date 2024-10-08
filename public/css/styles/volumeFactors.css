@@ -1,0 +1,12 @@
+/*-----CVFPP-----*/
+.divFactorData{
+    border:grey solid 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 3px;
+}
+
+.factorDataText{
+    font-size: 13px;
+}

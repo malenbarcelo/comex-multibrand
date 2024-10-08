@@ -1,0 +1,68 @@
+/*-----------------------------general actions-----------------------------*/
+.divDGAs{
+    display: flex;
+    column-gap: 12px;
+    position: absolute;    
+}
+
+.divDGA{
+    color: black;  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+/*SIZE*/
+.divDGAm{
+    height: 30px;
+    width: 30px;
+    font-size: 30px;
+}
+
+/*INFO*/
+.DGAinfo{
+    display: none;
+    padding: 2px 5px;
+    position: absolute;
+    font-size: 13px;
+    border-radius: 3px;
+    top:-25px;
+    text-align: center;
+    width: 150px;
+    color: black;
+    font-weight: bold;
+}
+
+.DGAinfoAside{
+    display: none;
+    padding: 2px 5px;
+    position: absolute;
+    font-size: 13px;
+    border-radius: 3px;
+    top:0px;
+    left: 100%;
+    text-align: center;
+    width: 150px;
+    color: var(--color1);
+    text-align: left;
+}
+
+.divDGA:hover{
+    color:var(--color1);
+}
+
+.divDGA:hover .DGAinfo{
+    display: block;
+}
+
+.divDGA:hover .DGAinfoAside{
+    display: block;
+}
+
+/*-------------------------------------------------------------------------*/
+/*SPECIFIC*/
+#dgasVolumeFactors{
+    top: 20.5%;
+    right: 39%;
+}

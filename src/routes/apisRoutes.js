@@ -17,7 +17,6 @@ router.get('/:idBrunch/item-last-po',apisController.itemsLastPo)
 
 
 router.get('/:idBrunch/price-list/:idSupplier',apisController.priceList)
-router.get('/:idBrunch/brunch-currencies',apisController.brunchCurrencies)
 router.get('/:idBrunch/filter-supplier/:idSupplier',apisController.filterSupplier)
 router.get('/:idBrunch/filter-brunch',apisController.filterBrunch)
 router.get('/filter-purchase-order/:purchaseOrder',apisController.filterPurchaseOrder)

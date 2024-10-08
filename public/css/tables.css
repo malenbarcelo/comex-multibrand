@@ -1,21 +1,4 @@
-:root{
-    --color1:#15A89D;
-    --color2: #F5F5F5;
-    --color3:#d7dcdc;
-    --color4:white;
-    --color5:#787878;
-    --color6:rgb(91, 90, 90);
-    --color7: rgb(148,198,195);
-    --fontSize:14px;
-    --color8: #f3f0f0;
-}
-
-/*------GENERALS------*/
-th{
-    font-size: 13px;
-    text-align: center;
-}
-
+/*---------------------tables---------------------*/
 table{
     margin: auto;
     border-collapse: collapse;
@@ -24,176 +7,124 @@ table{
 thead{
     position: sticky;
     top:0;
-}/*to leave titles fixed 
+}/*to leave titles fixed*/ 
 
-/*------divs conatining tables------*/
 .divTable{
-    max-height: 400px; /*to avoid overflow, it depends on the website landscape*/
     overflow-y: auto;
     width: fit-content;
     margin: auto;
-    position: relative;
 }
 
-/*------Thead------*/
-.theadXS{
-    width: 35px;
+.thCss{
+    text-align: center;
     background-color: var(--color1);
     color: var(--color2);
     padding: 4px;
-}/*XSmall size*/
+    font-size: 14px;
+    font-weight: lighter;
+    height: 1.5rem;
+}
 
-.theadS{
+.thCss2{
+    text-align: center;
+    background-color: var(--color1);
+    color: var(--color2);
+    padding: 3px;
+    font-size: 13px;
+    font-weight: lighter;
+    border: white solid 1px;
+}
+
+/*sizes*/
+.thxxxs{
+    width: 40px;
+}
+
+.thxxs{
+    width: 50px;
+}
+.thxs{
     width: 75px;
-    background-color: var(--color1);
-    color: var(--color2);
-    padding: 4px;
-}/*Small size*/
-
-.theadM{
-    width: 85px;
-    background-color: var(--color1);
-    color: var(--color2);
-    padding: 4px;
-}/*Medium size*/
-
-.theadL{
-    width: 130px;
-    background-color: var(--color1);
-    color: var(--color2);
-    padding: 4px;
-}/*Large size*/
-
-.theadXL{
+}
+.ths{
+   width: 100px;
+}
+.thm{
     width: 150px;
-    background-color: var(--color1);
-    color: var(--color2);
-    padding: 4px;
-}/*XLarge size*/
-
-.theadXXL{
+}
+.thl{
+    width: 200px;
+}
+.thxl{
     width: 250px;
-    background-color: var(--color1);
-    color: var(--color2);
-    padding: 4px;
-}/*XLarge size*/
+}
+.thxxl{
+    width: 300px;
+}
+.thxxxxl{
+    width: 400px;
+}
+
 
 .thLeftBorder{
-    border-top-left-radius: 10px;
+    border-top-left-radius: 15px;
 }/*Add radius to left top border*/
 
 .thRightBorder{
-border-top-right-radius: 10px;
+border-top-right-radius: 15px;
 }/*Add radius to right top border*/
 
-.thTall{
-    height: 25px;
+.thInfo{
+    font-size: 12px;
+    position: absolute;
+    display: none;
+    text-align: center;
 }
+
+.tableData{
+    position: absolute;
+    right: 6%;
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    margin-top: 10px;
+}
+
+
 
 /*------Tbody------*/
 .tBody1{
     font-weight: lighter;
     padding: 9px 0px;
+    font-size: 13px;
+}
+
+.tBody2{
+    font-weight: lighter;
+    padding: 2px 0px;
+    font-size: 12px;
 }
 
 .tBodyEven{
-    background-color: var(--color4);
+    background-color: white;
 }/*background when row number is even*/
 
 .tBodyOdd{
-    background-color: var(--color8);
+    background-color: var(--color1);
 }/*background when row number is odd*/
 
-
-/*-----------SPECIFIC-----------*/
-.thPo{
-    position: relative;
-}/*imports.ejs*/
-
-.thData{
-    position: relative;
-}/*currencies.ejs - measurementUnits.ejs*/
-
-.newPo{
-    color:var(--color2);
-    position: absolute;
-    right: 17px;
-    top: 12.5px;
-    font-size: 14px;
+.allowedIcon{
     cursor: pointer;
-}/*imports.ejs*/
-
-.newPo:hover{
-    color: var(--color7);
 }
 
-.newCurrency{
-    color:var(--color2);
-    position: absolute;
-    right: 25px;
-    top: 10px;
-    font-size: 14px;
-    cursor: pointer;
-}/*currencies.ejs*/
-
-.newCurrency:hover{
-    color: var(--color7);
+.notAllowedIcon{
+    color: rgb(159, 157, 157);
 }
 
-.newUser{
-    color:var(--color2);
-    position: absolute;
-    right: 24px;
-    top: 9px;
-    font-size: 15px;
-    cursor: pointer;
-}/*users.ejs*/
-
-.newMU{
-    color:var(--color2);
-    position: absolute;
-    right: 5px;
-    top: 10px;
-    font-size: 14px;
-    cursor: pointer;
-}/*measurementUnits.ejs*/
-
-.newMU:hover{
-    color: var(--color7);
+/*SPECIFIC*/
+#currenciesTable{
+    max-height: 380px; /*to avoid overflow, it depends on the website landscape*/
 }
 
-.newSupplier{
-    color:var(--color2);
-    position: absolute;
-    right: 25px;
-    top: 10px;
-    font-size: 14px;
-    cursor: pointer;
-}/*suppliers.ejs*/
 
-.newSupplier:hover{
-    color: var(--color7);
-}
-
-.newItem{
-    color:var(--color2);
-    position: absolute;
-    right: 12px;
-    top: 12px;
-    font-size: 15px;
-    cursor: pointer;
-}/*pricesLists.ejs*/
-
-.newItem:hover{
-    color: var(--color7);
-}
-
-.thIcon1{
-    font-size: 12px;
-    cursor: pointer;
-}/*imports.ejs*/
-
-#divCbxDutiesTarifs{
-    display: flex;
-    column-gap: 2px;
-}
