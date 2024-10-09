@@ -12,17 +12,17 @@
         
         <div class="divInputsColumn">
             <div class="divInput">
-                <label class="label2" id="vfppSupplierLabel">Proveedor</label>
+                <label class="label3" id="vfppSupplierLabel">Proveedor</label>
                 <select class="input1 il ipm"  id="cvfppSupplier"></select>
                 <div class="divError" id="cvfppSupplierError"></div>
             </div>
             <div class="divInput mts">
-                <label class="label2" id="cvfppStdVolumeLabel">Volúmen estándar</label>
+                <label class="label3" id="cvfppStdVolumeLabel">Volúmen estándar</label>
                 <input type="number" step="0.01" class="input1 il ipm" id="cvfppStdVolume" autocomplete="off">
                 <div class="divError" id="cvfppStdVolumeError"></div>
             </div>
             <div class="divInput mts">
-                <label class="label2" id="cvfppStdVolumeUMLabel">UM volúmen estándar</label>
+                <label class="label3" id="cvfppStdVolumeUMLabel">UM volúmen estándar</label>
                 <select class="input1 il ipm"  id="cvfppStdVolumeMU">
                     <option value=""></option>
                     <option value="m3">m3</option>
@@ -31,12 +31,12 @@
                 <div class="divError" id="cvfppStdVolumeUMError"></div>
             </div>
             <div class="divInput mts">
-                <label class="label2" id="cvfppStdCtnLabel">Contenedor estándar</label>
+                <label class="label3" id="cvfppStdCtnLabel">Contenedor estándar</label>
                 <input type="number" step="0.01" class="input1 il ipm" id="cvfppStdCtn" autocomplete="off">
                 <div class="divError" id="cvfppStdCtnError"></div>
             </div>
             <div class="divInput mts">
-                <label class="label2" id="cvfppStdFreightLabel">Flete</label>
+                <label class="label3" id="cvfppStdFreightLabel">Flete</label>
                 <div class="divFactorData ixxl ipl">
                     <input type="number" step="0.01" class="input1 ixs ips" id="cvfppStdFreight">
                     <div class="factorDataText" id="cvfppStdVolumeMUtext1"> -- </div>
@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="divInput mtm">
-                <label class="label2" id="cvfppStdTerminalExpensesLabel">Gastos terminal</label>
+                <label class="label3" id="cvfppStdTerminalExpensesLabel">Gastos terminal</label>
                 <div class="divFactorData ixxl ipl">
                     <input type="number" step="0.01" class="input1 ixs ips" id="cvfppStdTerminalExpenses">
                     <div class="factorDataText" id="cvfppStdVolumeMUtext2"> -- </div>
@@ -56,7 +56,7 @@
                 </div>
             </div>
             <div class="divInput mtm">
-                <label class="label2" id="cvfppStdDispatchExpensesLabel">Gastos despacho</label>
+                <label class="label3" id="cvfppStdDispatchExpensesLabel">Gastos despacho</label>
                 <div class="divFactorData ixxl ipl">
                     <input type="number" step="0.01" class="input1 ixs ips" id="cvfppStdDispatchExpenses">
                     <div class="factorDataText" id="cvfppStdVolumeMUtext3"> -- </div>
@@ -66,42 +66,67 @@
                 </div>
             </div>
             <div class="divInput mtm">
-                <label class="label2" id="cvfppStdMaritimeAgencyExpensesLabel">Gastos agencia marítima</label>
+                <label class="label3" id="cvfppStdMaritimeAgencyExpensesLabel">Gastos agencia marítima</label>
                 <div class="divFactorData ixxl ipl">
                     <input type="number" step="0.01" class="input1 ixs ips" id="cvfppStdMaritimeAgencyExpenses">
-                    <div class="factorDataText" id="cvfppStdVolumeMUtext3"> -- </div>
+                    <div class="factorDataText" id="cvfppStdVolumeMUtext4"> -- </div>
                     <input type="text" class="input1 unabledInput ixs ips" id="cvfppMaritimeAgencyExpenses" readonly>
-                    <div class="factorDataText" id="cvfppMU3"></div>
+                    <div class="factorDataText" id="cvfppMU4"></div>
                     <div class="divError" id="cvfppStdMaritimeAgencyExpensesError"></div>
                 </div>
             </div>
             <div class="divInput mtm">
-                <label class="label2" id="cvfppStdDomesticFreightLabel">Flete interno</label>
+                <label class="label3" id="cvfppStdDomesticFreightLabel">Flete interno</label>
                 <div class="divFactorData ixxl ipl">
                     <input type="number" step="0.01" class="input1 ixs ips" id="cvfppStdDomesticFreight">
-                    <div class="factorDataText" id="cvfppStdVolumeMUtext3"> -- </div>
+                    <div class="factorDataText" id="cvfppStdVolumeMUtext5"> -- </div>
                     <input type="text" class="input1 unabledInput ixs ips" id="cvfppDomesticFreight" readonly>
-                    <div class="factorDataText" id="cvfppMU3"></div>
+                    <div class="factorDataText" id="cvfppMU5"></div>
                     <div class="divError" id="cvfppStdDomesticFreightError"></div>
                 </div>
             </div>
+
             <div class="divInput mtm">
-                <label class="label2" id="cvfppTotalVolumeExpensesLabel">Gastos totales por volumen</label>
-                <input type="text" class="input1 il ipm" id="cvfppTotalVolumeExpenses" autocomplete="off" readonly>
+                <label class="label3 unabledLabel" id="cvfppTotalVolumeExpensesLabel">Gastos totales por volumen</label>
+                <input type="text" class="input1 il ipm unabledInput" id="cvfppTotalVolumeExpenses" autocomplete="off" readonly>
                 <div class="divError" id="cvfppTotalVolumeExpensesError"></div>
-                <div class="divInput mtm">
-                    <label class="label2" id="cvfppTotalVolumeExpensesLabel">Agente aduana %</label>
-                    <input type="text" class="input1 il ipm" id="cvfppTotalVolumeExpenses" autocomplete="off" readonly>
-                    <div class="divError" id="cvfppTotalVolumeExpensesError"></div>
-                </div>
             </div>
+
+            <div class="divInput mts">
+                <label class="label3" id="cvfppCustomAgentLabel">Agente aduana %</label>
+                <input type="number" step="0.01" class="input1 il ipm" id="cvfppCustomAgent" autocomplete="off">
+                <div class="divError" id="cvfppCustomAgentError"></div>
+            </div>
+
+            <div class="divInput mts">
+                <label class="label3" id="cvfppInsuranceLabel">Seguro %</label>
+                <input type="number" step="0.01" class="input1 il ipm" id="cvfppInsurance" autocomplete="off">
+                <div class="divError" id="cvfppInsuranceError"></div>
+            </div>
+
+            <div class="divInput mts">
+                <label class="label3" id="cvfppTransferenceLabel">Transferencia %</label>
+                <input type="number" step="0.01" class="input1 il ipm" id="cvfppTransference" autocomplete="off">
+                <div class="divError" id="cvfppTransferenceError"></div>
+            </div>
+
+            <div class="divInput mts">
+                <label class="label3" id="cvfppimportDutyLabel">Derecho de importación %</label>
+                <input type="number" step="0.01" class="input1 il ipm" id="cvfppimportDuty" autocomplete="off">
+                <div class="divError" id="cvfppimportDutyError"></div>
+            </div>
+
+            <div class="divInput mts">
+                <label class="label3" id="cvfppSalesMarginLabel">Margen de venta %</label>
+                <input type="number" step="0.01" class="input1 il ipm" id="cvfppSalesMargin" autocomplete="off">
+                <div class="divError" id="cvfppSalesMarginError"></div>
+            </div>
+            
         </div>
 
-        
-
-        <div class="divButtonsRow mtl mbs">
-            <div id="cvfppCreate" class="button1 sButton">Crear</div>
-            <div id="cvfppEdit" class="button1 sButton">Editar</div>
+        <div class="divButtonsRow mtm mbs">
+            <div id="cvfppCreate" class="button1 mButton">Crear</div>
+            <div id="cvfppEdit" class="button1 mButton">Editar</div>
         </div>
     </div>
 </div>

@@ -19,4 +19,17 @@ async function suppliersSelect() {
     })
 }
 
-export {getData,suppliersSelect}
+function sumVolumeExpenses() {
+
+    const terminalExpenses = cvfppTerminalExpenses.value == '?' ? 0 : parseFloat(cvfppTerminalExpenses.value,4)
+    const dispatchExpenses = cvfppDispatchExpenses.value == '?' ? 0 : parseFloat(cvfppDispatchExpenses.value,4)
+    const maritimeAgencyExpenses = cvfppMaritimeAgencyExpenses.value == '?' ? 0 : parseFloat(cvfppMaritimeAgencyExpenses.value,4)
+    const domesticFreight = cvfppDomesticFreight.value == '?' ? 0 : parseFloat(cvfppDomesticFreight.value,4)
+
+    cvfppTotalVolumeExpenses.value = (cvfppStdVolume.value == '' || cvfppStdVolume.value == 0) ? 0 : (terminalExpenses + dispatchExpenses + maritimeAgencyExpenses + domesticFreight).toFixed(4)
+
+}
+
+
+
+export {getData,suppliersSelect,sumVolumeExpenses}

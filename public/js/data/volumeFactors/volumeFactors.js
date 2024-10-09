@@ -3,7 +3,7 @@ import { dominio } from "../../dominio.js"
 import vfg from "./globals.js"
 import { closePopupsEventListeners } from "../../generalFunctions.js"
 import { printVolumeFactors } from "./printVolumeFactors.js"
-import { getData, suppliersSelect } from "./functions.js"
+import { getData, sumVolumeExpenses, suppliersSelect } from "./functions.js"
 
 //popups event listeners
 import { cvfppEventListeners} from "./volumeFactorsCVFPP.js"
@@ -26,8 +26,6 @@ window.addEventListener('load',async()=>{
     let closePopups = [cvfppClose]
     closePopupsEventListeners(closePopups)
 
-    
-
     //create factor
     createVolumeFactor.addEventListener('click',async()=>{
         cvfppTitle.innerText = 'CREAR FACTOR'
@@ -35,6 +33,7 @@ window.addEventListener('load',async()=>{
         cvfppCreate.style.display = 'block'
         vfg.action = 'create'
         suppliersSelect()
+        sumVolumeExpenses()
         cvfpp.style.display = 'block'
     })
 
