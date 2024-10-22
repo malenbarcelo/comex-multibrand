@@ -1,5 +1,8 @@
+import { dominio } from "../../dominio.js"
 import vfg from "./globals.js"
-import { sumVolumeExpenses } from "./functions.js"
+import { sumVolumeExpenses,getData } from "./functions.js"
+import { inputsValidation } from "../../generalFunctions.js"
+import { printVolumeFactors} from "./printVolumeFactors.js"
 
 //CREATE VOLUME FACTORS POPUP (CVFPP)
 async function cvfppEventListeners() {
@@ -84,6 +87,58 @@ async function cvfppEventListeners() {
     cvfppStdDomesticFreight.addEventListener('change',async()=>{
         cvfppDomesticFreight.value = (cvfppStdVolume.value == 0 || cvfppStdVolume.value == '' || cvfppStdDomesticFreight.value == '' || cvfppStdDomesticFreight.value == 0) ? '?' : parseFloat(cvfppStdDomesticFreight.value / cvfppStdVolume.value,4).toFixed(4)
         sumVolumeExpenses()
+    })
+
+    cvfppCreate.addEventListener('click',async()=>{
+
+        const inputs = [cvfppSupplier,cvfppStdVolume,cvfppStdVolumeMU,cvfppStdCtn,cvfppStdFreight,cvfppStdTerminalExpenses,cvfppStdDispatchExpenses,cvfppStdMaritimeAgencyExpenses,cvfppStdDomesticFreight,cvfppCustomAgent,cvfppInsurance,cvfppTransference,cvfppimportDuty,cvfppSalesMargin]
+        const errors = inputsValidation(inputs)
+
+        if (errors == 0) {
+            const data = {
+                id_brunches:parseInt(vfg.idBrunch),
+                id_suppliers:parseInt(cvfppSupplier.value),
+                std_volume:parseFloat(cvfppStdVolume.value,2),
+                volume_mu:cvfppStdVolumeMU.value,
+                std_container:parseFloat(cvfppStdCtn.value,3),
+                std_freight:parseFloat(cvfppStdFreight.value,3),
+                freight:parseFloat(cvfppFreight.value,3),
+                std_terminal_expenses:parseFloat(cvfppStdTerminalExpenses.value,3),
+                terminal_expenses:parseFloat(cvfppTerminalExpenses.value,3),
+                std_dispatch_expenses:parseFloat(cvfppStdDispatchExpenses.value,3),
+                dispatch_expenses:parseFloat(cvfppDispatchExpenses.value,3),
+                std_maritime_agency_expenses:parseFloat(cvfppStdMaritimeAgencyExpenses.value,3),
+                maritime_agency_expenses:parseFloat(cvfppMaritimeAgencyExpenses.value,3),
+                std_domestic_freight:parseFloat(cvfppStdDomesticFreight.value,3),
+                domestic_freight:parseFloat(cvfppDomesticFreight.value,3),
+                total_volume_expenses:parseFloat(cvfppTotalVolumeExpenses.value,3),
+                volume_expenses_mu:cvfppMU1.innerText,
+                custom_agent:parseFloat(cvfppCustomAgent.value,3)/100,
+                insurance:parseFloat(cvfppInsurance.value,3)/100,
+                transference:parseFloat(cvfppTransference.value,3)/100,
+                import_duty:parseFloat(cvfppimportDuty.value,3)/100,
+                sales_margin:parseFloat(cvfppSalesMargin.value,3)/100,
+                enabled:1
+            }
+
+            await fetch(dominio + 'data/apis/factors/create-volume-factor',{
+                method:'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            })
+
+            //show popup
+            volumeFactorsLoader.style.display = 'block'
+
+            //get data
+            await getData()
+
+            //print table
+            printVolumeFactors()
+
+            cvfpp.style.display = 'none'
+            
+        }
     })
 
     

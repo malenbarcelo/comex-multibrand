@@ -31,8 +31,12 @@ router.post('/currencies/:idBrunch/create-exchange-rate',currenciesController.cr
 //////FACTORS//////
 //BACKEND
 router.get('/:idBrunch/volume-factors',factorsController.volumeFactors)
+router.get('/:idBrunch/coeficient-factors',factorsController.coeficientFactors)
 //APIS
 router.get('/factors/:idBrunch/volume-factors',factorsController.suppliersVolumeFactors)
+router.get('/factors/:idBrunch/coeficient-factors',factorsController.suppliersCoeficientFactors)
+router.post('/factors/create-volume-factor',factorsController.createVolumeFactor)
+router.post('/factors/create-coeficient-factor',factorsController.createCoeficientFactor)
 
 //////SUPPLIERS//////
 //BACKEND

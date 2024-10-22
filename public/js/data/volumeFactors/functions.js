@@ -5,13 +5,14 @@ async function getData() {
     vfg.idBrunch = document.getElementById('idBrunch').innerText
     vfg.volumeFactors = await (await fetch(dominio + 'data/apis/factors/' + vfg.idBrunch + '/volume-factors')).json()
     const suppliers = await (await fetch(dominio + 'data/apis/suppliers')).json()
-    vfg.suppliers = suppliers.filter(s => s.supplier_brunches.some(b => b.id_brunches == vfg.idBrunch))
+    vfg.suppliers = suppliers.filter(s => s.cost_calculation == 'Volumen' && s.supplier_brunches.some(b => b.id_brunches == vfg.idBrunch))
+    console.log(vfg.suppliers)
 }
 
 async function suppliersSelect() {
     cvfppSupplier.innerHTML = '<option value=""></option>'
     vfg.suppliers.forEach(supplier => {
-        const factors = supplier.supplier_factors.filter(sf => sf.id_brunches == vfg.idBrunch)
+        const factors = supplier.supplier_volume_factors.filter(sf => sf.id_brunches == vfg.idBrunch)
         
         if (factors.length == 0) {
             cvfppSupplier.innerHTML += '<option value="' + supplier.id + '">' + supplier.supplier + '</option>'

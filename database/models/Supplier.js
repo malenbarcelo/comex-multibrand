@@ -50,9 +50,13 @@ module.exports = (sequelize, DataTypes) => {
          foreignKey: 'id_countries'
       }),
       Supplier.hasMany(models.Data_suppliers_volume_factors,{
-         as:'supplier_factors',
+         as:'supplier_volume_factors',
          foreignKey: 'id_suppliers'
-      })
+      }),
+      Supplier.hasMany(models.Data_suppliers_coeficient_factors,{
+         as:'supplier_coeficient_factors',
+         foreignKey: 'id_suppliers'
+      }),
       Supplier.hasMany(models.Data_suppliers_brunches,{
          as:'supplier_brunches',
          foreignKey: 'id_suppliers'

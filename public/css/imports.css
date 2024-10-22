@@ -322,13 +322,13 @@
   position: absolute;
   top: -8px;
   left: 8px;
-  background-color: var(--color4);
+  background-color: white;
   padding: 0px 5px;
   font-size: 13px;
 }
 
 .createEditPoLabel2{
-  background-color: var(--color4);
+  background-color: white;
   padding: 0px 5px;
   font-size: 15px;
   font-weight: bold;
@@ -405,7 +405,7 @@
   column-gap: 10px;
   justify-content: flex-end;
   position: absolute;
-  right: -5px;
+  right: 17px;
   top: 1px;
 }
 

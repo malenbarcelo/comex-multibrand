@@ -18,6 +18,29 @@ async function getData(idBrunch){
 }
 
 const importsController = {
+  //BACKEND
+  imports: async(req,res) =>{
+    try{
+      const idBrunch = req.params.idBrunch
+      const brunchData = await brunchesQueries.brunch(idBrunch)
+      const date =  new Date()
+      const year = ((date.getFullYear()).toString()).slice(-2)
+      const data = await getData(idBrunch)
+      const imports = await purchaseOrdersQueries.filterLast100(idBrunch)
+
+      imports.forEach(item => {
+        const date = new Date(item.po_date)
+        const dateString = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
+        item.dateString = dateString
+      })
+
+      return res.render('imports/imports',{title:'Importaciones',data,imports,brunchData})
+
+    }catch(error){
+      console.log(error)
+      return res.send('Ha ocurrido un error')
+    }
+  },
   //APIS
   receiveImport: async(req,res) =>{
     try{
@@ -43,27 +66,7 @@ const importsController = {
 
 
 
-  imports: async(req,res) =>{
-    try{
-      const idBrunch = req.params.idBrunch
-      const date =  new Date()
-      const year = ((date.getFullYear()).toString()).slice(-2)
-      const data = await getData(idBrunch)
-      const imports = await purchaseOrdersQueries.filterLast100(idBrunch)
-
-      imports.forEach(item => {
-        const date = new Date(item.po_date)
-        const dateString = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
-        item.dateString = dateString
-      })
-
-      return res.render('imports/imports',{title:'Importaciones',data,imports})
-
-    }catch(error){
-      console.log(error)
-      return res.send('Ha ocurrido un error')
-    }
-  },
+  
   importsFiltered: async(req,res) =>{
     try{
       const idBrunch = req.params.idBrunch

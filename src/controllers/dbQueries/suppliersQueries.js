@@ -9,7 +9,8 @@ const suppliersQueries = {
             include: [
                 {association: 'supplier_currency'},
                 {association: 'supplier_country'},
-                {association: 'supplier_factors'},
+                {association: 'supplier_volume_factors'},
+                {association: 'supplier_coeficient_factors'},
                 {association: 'supplier_brunches'},
 
             ],

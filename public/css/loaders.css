@@ -17,7 +17,12 @@
 }
 
 /*------------LOADERS POSITION------------*/
-#volumeFactorsLoader{
+#volumeFactorsLoader {
     top: 55%;
+    left: calc(50vw - 20px);
+}
+
+#coeficientFactorsLoader {
+    top: 40%;
     left: calc(50vw - 20px);
 }

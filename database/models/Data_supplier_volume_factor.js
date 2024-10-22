@@ -113,7 +113,7 @@ module.exports = (sequelize, DataTypes) => {
       tableName : 'data_suppliers_volume_factors',
       timestamps : true,
       createdAt: 'created_at',
-      updatedAt: false
+      updatedAt:false
    }
 
    const Data_supplier_volume_factor = sequelize.define(alias, cols, config)

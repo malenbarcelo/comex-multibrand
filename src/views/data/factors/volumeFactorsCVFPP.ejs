@@ -12,39 +12,40 @@
         
         <div class="divInputsColumn">
             <div class="divInput">
-                <label class="label3" id="vfppSupplierLabel">Proveedor</label>
+                <label class="label3" id="cvfppSupplierLabel">Proveedor</label>
                 <select class="input1 il ipm"  id="cvfppSupplier"></select>
-                <div class="divError" id="cvfppSupplierError"></div>
+                <div class="divError2" id="cvfppSupplierError">Debe seleccionar un proveedor</div>
             </div>
-            <div class="divInput mts">
+            <div class="divInput mtm">
                 <label class="label3" id="cvfppStdVolumeLabel">Volúmen estándar</label>
                 <input type="number" step="0.01" class="input1 il ipm" id="cvfppStdVolume" autocomplete="off">
-                <div class="divError" id="cvfppStdVolumeError"></div>
+                <div class="divError2" id="cvfppStdVolumeError">Debe completar el volúmen estándar</div>
             </div>
-            <div class="divInput mts">
-                <label class="label3" id="cvfppStdVolumeUMLabel">UM volúmen estándar</label>
+            <div class="divInput mtm">
+                <label class="label3" id="cvfppStdVolumeMULabel">UM volúmen estándar</label>
                 <select class="input1 il ipm"  id="cvfppStdVolumeMU">
                     <option value=""></option>
                     <option value="m3">m3</option>
                     <option value="f3">f3</option>
                 </select>
-                <div class="divError" id="cvfppStdVolumeUMError"></div>
+                <div class="divError2" id="cvfppStdVolumeMUError">Debe seleccionar una unidad de medida</div>
             </div>
-            <div class="divInput mts">
+            <div class="divInput mtm">
                 <label class="label3" id="cvfppStdCtnLabel">Contenedor estándar</label>
                 <input type="number" step="0.01" class="input1 il ipm" id="cvfppStdCtn" autocomplete="off">
-                <div class="divError" id="cvfppStdCtnError"></div>
+                <div class="divError2" id="cvfppStdCtnError">Debe completar el contenedor estándar</div>
             </div>
-            <div class="divInput mts">
+            <div class="divInput mtm">
                 <label class="label3" id="cvfppStdFreightLabel">Flete</label>
                 <div class="divFactorData ixxl ipl">
                     <input type="number" step="0.01" class="input1 ixs ips" id="cvfppStdFreight">
                     <div class="factorDataText" id="cvfppStdVolumeMUtext1"> -- </div>
                     <input type="text" class="input1 unabledInput ixs ips" id="cvfppFreight" readonly>
                     <div class="factorDataText" id="cvfppMU1"></div>
-                    <div class="divError" id="cvfppStdFreightError"></div>
                 </div>
+                <div class="divError2" id="cvfppStdFreightError">Debe completar el flete</div>                
             </div>
+            
             <div class="divInput mtm">
                 <label class="label3" id="cvfppStdTerminalExpensesLabel">Gastos terminal</label>
                 <div class="divFactorData ixxl ipl">
@@ -52,8 +53,8 @@
                     <div class="factorDataText" id="cvfppStdVolumeMUtext2"> -- </div>
                     <input type="text" class="input1 unabledInput ixs ips" id="cvfppTerminalExpenses" readonly>
                     <div class="factorDataText" id="cvfppMU2"></div>
-                    <div class="divError" id="cvfppStdTerminalExpensesError"></div>
                 </div>
+                <div class="divError2" id="cvfppStdTerminalExpensesError">Debe completar los gastos de la terminal</div>
             </div>
             <div class="divInput mtm">
                 <label class="label3" id="cvfppStdDispatchExpensesLabel">Gastos despacho</label>
@@ -62,8 +63,8 @@
                     <div class="factorDataText" id="cvfppStdVolumeMUtext3"> -- </div>
                     <input type="text" class="input1 unabledInput ixs ips" id="cvfppDispatchExpenses" readonly>
                     <div class="factorDataText" id="cvfppMU3"></div>
-                    <div class="divError" id="cvfppStdDispatchExpensesError"></div>
                 </div>
+                <div class="divError2" id="cvfppStdDispatchExpensesError">Debe completar los gastos de despacho</div>
             </div>
             <div class="divInput mtm">
                 <label class="label3" id="cvfppStdMaritimeAgencyExpensesLabel">Gastos agencia marítima</label>
@@ -72,8 +73,8 @@
                     <div class="factorDataText" id="cvfppStdVolumeMUtext4"> -- </div>
                     <input type="text" class="input1 unabledInput ixs ips" id="cvfppMaritimeAgencyExpenses" readonly>
                     <div class="factorDataText" id="cvfppMU4"></div>
-                    <div class="divError" id="cvfppStdMaritimeAgencyExpensesError"></div>
                 </div>
+                <div class="divError2" id="cvfppStdMaritimeAgencyExpensesError">Debe completar los gastos de agencia marítima</div>
             </div>
             <div class="divInput mtm">
                 <label class="label3" id="cvfppStdDomesticFreightLabel">Flete interno</label>
@@ -82,8 +83,8 @@
                     <div class="factorDataText" id="cvfppStdVolumeMUtext5"> -- </div>
                     <input type="text" class="input1 unabledInput ixs ips" id="cvfppDomesticFreight" readonly>
                     <div class="factorDataText" id="cvfppMU5"></div>
-                    <div class="divError" id="cvfppStdDomesticFreightError"></div>
                 </div>
+                <div class="divError2" id="cvfppStdDomesticFreightError">Debe completar el flete interno</div>
             </div>
 
             <div class="divInput mtm">
@@ -92,41 +93,40 @@
                 <div class="divError" id="cvfppTotalVolumeExpensesError"></div>
             </div>
 
-            <div class="divInput mts">
+            <div class="divInput mtm">
                 <label class="label3" id="cvfppCustomAgentLabel">Agente aduana %</label>
                 <input type="number" step="0.01" class="input1 il ipm" id="cvfppCustomAgent" autocomplete="off">
-                <div class="divError" id="cvfppCustomAgentError"></div>
+                <div class="divError2" id="cvfppCustomAgentError">Debe completar el % de agente de aduana</div>
             </div>
 
-            <div class="divInput mts">
+            <div class="divInput mtm">
                 <label class="label3" id="cvfppInsuranceLabel">Seguro %</label>
                 <input type="number" step="0.01" class="input1 il ipm" id="cvfppInsurance" autocomplete="off">
-                <div class="divError" id="cvfppInsuranceError"></div>
+                <div class="divError2" id="cvfppInsuranceError">Debe completar el % de seguro</div>
             </div>
 
-            <div class="divInput mts">
+            <div class="divInput mtm">
                 <label class="label3" id="cvfppTransferenceLabel">Transferencia %</label>
                 <input type="number" step="0.01" class="input1 il ipm" id="cvfppTransference" autocomplete="off">
-                <div class="divError" id="cvfppTransferenceError"></div>
+                <div class="divError2" id="cvfppTransferenceError">Debe completar el % de transferencia</div>
             </div>
 
-            <div class="divInput mts">
+            <div class="divInput mtm">
                 <label class="label3" id="cvfppimportDutyLabel">Derecho de importación %</label>
                 <input type="number" step="0.01" class="input1 il ipm" id="cvfppimportDuty" autocomplete="off">
-                <div class="divError" id="cvfppimportDutyError"></div>
+                <div class="divError2" id="cvfppimportDutyError">Debe completar el % de derechos de importación</div>
             </div>
 
-            <div class="divInput mts">
+            <div class="divInput mtm">
                 <label class="label3" id="cvfppSalesMarginLabel">Margen de venta %</label>
                 <input type="number" step="0.01" class="input1 il ipm" id="cvfppSalesMargin" autocomplete="off">
-                <div class="divError" id="cvfppSalesMarginError"></div>
+                <div class="divError2" id="cvfppSalesMarginError">Debe completar el margen de venta</div>
             </div>
             
         </div>
 
         <div class="divButtonsRow mtm mbs">
-            <div id="cvfppCreate" class="button1 mButton">Crear</div>
-            <div id="cvfppEdit" class="button1 mButton">Editar</div>
+            <div id="cvfppCreate" class="button1 mButton"></div>
         </div>
     </div>
 </div>

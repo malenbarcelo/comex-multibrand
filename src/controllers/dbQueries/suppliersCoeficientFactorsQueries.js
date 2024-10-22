@@ -1,10 +1,10 @@
 const db = require('../../../database/models')
 const sequelize = require('sequelize')
 const { Op } = require('sequelize')
-const model = db.Data_suppliers_volume_factors
+const model = db.Data_suppliers_coeficient_factors
 
-const suppliersVolumeFactorsQueries = {
-    volumeFactors: async(idBrunch) => {
+const suppliersCoeficientFactorsQueries = {
+    coeficientFactors: async(idBrunch) => {
         const latestEntries = await model.findAll({
             include: [
                 { 
@@ -18,10 +18,10 @@ const suppliersVolumeFactorsQueries = {
                 created_at: {
                     [Op.eq]: sequelize.literal(`(
                         SELECT MAX(created_at)
-                        FROM Data_suppliers_volume_factors AS subquery
+                        FROM Data_suppliers_coeficient_factors AS subquery
                         WHERE 
-                            subquery.id_suppliers = Data_suppliers_volume_factors.id_suppliers
-                            AND subquery.id_brunches = Data_suppliers_volume_factors.id_brunches
+                            subquery.id_suppliers = Data_suppliers_coeficient_factors.id_suppliers
+                            AND subquery.id_brunches = Data_suppliers_coeficient_factors.id_brunches
                     )`)
                 }
             },
@@ -30,7 +30,7 @@ const suppliersVolumeFactorsQueries = {
 
         const latestIds = latestEntries.map(entry => entry.id)
 
-        const volumeFactors = await model.findAll({
+        const coeficientFactors = await model.findAll({
             where: { id: latestIds },
             include: [
                 { 
@@ -43,11 +43,11 @@ const suppliersVolumeFactorsQueries = {
             nest: true
         })
     
-        return volumeFactors
+        return coeficientFactors
     },
     create: async(data) => {
         await model.create(data)
     }
 }       
 
-module.exports = suppliersVolumeFactorsQueries
+module.exports = suppliersCoeficientFactorsQueries

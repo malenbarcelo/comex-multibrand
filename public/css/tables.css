@@ -102,16 +102,16 @@ border-top-right-radius: 15px;
 
 .tBody2{
     font-weight: lighter;
-    padding: 2px 0px;
+    padding: 9px 0px;
     font-size: 12px;
 }
 
 .tBodyEven{
-    background-color: white;
+    background-color: var(--color2) !important;
 }/*background when row number is even*/
 
 .tBodyOdd{
-    background-color: var(--color1);
+    background-color: var(--color10) !important;
 }/*background when row number is odd*/
 
 .allowedIcon{

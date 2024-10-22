@@ -63,6 +63,11 @@
 /*-------------------------------------------------------------------------*/
 /*SPECIFIC*/
 #dgasVolumeFactors{
-    top: 20.5%;
+    top: 20.7%;
     right: 39%;
+}
+
+#dgasCoeficientFactors{
+    top: 20.7%;
+    right: 38%;
 }

@@ -1,6 +1,6 @@
 /*-----createEditPo.ejs------*/
 #createEditPoPopup{
-    width: 1300px;
+    width: 1400px;
     z-index: 6;
 }
 
@@ -27,11 +27,24 @@
 #cvfppContent{
     top: 5%;
     width: 500px;
-    left: calc(50vw - 210px);
+    left: calc(50vw - 260px);
     max-height: 600px;
 }
 
 #cvfppOkContent{
+    width: 300px;
+    top: 40%;
+    left: calc(50vw - 183px);
+}
+
+#ccfppContent{
+    top: 27%;
+    width: 500px;
+    left: calc(50vw - 260px);
+    max-height: 600px;
+}
+
+#ccfppOkContent{
     width: 300px;
     top: 40%;
     left: calc(50vw - 183px);

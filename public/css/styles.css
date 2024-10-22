@@ -34,7 +34,8 @@
 }
 
 .divBrunch:hover{
-    background-color: var(--color7);
+    background-color: var(--color2);
+    color:var(--color1)
 }
 
 .brunchLogo{

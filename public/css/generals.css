@@ -2,6 +2,7 @@
     --color1:#15A89D;
     --color2:#F4F4F4;
     --color3:#94C6C4;
+    --color10:#dae0e0;
     
     --errorColor:rgb(221, 7, 7);
 }
@@ -52,6 +53,16 @@ a{
     font-weight: bold;
     margin-top: 2px;
     margin-bottom: 10px;
+}
+
+.divError2{
+    color:rgb(206, 10, 10);
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 2px;
+    margin-bottom: 10px;
+    display: none;
 }
 
 .errorColor{

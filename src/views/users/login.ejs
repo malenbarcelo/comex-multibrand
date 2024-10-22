@@ -11,7 +11,7 @@
         <div class="userData">
 
             <div class="divInput">
-                <input type="text" name="userName" placeholder="Usuario" class="input1 XXL <%= locals.errors && errors.userName ? 'isInvalid' : null %>" value="<%= locals.oldData ? oldData.userName : null %>" id="filterYear" autocomplete="off">
+                <input type="text" name="userName" placeholder="Usuario" class="input1 ixl ipl <%= locals.errors && errors.userName ? 'isInvalid' : null %>" value="<%= locals.oldData ? oldData.userName : null %>" id="filterYear" autocomplete="off">
                 <div class="divError">
                     <% if (locals.errors && errors.userName) { %>
                         <%= errors.userName.msg %>
@@ -20,7 +20,7 @@
             </div>
 
             <div class="divInput">
-                <input type="password" name="password" placeholder="Contraseña" class="input1 XXL <%= locals.errors && errors.password ? 'isInvalid' : null %>" autocomplete="off">
+                <input type="password" name="password" placeholder="Contraseña" class="input1 ixl ipl <%= locals.errors && errors.password ? 'isInvalid' : null %>" autocomplete="off">
                 <div class="divError">
                     <% if (locals.errors && errors.password) { %>
                         <%= errors.password.msg %>

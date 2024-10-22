@@ -1,0 +1,46 @@
+<%- include('../../partials/head') %>
+<%- include('../../partials/header') %>
+
+<div class="mainTitle">
+    FACTORES POR COEFICIENTE
+</div>
+
+<!------GENERAL ACTIONS------>
+<div class="divDGAs" id="dgasCoeficientFactors">
+    <div class="divDGA divDGAm" id="createCoeficientFactor">
+        <i class="fa-regular fa-square-plus"></i>
+        <div class="DGAinfoAside">
+            Crear factor
+        </div>        
+    </div>
+</div>
+
+<!------MAIN CONTENT------>
+<div class="divTable" id="factorsTable">
+
+    <table>
+        <thead>
+            <tr>
+                <th class="thCss thl thLeftBorder">Proveedor</th>
+                <th class="thCss thm">Moneda</th>
+                <th class="thCss thm">Factor de multiplicación</th>
+                <th class="thCss thm">Margen de venta</th>
+                <th class="thCss thxxxs thRightBorder">
+                    <i class="fa-regular fa-pen-to-square icon"></i>
+                </th>
+            </tr>
+            
+        </thead>
+        <tbody id="bodyCoeficientFactors"></tbody>
+    </table>
+</div>
+
+<!----------LOADER---------->
+<div class="loader" id="coeficientFactorsLoader"></div>
+
+<!----------POPUPS---------->
+<%- include('./coeficientFactorsCCFPP') %>
+
+<!----------SCRIPTS---------->
+<script type="module" src="/js/data/coeficientFactors/coeficientFactors.js"></script>
+

@@ -14,6 +14,8 @@ async function getData(){
 const usersController = {
     login: (req,res) => {
         try{
+            req.session.destroy()
+            res.locals.userLogged = null
             return res.render('users/login',{title:'Login'})
         }catch(error){
             console.log(error)

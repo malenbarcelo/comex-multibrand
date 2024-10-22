@@ -43,6 +43,7 @@ accent-color: black
 .input1{
     text-align: center;
     border:black solid 1px;
+    border-radius: 6px;
 }
 
 .unabledInput{
