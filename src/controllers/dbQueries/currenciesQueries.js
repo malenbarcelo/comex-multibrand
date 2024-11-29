@@ -25,7 +25,7 @@ const currenciesQueries = {
         })
 
         currencies.forEach(currency => {
-            currency.currency_exchange.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+            currency.currency_exchange.sort((a, b) => b.id - a.id);
         })
 
         return currencies
