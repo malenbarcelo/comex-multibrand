@@ -1,0 +1,28 @@
+.divButtonsRow{
+    display: flex;
+    column-gap: 7px;
+    justify-content: center;
+}
+
+.divButtonsColumn{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 10px;
+}
+
+.btnStd{
+    background-color: var(--color1);
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 13px;
+    color: var(--color2);
+}
+
+.bm{
+    width: 75px;
+    padding: 6px;
+
+}

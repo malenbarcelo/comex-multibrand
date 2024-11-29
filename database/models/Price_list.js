@@ -72,22 +72,24 @@ module.exports = (sequelize, DataTypes) => {
    }
    const config = {
    tableName : 'prices_lists',
-   timestamps : false
+   timestamps : true,
+   createdAt: false,
+   updatedAt:'update_date'
    }
 
    const Price_list = sequelize.define(alias, cols, config)
 
    Price_list.associate = (models) => {
-      Price_list.belongsTo(models.Suppliers,{
-          as:'price_list_supplier',
+      Price_list.belongsTo(models.Data_suppliers,{
+          as:'supplier_data',
           foreignKey: 'id_suppliers'
       }),
       Price_list.belongsTo(models.Measurement_units,{
-         as:'price_list_mu',
+         as:'mu_data',
          foreignKey: 'id_measurement_units'
      }),
-     Price_list.belongsTo(models.Currencies,{
-      as:'price_list_currency',
+     Price_list.belongsTo(models.Data_currencies,{
+      as:'currency_data',
       foreignKey: 'id_currencies'
   })
    }

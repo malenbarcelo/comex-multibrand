@@ -33,7 +33,7 @@
     background-color: var(--color7);
 }
 
-.popupContent{
+.popupContent2{
     margin: auto;
     margin-top: 50px;
     display: flex;
@@ -183,7 +183,7 @@
     width: 350px;
     border-radius: 5px;
     border: #F7C630 solid 2px;
-    background-color: var(--color4);
+    background-color: var(--color2);
     position: absolute;
     bottom: -700px;
     left: 105px;

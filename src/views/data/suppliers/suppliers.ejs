@@ -2,53 +2,48 @@
 <%- include('../../partials/header') %>
 
 <div class="mainTitle">
-    <div class="titleL">Proveedores</div>
+    PROVEEDORES
 </div>
 
-<div class="content">
-
-    <div class="divTable">
-        <table>
-
-            <thead>
-                <tr>
-                    <th class="theadXL thLeftBorder thTall thData" id="create">
-                        Proveedor
-                        <i class="fa-regular fa-square-plus newSupplier"></i>
-                    </th>
-                    <th class="theadXXL thTall">Razón social</th>
-                    <th class="theadXXL thTall">Domicilio</th>
-                    <th class="theadL thTall">Pais</th>
-                    <th class="theadM thTall">Moneda</th>
-                    <th class="theadM thTall">Costeo</th>
-                    <th class="theadS thRightBorder thTall"><i class="fa-regular fa-pen-to-square"></i></th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <% for( let i = 0; i < data.suppliers.length; i++ ) { %>
-                    <tr>
-                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= data.suppliers[i].supplier %></th>
-                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= data.suppliers[i].business_name %></th>
-                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= data.suppliers[i].address %></th>
-                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= data.suppliers[i].supplier_country.country %></th>
-                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= data.suppliers[i].supplier_currency.currency %></th>
-                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= data.suppliers[i].cost_calculation %></th>
-                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>" id="<%= 'edit_' +data.suppliers[i].id %>">
-                                <i class="fa-regular fa-pen-to-square thIcon1"></i>
-                        </th>
-                    </tr>
-                <% } %>
-            </tbody>
-
-        </table>
+<!------GENERAL ACTIONS------>
+<div class="divDGAs" id="dgasSuppliers">
+    <div class="divDGA divDGAm" id="createSupplier">
+        <i class="fa-regular fa-square-plus"></i>
+        <div class="DGAinfoAside">
+            Crear proveedor
+        </div>        
     </div>
-
 </div>
 
-<%- include('./createEditSupplier') %>
-<script type="module" src="/js/suppliers.js"></script>
+<!------MAIN CONTENT------>
+<div class="divTable" id="suppliersTable">
 
+    <table>
+        <thead>
+            <tr>
+                <th class="thCss thl thLeftBorder" id="create">Proveedor</th>
+                <th class="thCss thxl">Razón social</th>
+                <th class="thCss thxxxl">Domicilio</th>
+                <th class="thCss thm">Pais</th>
+                <th class="thCss ths">Moneda</th>
+                <th class="thCss ths">Costeo</th>
+                <th class="thCss thxs thRightBorder"><i class="fa-regular fa-pen-to-square"></i></th>
+            </tr>
+            
+        </thead>
+        <tbody id="bodySuppliers"></tbody>
+    </table>
+</div>
+
+<!----------LOADER---------->
+<div class="loader" id="suppliersLoader"></div>
+
+<!----------POPUPS---------->
+<%- include('../../partials/okPopup') %>
+<%- include('./suppliersCSPP') %>
+
+<!----------SCRIPTS---------->
+<script type="module" src="/js/data/suppliers/suppliers.js"></script>
 
 
 

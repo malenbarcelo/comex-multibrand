@@ -116,6 +116,10 @@ module.exports = (sequelize, DataTypes) => {
       unit_cost_supplier_currency:{
          type: DataTypes.DECIMAL,
          allowNull: true,
+      },
+      estimated_cost_supplier_currency:{
+         type: DataTypes.DECIMAL,
+         allowNull: true,
       }
    }
    const config = {

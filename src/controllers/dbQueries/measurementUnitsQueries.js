@@ -2,6 +2,14 @@ const db = require('../../../database/models')
 const sequelize = require('sequelize')
 
 const measurementQueries = {
+    getData: async() => {
+        const allMU = await db.Measurement_units.findAll({
+            order:['measurement_unit'],
+            raw:true
+        })
+        return allMU
+    },
+    
     allMU: async() => {
         const allMU = await db.Measurement_units.findAll({
             order:['measurement_unit'],

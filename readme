@@ -7,14 +7,12 @@ npm install multer
 npm install express-validator
 npm install express-session
 npm install bcryptjs
+npm install session-file-store
 
 /*---Sequelize---*/
 1. npm install --save sequelize-cli
 2. npm install --save sequelize
 3. npm install mysql2
-
-/*---Puppeteer---*/
-npm install puppeteer
 
 /*---excel---*/
 npm install exceljs
@@ -22,7 +20,7 @@ npm install read-excel-file
 
 Resumed --->
 npm init -y
-npm install express ejs method-override multer express-validator express-session bcryptjs sequelize-cli sequelize mysql2 puppeteer exceljs read-excel-file
+npm install express ejs method-override multer express-validator express-session bcryptjs sequelize-cli sequelize mysql2 exceljs read-excel-file session-file-store
 
 
 

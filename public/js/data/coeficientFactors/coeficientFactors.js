@@ -10,7 +10,6 @@ import { ccfppEventListeners} from "./coeficientFactorsCCFPP.js"
 
 window.addEventListener('load',async()=>{
 
-    //show popup
     coeficientFactorsLoader.style.display = 'block'
 
     //get data
@@ -31,6 +30,7 @@ window.addEventListener('load',async()=>{
         const inputs = [ccfppSupplier,ccfppFactor,ccfppSalesMargin]
         ccfppTitle.innerText = 'CREAR FACTOR'
         ccfppCreate.innerText = 'Crear'
+        cfg.action = 'create'
         clearInputs(inputs)
         isValid(inputs)
         suppliersSelect()

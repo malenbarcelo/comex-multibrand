@@ -1,0 +1,41 @@
+/*----------OK POPUP----------*/
+.errorpp{    
+    border-radius: 5px;
+    position: absolute;
+    border: var(--errorColor) solid 2px;
+    background-color: rgb(245, 155, 155);
+    font-size: 16px;
+    padding: 5px 15px;
+    color: var(--errorColor);
+    text-align: center;
+    width: fit-content;
+    bottom: 2%;
+    right: 1%;
+    overflow: hidden;
+    display: none;
+}
+
+.errorppContent{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 10px;
+}
+
+.errorppIcon{
+    font-size: 25px;
+}
+
+.okSlideIn {
+    display: block;
+    animation: okSlideIn 0.8s forwards;
+}
+
+@keyframes okSlideIn {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}

@@ -1,0 +1,70 @@
+#costingAlert{
+    position: absolute;
+    top: 18%;
+    left: 3%;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 15px;
+    text-align: center;
+    align-items: center;
+    z-index: 1;
+    display: none;
+}
+
+#costingAlertText{
+    color: var(--errorColor);
+    display: flex;
+    column-gap: 5px;
+    align-items: center;
+}
+
+#costingAlertInfo{
+    cursor: pointer;
+    color:var(--color1);
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+/* .fa-circle-info{
+    cursor: pointer;
+    color:var(--color1);
+    margin-top: 10px;
+    font-size: 18px;
+} */
+
+#costingAlertData{
+    display: none;
+}
+
+#updateDiv{
+    position: absolute;
+    top: 24%;
+    left: 6%;
+    display: none;
+    column-gap: 10px;
+}
+
+#updateCostings{
+    border: var(--color1) solid 2px;
+    color:var(--color1);
+    font-weight: bold;
+    border-radius: 3px;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+#updateCostings:hover{
+    color: var(--color2);
+    background-color: var(--color1);
+}
+
+#lcppLastChanges{
+    display: flex;
+    width: fit-content;
+    margin: auto;
+    margin-bottom: 15px;
+    flex-direction: column;
+    row-gap: 10px;
+}
+

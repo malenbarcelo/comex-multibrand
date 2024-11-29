@@ -61,10 +61,12 @@ thead{
 .thxxl{
     width: 300px;
 }
+.thxxxl{
+    width: 350px;
+}
 .thxxxxl{
     width: 400px;
 }
-
 
 .thLeftBorder{
     border-top-left-radius: 15px;
@@ -96,14 +98,16 @@ border-top-right-radius: 15px;
 /*------Tbody------*/
 .tBody1{
     font-weight: lighter;
-    padding: 9px 0px;
+    padding: 7px 0px;
     font-size: 13px;
+    text-align: center;
 }
 
 .tBody2{
     font-weight: lighter;
-    padding: 9px 0px;
+    padding: 7px 0px;
     font-size: 12px;
+    text-align: center;
 }
 
 .tBodyEven{
@@ -125,6 +129,14 @@ border-top-right-radius: 15px;
 /*SPECIFIC*/
 #currenciesTable{
     max-height: 380px; /*to avoid overflow, it depends on the website landscape*/
+}
+
+#suppliersTable{
+    max-height: 470px; /*to avoid overflow, it depends on the website landscape*/
+}
+
+#pricesListsTable{
+    max-height: 430px; /*to avoid overflow, it depends on the website landscape*/
 }
 
 

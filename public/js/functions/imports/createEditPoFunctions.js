@@ -11,7 +11,7 @@ function getPoNumber(brunchData,brunchPos) {
     const yearSliced = ((date.getFullYear()).toString()).slice(-2)
     const yearPos = brunchPos.filter(pos => pos.po_year == year)
     const lastBrunchPo = yearPos.reduce((max, current) => (current.po_number > max.po_number) ? current : max, yearPos[0])
-    console.log(lastBrunchPo)
+    
     let poNumber = lastBrunchPo == undefined ? 1 : parseInt(lastBrunchPo.po_number) + 1
 
     if (poNumber < 10) {

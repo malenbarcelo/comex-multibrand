@@ -3,10 +3,9 @@ import vfg from "./globals.js"
 
 async function getData() {
     vfg.idBrunch = document.getElementById('idBrunch').innerText
-    vfg.volumeFactors = await (await fetch(dominio + 'data/apis/factors/' + vfg.idBrunch + '/volume-factors')).json()
-    const suppliers = await (await fetch(dominio + 'data/apis/suppliers')).json()
-    vfg.suppliers = suppliers.filter(s => s.cost_calculation == 'Volumen' && s.supplier_brunches.some(b => b.id_brunches == vfg.idBrunch))
-    console.log(vfg.suppliers)
+    vfg.volumeFactors = await (await fetch(dominio + 'apis/data/volume-factors/' + vfg.idBrunch)).json()
+    const suppliers = await (await fetch(dominio + 'apis/data/suppliers/' + vfg.idBrunch)).json()
+    vfg.suppliers = suppliers.filter(s => s.cost_calculation == 'Volumen')
 }
 
 async function suppliersSelect() {

@@ -17,11 +17,11 @@ function dateToString(date) {
 
 function showOkPopup(popupToShow) {
 
-    popupToShow.style.display = 'block'
+    popupToShow.classList.add('okSlideIn')
 
     //hide okPopup after one second
     setTimeout(function() {
-        popupToShow.style.display = 'none'
+        popupToShow.classList.remove('okSlideIn')
     }, 2000)
     
 }
@@ -235,7 +235,7 @@ function isValid(inputs) {
     })    
 }
 
-function isInvalid(inputs) {
+function isInvalid(inputs,errorText) {
     inputs.forEach(input => {
         const label = document.getElementById(input.id + 'Label')
         const error = document.getElementById(input.id + 'Error')
@@ -244,6 +244,7 @@ function isInvalid(inputs) {
             label.classList.add('invalidLabel')
         }
         if (error) {
+            error.innerText = errorText
             error.style.display = 'block'
         }
         
@@ -263,6 +264,19 @@ function inputsValidation(inputs) {
     return errors
 }
 
+function notEmptyValidations(inputs) {
+    let errors = 0
+    inputs.forEach(input => {
+        if (input.value == '') {
+            isInvalid([input],'Debe completar el campo')
+                errors += 1
+        }else{
+            isValid([input])
+        }
+    })
+    return errors
+}
+
 function emailValidation(email) {
     let emailErrors = 0
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -274,4 +288,32 @@ function emailValidation(email) {
     
 }
 
-export {dateToString,showOkPopup,predictElements,selectFocusedElement,closePopupsEventListeners,acceptWithEnter,showTableInfo,clearInputs, isValid, isInvalid,inputsValidation,emailValidation,uncheckInputs,applyPredictElement}
+function closePopups(popups) {
+    popups.forEach(popup => {
+        const closeIcon = document.getElementById(popup.id + 'Close')
+        closeIcon.addEventListener("click", async() => {
+            if (popup.style.display == 'block') {
+                popup.style.display = 'none'
+            }else{
+                popup.classList.remove('slideIn')
+            }
+        })
+    })
+}
+
+function closeWithEscape(popups) {
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            const displayedPopups = popups.filter(p => p.style.display == 'block' || p.classList.contains('slideIn'))
+            if (displayedPopups.length > 0) {
+                if (displayedPopups[0].style.display == 'block') {
+                    displayedPopups[0].style.display = 'none'
+                }else{
+                    displayedPopups[0].classList.remove('slideIn')
+                }
+            }
+        }
+    })
+}
+
+export {dateToString,showOkPopup,predictElements,selectFocusedElement,closePopupsEventListeners, closePopups, closeWithEscape,acceptWithEnter,showTableInfo,clearInputs, isValid, isInvalid,inputsValidation,emailValidation,uncheckInputs,applyPredictElement, notEmptyValidations}

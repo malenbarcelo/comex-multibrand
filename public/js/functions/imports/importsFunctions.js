@@ -35,20 +35,20 @@ function printImportsTable(posToPrint,formatOptions,divPoErrors,createEditPoNumb
         const totalVolumeM3 = parseFloat(po.total_volume_m3,2)
         const totalBoxes = parseFloat(po.total_boxes,2)
         const receptionDateAsDate = po.reception_date == null ? '' : new Date(po.reception_date)
-        const receptionDate = po.reception_date == null ? '' : (receptionDateAsDate.getDate() + '/' + (receptionDateAsDate.getMonth()+1) + '/' + receptionDateAsDate.getFullYear())
         const costVsFob = po.cost_vs_fob == null ? '' : parseFloat(po.cost_vs_fob * 100,2).toFixed(2) + '%'
-        const costRealVsEstimated = po.cost_real_vs_estimated == null ? '' : parseFloat(po.cost_real_vs_estimated * 100,2).toFixed(2) + '%'
-        
+        const realVsEstimated = parseFloat(po.realVsEstimated * 100,2) == 0 ? '' : (parseFloat(po.realVsEstimated * 100,2).toFixed(2) + '%')
+        const costingClass = parseFloat(po.realVsEstimated,2) < 0 ? 'greenColor' : (parseFloat(po.realVsEstimated,2) > 0 ? 'redColor' : '')
+
         const line1 = '<th class="' + rowClass + '">' + po.purchase_order + '</th>'
         const line2 = '<th class="' + rowClass + '">' + po.purchase_order_supplier.supplier + '</th>'  
-        const line3 = '<th class="' + rowClass + '">' + po.dateString + '</th>'
+        const line3 = '<th class="' + rowClass + '">' + po.poDateString + '</th>'
         const line4 = '<th class="' + rowClass + '">' + totalFob.toLocaleString(undefined,formatOptions) + '</th>'
         const line5 = '<th class="' + rowClass + '">' + po.purchase_order_currency.currency + '</th>'
         const line6 = '<th class="' + rowClass + '">' + totalVolumeM3.toLocaleString(undefined,formatOptions) + '</th>'
         const line7 = '<th class="' + rowClass + '">' + totalBoxes.toLocaleString(undefined,formatOptions) + '</th>'
-        const line8 = '<th class="' + rowClass + '">' + receptionDate + '</th>'
+        const line8 = '<th class="' + rowClass + '">' + po.receptionDateString + '</th>'
         const line9 = '<th class="' + rowClass + '">' + costVsFob + '</th>'
-        const line10 = '<th class="' + rowClass + '">' + costRealVsEstimated + '</th>'
+        const line10 = '<th class="' + rowClass + ' ' + costingClass + '">' + realVsEstimated + '</th>'
         const line11 = '<th class="' + rowClass + ' ' + statusClass + '">' + statusLine + '</th>'
         const line12 = '<th class="' + rowClass + ' thIcon1"><i class="fa-regular fa-pen-to-square" id="editPo_' + po.id + '"></i></th>'
         const line13 = '<th class="' + rowClass + ' thIcon1"><i class="fa-regular fa-file-excel" id="printExcel_' + po.id + '"></i></th>'
@@ -281,9 +281,12 @@ function importsEventListeners(divPoErrors,posToPrint,createEditPoNumber,idBrunc
                 let counter = 0
 
                 importDetails.forEach(item => {
+                    console.log(item)
 
                     const rowClass = counter % 2 == 0 ? 'tBody1 tBodyEven' : 'tBody1 tBodyOdd'
                     const unitCost = parseFloat(item.unit_cost_supplier_currency,2)
+                    const estimatedCost = parseFloat(item.estimated_cost_supplier_currency,2)
+                    const realVsEstimated = (parseFloat(item.unit_cost_supplier_currency,2) / parseFloat(item.estimated_cost_supplier_currency,2) - 1) * 100
                     const unitPrice = item.total_fob_supplier_currency / item.units_quantity
                     const costVsFob = (unitCost / unitPrice - 1) * 100
                     
@@ -292,10 +295,11 @@ function importsEventListeners(divPoErrors,posToPrint,createEditPoNumber,idBrunc
                     const line3 = '<th class="' + rowClass + '">' + item.units_quantity + '</th>'
                     const line4 = '<th class="' + rowClass + '">' + unitPrice.toFixed(3) + '</th>'
                     const line5 = '<th class="' + rowClass + '">' + (isNaN(unitCost) ? '?': parseFloat(unitCost,3).toFixed(3)) + '</th>'
-                    const line6 = '<th class="' + rowClass + '">' + (isNaN(costVsFob) ? '?' : (costVsFob.toLocaleString(undefined,formatOptions)) + ' %') + '</th>'
-                    const line7 = '<th class="' + rowClass + '">' + '' + '</th>'                    
+                    const line6 = '<th class="' + rowClass + '">' + (isNaN(costVsFob) ? '?' : (costVsFob.toLocaleString(undefined,formatOptions)) + '%') + '</th>'
+                    const line7 = '<th class="' + rowClass + '">' + (isNaN(estimatedCost) ? '?': parseFloat(estimatedCost,3).toFixed(3)) + '</th>'
+                    const line8 = '<th class="' + rowClass + '">' + (isNaN(realVsEstimated) ? '?': (parseFloat(realVsEstimated,3).toFixed(2) + '%')) + '</th>'                    
             
-                    importDetailsBody.innerHTML += '<tr>' + line1 + line2 + line3 + line4 + line5 + line6 + line7 + '</tr>'
+                    importDetailsBody.innerHTML += '<tr>' + line1 + line2 + line3 + line4 + line5 + line6 + line7 + line8 +'</tr>'
             
                     counter += 1
             

@@ -22,11 +22,10 @@ const purchaseOrdersQueries = {
             include: [
                 {association: 'purchase_order_supplier'},
                 {association: 'purchase_order_currency'},
-                {association: 'purchase_order_brunch'}
-
+                {association: 'purchase_order_brunch'},
+                {association: 'details'}
             ],
             where:{id_brunches:idBrunch},
-            raw:true,
             nest:true
         })
         return brunchPos
@@ -109,8 +108,6 @@ const purchaseOrdersQueries = {
         )
     },
     receiveImport: async(data) => {
-
-        console.log(data)
 
         await db.Purchase_orders.update(
             {

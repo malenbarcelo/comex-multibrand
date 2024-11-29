@@ -1,15 +1,15 @@
 <%- include('../../partials/head') %>
 <%- include('../../partials/header') %>
 
-<div class="mainTitle">
+<div class="mainTitle mbm">
     FACTORES POR VOLUMEN
 </div>
 
 <!------GENERAL ACTIONS------>
-<div class="divDGAs" id="dgasVolumeFactors">
-    <div class="divDGA divDGAm" id="createVolumeFactor">
-        <i class="fa-regular fa-square-plus"></i>
-        <div class="DGAinfoAside">
+<div class="dgas dgas-m">
+    <div class="dga dga-m" id="createVolumeFactor">
+        <i class="fa-solid fa-plus"></i>
+        <div class="dgaInfo">
             Crear factor
         </div>        
     </div>
@@ -64,6 +64,7 @@
 <div class="loader" id="volumeFactorsLoader"></div>
 
 <!----------POPUPS---------->
+<%- include('../../partials/okPopup') %>
 <%- include('./volumeFactorsCVFPP') %>
 
 <!----------SCRIPTS---------->

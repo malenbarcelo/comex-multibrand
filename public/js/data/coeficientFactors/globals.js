@@ -7,6 +7,9 @@ let cfg = {
     idBrunch:0,
     coeficientFactors:[],
     idElementToEdit:0,
+    suppliers:[],
+    idBrunch:0,
+    action:''
 }
 
 export default cfg

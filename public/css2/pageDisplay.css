@@ -1,0 +1,14 @@
+.header{
+    height: 18vh;
+}
+
+.mainTitle{
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+

@@ -1,0 +1,81 @@
+<!----------Create coeficient factor popup---------->
+<div class="pp" id="cspp">
+
+    <div class="ppContent ppContentHmWl" id="csppContent">
+
+        <div class="ppIcons">
+            <div class="ppIcon2"><i class="fa-regular fa-square-plus"></i></div>
+            <div class="ppClose2" id="csppClose"><i class="fa-solid fa-rectangle-xmark ppCloseIcon"></i></div>
+        </div>
+
+        <div class="ppTitleS mbl" id="csppTitle"></div>       
+        
+        <div class="divInputsColumn">
+            <div class="divInput">
+                <label class="label3" id="csppSupplierLabel">Proveedor</label>
+                <input type="text" class="input1 ixxxl ipl" id="csppSupplier">
+                <div class="divError2" id="csppSupplierError">Debe completar el nombre del proveedor</div>
+                <div class="divError2" id="csppSupplierError2">El proveedor ingresado ya existe</div>
+            </div>
+            <div class="divInput mtm">
+                <label class="label3" id="csppBusinessNameLabel">Razón social</label>
+                <input type="text" class="input1 ixxxl ipl" id="csppBusinessName">
+                <div class="divError2" id="csppBusinessNameError">Debe completar la razón social</div>
+            </div>
+            <div class="divInput mtm">
+                <label class="label3" id="csppAddressLabel">Domicilio</label>
+                <input type="text" class="input1 ixxxl ipl" id="csppAddress">
+                <div class="divError2" id="csppAddressError">Debe completar el domicilio</div>
+            </div>
+            <div class="divInput mtm">
+                <label class="label3" id="csppCountryLabel">Pais</label>
+                <select class="input1 ixxxl ipl" id="csppCountry">
+                    <option value=""></option>
+                    <% data.countries.forEach(country => { %>
+                        <option value="<%= country.id %>"><%= country.country %></option>
+                     
+                    <% }) %>
+                </select>
+                <div class="divError2" id="csppCountryError">Debe completar el pais</div>
+            </div>
+            <div class="divInput mtm">
+                <label class="label3" id="csppCurrencyLabel">Moneda</label>
+                <select class="input1 ixxxl ipl" id="csppCurrency">
+                    <option value=""></option>
+                    <% data.currencies.forEach(currency => { %>
+                        <option value="<%= currency.id %>"><%= currency.currency %></option>
+                     
+                    <% }) %>
+                </select>
+                <div class="divError2" id="csppCurrencyError">Debe completar la moneda</div>
+            </div>
+            <div class="divInput mtm">
+                <label class="label3" id="csppCostCalculationLabel">Costeo</label>
+                <select class="input1 ixxxl ipl" id="csppCostCalculation">
+                    <option value=""></option>
+                    <option value="volume">Volumen</option>
+                    <option value="factor">Factor de multiplicación</option>
+                </select>
+                <div class="divError2" id="csppCostCalculationError">Debe completar el método de costeo</div>
+            </div>
+            <div class="divCheckbox1 mtm">
+                <div class="divCheckbox1">
+                    <input type="checkbox" id="csppArgentina" value="1">
+                    <label>Argentina</label>
+                </div>
+            </div>
+            <div class="divCheckbox1 mts">
+                <div class="divCheckbox1">
+                    <input type="checkbox" id="csppChile" value="2">
+                    <label>Chile</label>
+                </div>
+            </div>
+            <div class="divError2" id="csppBrunchError">Debe seleccionar al menos un país</div>
+        </div>
+
+        <div class="divButtonsRow mtl mbs">
+            <div id="csppCreate" class="button1 mButton">Crear</div>
+            <div id="csppEdit" class="button1 mButton">Editar</div>
+        </div>
+    </div>
+</div>

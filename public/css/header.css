@@ -64,13 +64,13 @@
     column-gap: 35px;
     height: 25%;
     background-color: var(--color4);
-    border-bottom: var(--color3) solid 1px;
+    border-bottom: var(--color2) solid 1px;
     position: relative; 
 }
 
 .itemsMenu{
     position: relative;
-    width:150px;
+    width:130px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -96,6 +96,12 @@
     cursor: pointer;
 }
 
+.itemHeaderMenuError{
+    color: var(--errorColor);
+    font-size: 15px;
+    cursor: pointer;
+}
+
 .subitemHeaderMenu{
     color: var(--color5);
     font-size: 14px;
@@ -104,6 +110,10 @@
 
 .itemHeaderMenu:hover, .subitemHeaderMenu:hover{
     color:var(--color6);
+    font-weight: bold;
+}
+
+.itemHeaderMenuError:hover{
     font-weight: bold;
 }
 

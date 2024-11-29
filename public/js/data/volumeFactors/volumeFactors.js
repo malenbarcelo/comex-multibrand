@@ -10,7 +10,6 @@ import { cvfppEventListeners} from "./volumeFactorsCVFPP.js"
 
 window.addEventListener('load',async()=>{
 
-    //show popup
     volumeFactorsLoader.style.display = 'block'
 
     //get data
@@ -31,6 +30,7 @@ window.addEventListener('load',async()=>{
         const inputs = [cvfppSupplier,cvfppStdVolume,cvfppStdVolumeMU,cvfppStdCtn,cvfppStdFreight,cvfppFreight,cvfppStdTerminalExpenses,cvfppTerminalExpenses,cvfppStdDispatchExpenses,cvfppDispatchExpenses,cvfppStdMaritimeAgencyExpenses,cvfppMaritimeAgencyExpenses,cvfppStdDomesticFreight,cvfppDomesticFreight,cvfppCustomAgent,cvfppInsurance,cvfppTransference,cvfppimportDuty,cvfppSalesMargin]
         cvfppTitle.innerText = 'CREAR FACTOR'
         cvfppCreate.innerText = 'Crear'
+        vfg.action = 'create'
         clearInputs(inputs)
         isValid(inputs)
         suppliersSelect()

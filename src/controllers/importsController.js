@@ -3,6 +3,7 @@ const brunchesQueries = require('./dbQueries/brunchesQueries')
 const purchaseOrdersQueries = require('./dbQueries/purchaseOrdersQueries')
 const suppliersQueries = require('./dbQueries/suppliersQueries')
 const pricesListsQueries = require('./dbQueries/pricesListsQueries')
+const costingsChangesQueries = require('./dbQueries/costingsChangesQueries')
 const puppeteer = require('puppeteer')
 const domain = require('./domain')
 const excelJs = require('exceljs')
@@ -12,7 +13,7 @@ const path = require('path');
 async function getData(idBrunch){
   const brunches = await brunchesQueries.allData()
   const brunch = await brunchesQueries.brunch(idBrunch)
-  const suppliers = await suppliersQueries.allSuppliers()
+  const suppliers = await suppliersQueries.allSuppliers(idBrunch)
   const data = {idBrunch,brunches,brunch,suppliers}
   return data
 }
@@ -27,6 +28,8 @@ const importsController = {
       const year = ((date.getFullYear()).toString()).slice(-2)
       const data = await getData(idBrunch)
       const imports = await purchaseOrdersQueries.filterLast100(idBrunch)
+      const changes = await costingsChangesQueries.getData(idBrunch)
+      const selectedItem = 'imports'
 
       imports.forEach(item => {
         const date = new Date(item.po_date)
@@ -34,7 +37,7 @@ const importsController = {
         item.dateString = dateString
       })
 
-      return res.render('imports/imports',{title:'Importaciones',data,imports,brunchData})
+      return res.render('imports/imports',{title:'Importaciones',data,imports,brunchData,changes,selectedItem})
 
     }catch(error){
       console.log(error)

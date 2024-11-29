@@ -26,7 +26,7 @@ const upload = multer({storage: storage})
 router.get('/:idBrunch/currencies',currenciesController.currencies)
 //APIS
 router.get('/currencies/:idBrunch/brunch-currencies',currenciesController.brunchCurrencies)
-router.post('/currencies/:idBrunch/create-exchange-rate',currenciesController.createExchangeRate)
+
 
 //////FACTORS//////
 //BACKEND
@@ -40,9 +40,11 @@ router.post('/factors/create-coeficient-factor',factorsController.createCoeficie
 
 //////SUPPLIERS//////
 //BACKEND
-//router.get('/:idBrunch/volume-factors',factorsController.volumeFactors)
+router.get('/:idBrunch/suppliers',suppliersController.suppliers)
 //APIS
-router.get('/suppliers',suppliersController.suppliers)
+router.get('/suppliers/all',suppliersController.allSuppliers)
+router.get('/suppliers/:idBrunch/brunch-suppliers',suppliersController.brunchSuppliers)
+router.post('/suppliers/create-supplier',suppliersController.createSupplier)
 
 
 

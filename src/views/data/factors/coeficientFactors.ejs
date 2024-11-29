@@ -6,10 +6,10 @@
 </div>
 
 <!------GENERAL ACTIONS------>
-<div class="divDGAs" id="dgasCoeficientFactors">
-    <div class="divDGA divDGAm" id="createCoeficientFactor">
-        <i class="fa-regular fa-square-plus"></i>
-        <div class="DGAinfoAside">
+<div class="dgas dgas-m">
+    <div class="dga dga-m" id="createCoeficientFactor">
+        <i class="fa-solid fa-plus"></i>
+        <div class="dgaInfo">
             Crear factor
         </div>        
     </div>
@@ -39,7 +39,9 @@
 <div class="loader" id="coeficientFactorsLoader"></div>
 
 <!----------POPUPS---------->
+<%- include('../../partials/okPopup') %>
 <%- include('./coeficientFactorsCCFPP') %>
+
 
 <!----------SCRIPTS---------->
 <script type="module" src="/js/data/coeficientFactors/coeficientFactors.js"></script>

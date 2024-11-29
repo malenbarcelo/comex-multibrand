@@ -21,7 +21,7 @@ router.get('/:idBrunch/filter-supplier/:idSupplier',apisController.filterSupplie
 router.get('/:idBrunch/filter-brunch',apisController.filterBrunch)
 router.get('/filter-purchase-order/:purchaseOrder',apisController.filterPurchaseOrder)
 router.get('/measurement-units',apisController.measurementUnits)
-router.get('/suppliers',apisController.suppliers)
+//router.get('/suppliers',apisController.suppliers)
 router.get('/users',apisController.users)
 router.get('/currencies',apisController.currencies)
 router.post('/users/restore-password/:idUser',apisController.restorePassword)

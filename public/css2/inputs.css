@@ -1,0 +1,63 @@
+/*----------DIV INPUTS----------*/
+.divInputsRow{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 15px;
+    position: relative;
+}
+
+.divInputsColumn{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/*----------INPUTS ADN LABELS----------*/
+.divInput{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.inputStd{
+    text-align: center;
+    border:rgb(74, 74, 74) solid 1px;
+}
+
+/*---------WIDTH---------*/
+.il{
+    width: 250px;
+}
+
+.ixl{
+    width: 300px;
+}
+
+.ixxl{
+    width: 350px;
+}
+
+/*---------PADDING---------*/
+.ipm{
+    padding: 7px 0px 7px 0px;
+}
+
+.spm{
+    padding: 7px 0px 8.5px 0px;
+}
+
+.ipl{
+    padding: 10px 0px 8px 0px;
+}
+
+.labelStd{
+    position: absolute;
+    left: 8px;
+    top: -8px;
+    padding: 0px 5px;
+    background-color: white;
+    font-size: 13px;
+    z-index: 1;
+}

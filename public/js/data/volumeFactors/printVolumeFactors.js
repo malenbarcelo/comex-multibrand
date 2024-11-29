@@ -62,6 +62,7 @@ async function volumeFactorsEventListeners() {
             cvfppTitle.innerText = 'EDITAR FACTOR'
             cvfppCreate.innerText = 'Editar'
             vfg.idElementToEdit = element.id
+            vfg.action = 'edit'
             clearInputs(inputs)
             isValid(inputs)
 

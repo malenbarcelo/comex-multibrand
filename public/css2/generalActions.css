@@ -1,0 +1,61 @@
+.dgas{
+    display: flex;
+    column-gap: 20px;
+    position: absolute;
+    color: var(--color1);
+}
+
+.dgas-m{
+    top: 22vh;
+    right: 7vw;
+}
+
+.dgas-s{
+    top: 10%;
+    right: 15%;
+}
+
+.dga{
+    border: var(--color1) dashed 3px;
+    font-size: 20px;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.dga-m{
+    height: 40px;
+    width: 40px;
+    font-size: 20px;
+}
+
+.dga-s{
+    height: 30px;
+    width: 30px;
+    font-size: 15px;
+}
+
+.dga:hover{
+    color:var(--color2);
+    background-color: var(--color1);
+}
+
+.dga:hover .dgaInfo{
+    display: block;
+}
+
+.dgaInfo{
+    display: none;
+    padding: 2px 5px;
+    position: absolute;
+    font-size: 13px;
+    border-radius: 3px;
+    top:-25px;
+    text-align: center;
+    width: 150px;
+    color: black;
+}

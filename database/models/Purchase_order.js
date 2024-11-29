@@ -56,10 +56,6 @@ module.exports = (sequelize, DataTypes) => {
          type: DataTypes.DECIMAL,
          allowNull: true,
       },
-      cost_real_vs_estimated:{
-         type: DataTypes.DECIMAL,
-         allowNull: true,
-      },
       status:{
          type: DataTypes.STRING,
          allowNull: false,
@@ -158,18 +154,22 @@ module.exports = (sequelize, DataTypes) => {
    const Purchase_order = sequelize.define(alias, cols, config)
 
    Purchase_order.associate = (models) => {
-      Purchase_order.belongsTo(models.Suppliers,{
+      Purchase_order.belongsTo(models.Data_suppliers,{
           as:'purchase_order_supplier',
           foreignKey: 'id_suppliers'
       }),
-      Purchase_order.belongsTo(models.Currencies,{
+      Purchase_order.belongsTo(models.Data_currencies,{
          as:'purchase_order_currency',
          foreignKey: 'id_currencies'
      }),
      Purchase_order.belongsTo(models.Brunches,{
          as:'purchase_order_brunch',
          foreignKey: 'id_brunches'
-     })
+     }),
+     Purchase_order.hasMany(models.Purchase_orders_details,{
+      as:'details',
+      foreignKey: 'id_pos'
+  })
    }
    
    return Purchase_order

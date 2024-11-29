@@ -1,6 +1,6 @@
 const currenciesQueries = require('../dbQueries/currenciesQueries')
 const brunchesQueries = require('../dbQueries/brunchesQueries')
-
+const costingsChangesQueries = require('../dbQueries/costingsChangesQueries')
 
 const currenciesController = {
   //BACKEND
@@ -8,8 +8,10 @@ const currenciesController = {
     try{
       const idBrunch = req.params.idBrunch
       const brunchData = await brunchesQueries.brunch(idBrunch)
+      const changes = await costingsChangesQueries.getData(idBrunch)
+      const selectedItem = 'data'
 
-      return res.render('data/currencies/currencies',{title:'Monedas',brunchData})
+      return res.render('data/currencies/currencies',{title:'Monedas',brunchData,changes,selectedItem})
 
     }catch(error){
       console.log(error)

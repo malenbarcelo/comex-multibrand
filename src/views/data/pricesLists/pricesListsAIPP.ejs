@@ -1,0 +1,103 @@
+<!----------ADD ITEM PPOPUP (AIPP)---------->
+<div class="popup" id="aipp">
+
+    <div class="popupContent popupWmHl" id="aippContent">
+
+        <div class="popupClose" id="aippClose"><i class="fa-solid fa-rectangle-xmark icon"></i></div>
+
+        <div class="ppTitleS" id="aippTitle"></div>
+
+        <div class="divInputsColumn mtl">
+
+            <div class="divInput mtm">
+                <label class="labelStd" id="aippSupplierLabel">Proveedor</label>
+                <select class="inputStd ixxl ipm" id="aippSupplier">
+                    <option value="" selected></option>
+                    <% data.suppliers.forEach(supplier => { %>
+                        <option value="<%= supplier.id %>" id="<%= supplier.id %>">
+                            <%= supplier.supplier %>
+                        </option>
+                    <% }) %>
+                </select>
+                <div class="divError XL" id="aippSupplierError"></div>
+            </div>
+
+            <div class="divInput mtm">
+                <label class="labelStd" id="aippItemLabel">Item</label>
+                <input type="text" class="inputStd ixxl ipm" id="aippItem" autocomplete="off">
+                <div class="divError" id="aippItemError"></div>
+            </div>
+
+            <div class="divInput mtm">
+                <label class="labelStd" id="aippDescriptionLabel">Descripción</label>
+                <input type="text" class="inputStd ixxl ipm" id="aippDescription" autocomplete="off">
+                <div class="divError" id="aippDescriptionError"></div>
+            </div>
+
+            <div class="divInput mtm">
+                <label class="labelStd" id="aippFobLabel">Precio por UM</label>
+                <input type="number" step="0.01" class="inputStd ixxl ipm" id="aippFob" autocomplete="off">
+                <div class="divError" id="aippFobError"></div>
+            </div>
+
+            <div class="divInput mtm">
+                <label class="labelStd" id="aippMuLabel">Unidad de medida</label>
+                <select class="inputStd ixxl ipm" id="aippMu">
+                    <option value="" selected></option>
+                    <% data.mus.forEach(mu => { %>
+                        <option value="<%= mu.id %>" id="<%= mu.id %>">
+                            <%= mu.measurement_unit %>
+                        </option>
+                    <% }) %>
+                </select>
+                <div class="divError XL" id="aippMuError"></div>
+            </div>
+
+            <div class="divInput mtm">
+                <label for="muPerBox" class="labelStd" id="aippMasterLabel">UM por caja</label>
+                <input type="number" step="0.01" name="muPerBox" class="inputStd ixxl ipm" id="aippMaster" autocomplete="off">
+                <div class="divError XL" id="aippMasterError"></div>
+            </div>
+
+            <div class="divInput mtm">
+                <label for="weight" class="labelStd" id="aippWeightLabel">Peso por caja (kg)</label>
+                <input type="number" step="0.01" name="weight" class="inputStd ixxl ipm" id="aippWeight" autocomplete="off">
+                <div class="divError XL" id="aippWeightError"></div>
+            </div>
+
+            <div class="divInput mtm">
+                <label for="volume" class="labelStd" id="aippVolumeLabel">Volumen por caja (m3)</label>
+                <input type="number" step="0.01" name="volume" class="inputStd ixxl ipm" id="aippVolume" autocomplete="off">
+                <div class="divError XL" id="aippVolumeError"></div>
+            </div>
+
+            <div class="divInput mtm">
+                <label for="brand" class="labelStd" id="aippBrandLabel">Marca</label>
+                <input type="text" name="brand" class="inputStd ixxl ipm" id="aippBrand" autocomplete="off">
+                <div class="divError XL" id="aippBrandError"></div>
+            </div>
+
+            <div class="divInput mtm">
+                <label for="origin" class="labelStd" id="aippOriginLabel">Origen</label>
+                <input type="text" name="origin" class="inputStd ixxl ipm" id="aippOrigin" autocomplete="off">
+                <div class="divError XL" id="aippOriginError"></div>
+            </div>
+
+            <div class="divInput mtm">
+                <label for="hasBreaks" class="labelStd" id="aippBreaksLabel">Considera roturas</label>
+                <select name="hasBreaks" class="inputStd ixxl ipm" id="aippBreaks">
+                    <option value="" selected></option>
+                    <option value="1">Si</option>
+                    <option value="0">No</option>
+                </select>
+                <div class="divError XL" id="aippBreaksError"></div>
+            </div>
+        </div>
+
+        <div class="divButtonsRow mtm mbs">
+            <div id="aippCreate" class="btnStd bm">Crear</div>
+            <div id="aippEdit" class="btnStd bm">Guardar</div>
+        </div>
+        
+    </div>
+</div>

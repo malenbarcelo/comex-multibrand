@@ -1,7 +1,37 @@
+const { raw } = require('mysql2')
 const db = require('../../../database/models')
 const sequelize = require('sequelize')
+const { Op } = require('sequelize')
 
 const pricesListsQueries = {
+    create: async(data) => {
+        await db.Prices_lists.bulkCreate(data)
+    },
+    getSupplierList: async (idBrunch,idSupplier, priceListNumber) => {
+        const allData = await db.Prices_lists.findAll({
+            include: [
+                {association: 'currency_data'},
+                {association: 'supplier_data'},
+                {association: 'mu_data'}
+            ],
+            where:{
+                id_brunches:idBrunch,
+                id_suppliers: idSupplier,
+                price_list_number: priceListNumber
+            },
+            raw:true,
+            nest:true
+        });
+
+        return allData
+    },
+    edit: async(id,data) => {
+        await db.Prices_lists.update(
+            data,
+            {where:{id:id}})
+    },
+
+
     editItem: async(idBrunch,itemData,date,itemId) => {
         await db.Prices_lists.update(
             {
@@ -55,9 +85,9 @@ const pricesListsQueries = {
         const supplierPriceList = await db.Prices_lists.findAll({
             order:['item'],
             include: [
-                {association: 'price_list_supplier'},
-                {association: 'price_list_mu'},
-                {association: 'price_list_currency'}
+                {association: 'supplier_data'},
+                {association: 'mu_data'},
+                {association: 'currency_data'}
             ],
             where:{id_brunches:idBrunch,
                 id_suppliers:idSupplier,
@@ -72,15 +102,77 @@ const pricesListsQueries = {
         const item = await db.Prices_lists.findOne({
             where:{id:idItem},
             include: [
-                {association: 'price_list_currency'},
-                {association: 'price_list_supplier'},
-                {association: 'price_list_mu'}
+                {association: 'currency_data'},
+                {association: 'supplier_data'},
+                {association: 'mu_data'}
             ],
             raw:true,
             nest:true
         })
         return item
     },
+    getData: async (idBrunch,conditions) => {
+        const allData = await db.Prices_lists.findAll({
+            include: [
+                {association: 'currency_data'},
+                {association: 'supplier_data'},
+                {association: 'mu_data'}
+            ],
+            where:{
+                id_brunches:idBrunch,
+                [Op.or]: conditions
+            },
+            order: [[{ model: db.Suppliers, as: 'supplier_data' }, 'supplier', 'ASC'],[['item','ASC']]],
+            raw:true,
+            nest:true
+        });
+
+        return allData
+    },
+    allData: async (idBrunch) => {
+        const allData = await db.Prices_lists.findAll({
+            include: [
+                {association: 'supplier_data'},
+                {association: 'mu_data'},
+                {association: 'currency_data'}
+            ],
+            where:{
+                id_brunches:idBrunch
+            },
+            order:[['id','DESC']],
+            raw:true,
+            nest:true
+        });
+
+        return allData
+    },
+    uniqueItems: async (idBrunch) => {
+        const uniqueItems = await db.Prices_lists.findAll({
+            attributes: [
+                [sequelize.fn('DISTINCT', sequelize.col('item')), 'item']
+            ],
+            where:{
+                id_brunches:idBrunch
+            },
+            raw:true
+        });
+
+        return uniqueItems;
+    },
+    lastListsNumbers: async (idBrunch) => {
+        const lastListsNumbers = await db.Prices_lists.findAll({
+            attributes: [
+                'id_suppliers',
+                [sequelize.fn('MAX', sequelize.col('price_list_number')), 'max_price_list_number']
+            ],
+            where:{
+                id_brunches:idBrunch
+            },
+            group: ['id_suppliers'],
+            raw:true
+        });
+        return lastListsNumbers
+    }
 }
 
 module.exports = pricesListsQueries

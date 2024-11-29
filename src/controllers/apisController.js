@@ -166,12 +166,33 @@ const apisController = {
 
       const idBrunch = req.params.idBrunch
 
-      const brunchPos = await purchaseOrdersQueries.brunchPos(idBrunch)
+      let brunchPos = await purchaseOrdersQueries.brunchPos(idBrunch)
+      brunchPos = brunchPos.map(bp => bp.get({ plain: true }))
 
-      brunchPos.forEach(po => {
-        const date = new Date(po.po_date)
-        const dateString = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
-        po.dateString = dateString
+      brunchPos = brunchPos.map(i => {
+
+        const poDate = new Date(i.po_date)
+        const poDateString = String(poDate.getDate()).padStart(2,'0') + '/' + String((poDate.getMonth() + 1)).padStart(2,'0') + '/' + poDate.getFullYear()
+        const receptionDate = new Date(i.reception_date)
+        const receptionDateString = String(receptionDate.getDate()).padStart(2,'0') + '/' + String((receptionDate.getMonth() + 1)).padStart(2,'0') + '/' + receptionDate.getFullYear()
+
+        //get order estimated cost
+        const estimatedCost = i.details
+            .map(d => d.units_quantity * d.estimated_cost_supplier_currency)
+            .reduce((total, current) => total + current, 0)
+
+        //get real vs estimated
+        const totalCostSupplierCurrency = parseFloat(i.total_costs_local_currency,2) / parseFloat(i.exchange_rate,2)
+
+        const realVsEstimated = (i.total_costs_local_currency == null || i.total_costs_local_currency == '' || estimatedCost == 0) ? '': (totalCostSupplierCurrency / parseFloat(estimatedCost,2)) - 1
+        
+        return {
+          ...i,
+          poDateString: poDateString,
+          receptionDateString: receptionDateString,
+          estimatedCost: parseFloat(estimatedCost,2),
+          realVsEstimated: realVsEstimated
+        }
       })
 
       res.status(200).json(brunchPos)

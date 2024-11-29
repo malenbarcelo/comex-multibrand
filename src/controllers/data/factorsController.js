@@ -1,6 +1,7 @@
 const brunchesQueries = require('../dbQueries/brunchesQueries')
 const suppliersVolumeFactorsQueries = require('../dbQueries/suppliersVolumeFactorsQueries')
 const suppliersCoeficientFactorsQueries = require('../dbQueries/suppliersCoeficientFactorsQueries')
+const costingsChangesQueries = require('../dbQueries/costingsChangesQueries')
 
 const currenciesController = {
   //BACKEND
@@ -9,8 +10,10 @@ const currenciesController = {
 
       const idBrunch = req.params.idBrunch
       const brunchData = await brunchesQueries.brunch(idBrunch)
+      const changes = await costingsChangesQueries.getData(idBrunch)
+      const selectedItem = 'data'
 
-      return res.render('data/factors/volumeFactors',{title:'Factores por volumen',brunchData})
+      return res.render('data/factors/volumeFactors',{title:'Factores por volumen',brunchData,changes,selectedItem})
 
     }catch(error){
       console.log(error)
@@ -22,8 +25,10 @@ const currenciesController = {
 
       const idBrunch = req.params.idBrunch
       const brunchData = await brunchesQueries.brunch(idBrunch)
+      const changes = await costingsChangesQueries.getData(idBrunch)
+      const selectedItem = 'data'
 
-      return res.render('data/factors/coeficientFactors',{title:'Factores por coeficiente',brunchData})
+      return res.render('data/factors/coeficientFactors',{title:'Factores por coeficiente',changes,brunchData,selectedItem})
 
     }catch(error){
       console.log(error)

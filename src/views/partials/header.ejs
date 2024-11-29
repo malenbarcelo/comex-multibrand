@@ -27,41 +27,31 @@
 
     <div class="bottomHeader">
 
-        <% if (locals.brunchData) { %>
-
-            <div class="itemsMenu" id="itemsMenu1">
-                <div class="itemHeaderMenu" id="itemMenu1">Datos generales</div>
-                <div class="subItems" id="subItems1">
-                    <a href="/data/<%= brunchData.id %>/volume-factors" class="subitemHeaderMenu">Factores por volumen</a>
-                    <a href="/data/<%= brunchData.id %>/coeficient-factors" class="subitemHeaderMenu">Factores por coeficiente</a>
-                    <a href="/data/<%= brunchData.id %>/prices-lists/0" class="subitemHeaderMenu">Listas de precios</a>
-                    <a href="/data/<%= brunchData.id %>/currencies" class="subitemHeaderMenu">Monedas</a>
-                    <a href="/data/<%= brunchData.id %>/suppliers" class="subitemHeaderMenu">Proveedores</a>
-                    <a href="/data/<%= brunchData.id %>/measurement-units" class="subitemHeaderMenu">Unidades de medida</a>                    
-                </div>
-            </div>
+        <% if (locals.selectedItem) { %>
 
             <div class="itemsMenu" id="itemsMenu2">
-                <a href="/imports/<%= brunchData.id %>/imports-data" class="subitemHeaderMenu">Importaciones</a>
+                <a href="/imports/<%= data.brunchData.id %>" class="itemHeaderMenu <%= selectedItem == 'imports' ? 'fwb' : '' %>">Importaciones</a>
             </div>
 
-            <div class="itemsMenu" id="itemsMenu3">
-                <div class="itemHeaderMenu" id="itemMenu3">Estadísticas</div>
-                <div class="subItems" id="subItems3">
-                    <a href="/statistics/<%= brunchData.id %>/import-history" class="subitemHeaderMenu">Importaciones</a>
-                    <a href="/statistics/<%= brunchData.id %>/prices-and-costs" class="subitemHeaderMenu">Precios y costos</a>                   
-                </div>
+            <div class="itemsMenu" id="itemsMenu5">
+                <a href="/costings/<%= data.brunchData.id %>" class="<%= data.changes.length > 0 ? 'itemHeaderMenuError' : 'itemHeaderMenu' %><%= selectedItem == 'costings' ? ' fwb' : '' %>" id="itemsMenu5Text">Costos estimados</a>
             </div>
 
-            <% if (locals.userLogged && (userLogged.id_users_categories == 1 || userLogged.id_users_categories == 2)) { %>
-                <div class="itemsMenu" id="itemsMenu4">
-                    <a href="/users/<%= brunchData.id %>/users" class="itemHeaderMenu">Usuarios</a>
+            <div class="itemsMenu" id="itemsMenu1">
+                <div class="itemHeaderMenu <%= selectedItem == 'data' ? ' fwb' : '' %>" id="itemMenu1">Datos generales</div>
+                <div class="subItems" id="subItems1">
+                    <a href="/data/volume-factors/<%= data.brunchData.id %>" class="subitemHeaderMenu">Factores por volumen</a>
+                    <a href="/data/coeficient-factors/<%= data.brunchData.id %>" class="subitemHeaderMenu">Factores por coeficiente</a>
+                    <a href="/data/prices-lists/<%= data.brunchData.id %>" class="subitemHeaderMenu">Listas de precios</a>
+                    <a href="/data/currencies/<%= data.brunchData.id %>" class="subitemHeaderMenu">Monedas</a>
+                    <a href="/data/suppliers/<%= data.brunchData.id %>" class="subitemHeaderMenu">Proveedores</a>
+                    <a href="/data/measurement-units/<%= data.brunchData.id %>" class="subitemHeaderMenu">Unidades de medida</a>                    
                 </div>
-            <% } %>
+            </div>
 
             <div class="divBrunchHeader">
-                <div class="divFlexBrunch"><%= brunchData.brunch.toUpperCase() %></div>
-                <div class="divFlexBrunch"><img src="/images/<%= brunchData.brunch.toLowerCase() %>.jpg" class="imgBrunchHeader" alt="country-flag"></div>
+                <div class="divFlexBrunch"><%= data.brunchData.brunch.toUpperCase() %></div>
+                <div class="divFlexBrunch"><img src="/images/<%= data.brunchData.brunch.toLowerCase() %>.jpg" class="imgBrunchHeader" alt="country-flag"></div>
                 <a href="/select-brunch/">
                     <div class="divFlexBrunch">
                         <i class="fa-solid fa-pencil edit1"></i>
@@ -74,9 +64,9 @@
 
 </div>
 
-<% if (locals.brunchData) { %>
-    <div class="notVisible" id="idBrunch"><%= brunchData.id %></div>
-    <div class="notVisible" id="brunchName"><%= brunchData.brunch %></div>
+<% if (locals.selectedItem) { %>
+    <div class="notVisible" id="idBrunch"><%= data.brunchData.id %></div>
+    <div class="notVisible" id="brunchName"><%= data.brunchData.brunch %></div>
 <% } %>
 
 

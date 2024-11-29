@@ -1,0 +1,45 @@
+<!----------UPLOAD LISTPP (ULPP)---------->
+<div class="popup" id="ulpp">
+
+    <div class="popupContent popupWmHl" id="ulppContent">
+
+        <!------GENERAL ACTIONS------>
+        <div class="dgas dgas-s">
+            <div class="dga dga-s" id="ulppTemplate">
+                <i class="fa-solid fa-download"></i>
+                <div class="dgaInfo">
+                    Descargar template
+                </div>        
+            </div>
+        </div>
+
+        <div class="popupClose" id="ulppClose"><i class="fa-solid fa-rectangle-xmark icon"></i></div>
+
+        <div class="ppTitleS" id="ulppTitle">SUBIR LISTA DE PRECIOS</div>
+
+        <div class="divInputsColumn mtl">
+
+            <div class="divInput mtm">
+                <label class="labelStd" id="ulppSupplierLabel">Proveedor</label>
+                <select class="inputStd ixxl ipm" id="ulppSupplier">
+                    <option value="" selected></option>
+                    <% data.suppliers.forEach(supplier => { %>
+                        <option value="<%= supplier.id %>" id="<%= supplier.id %>">
+                            <%= supplier.supplier %>
+                        </option>
+                    <% }) %>
+                </select>
+                <div class="divError XL" id="ulppSupplierError"></div>
+            </div>
+
+            <div class="divInput mtm">
+                <input type="file" class="inputStd ixxl ipm" id="ulppFile" autocomplete="off">
+                <div class="divError" id="ulppFileError"></div>
+            </div>
+
+        <div class="divButtonsRow mtl mbs">
+            <div id="ulppAccept" class="btnStd bm">Subir</div>
+        </div>
+        
+    </div>
+</div>

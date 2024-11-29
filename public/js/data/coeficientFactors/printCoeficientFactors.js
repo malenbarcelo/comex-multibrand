@@ -18,7 +18,6 @@ async function printCoeficientFactors() {
                 <th class="${rowClass}">${element.factor_supplier.supplier_currency.currency}</th>
                 <th class="${rowClass}">${(parseFloat(element.factor)*100).toFixed(2) +'%'}</th>
                 <th class="${rowClass}">${(parseFloat(element.sales_margin)*100).toFixed(2) +'%'}</th>
-
                 <th class="${rowClass}"><i class="fa-regular fa-pen-to-square allowedIcon" id="edit_${element.id}"></i></th>
             </tr>
             `
@@ -42,6 +41,7 @@ async function coeficientFactorsEventListeners() {
             const inputs = [ccfppSupplier,ccfppFactor,ccfppSalesMargin]
             ccfppTitle.innerText = 'EDITAR FACTOR'
             ccfppCreate.innerText = 'Editar'
+            cfg.action = 'edit'
             cfg.idElementToEdit = element.id
             clearInputs(inputs)
             isValid(inputs)

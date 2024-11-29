@@ -165,7 +165,7 @@ window.addEventListener('load',async()=>{
                 'description':item.description,
                 'id_measurement_units':item.id_measurement_units,
                 'mu_quantity':qtyToAdd,
-                'units_quantity':qtyToAdd * item.price_list_mu.units_per_um,
+                'units_quantity':qtyToAdd * item.mu_data.units_per_um,
                 'mu_per_box':item.mu_per_box,
                 'boxes':boxes,
                 'weight_kg':parseFloat(item.weight_kg,2),
@@ -175,7 +175,7 @@ window.addEventListener('load',async()=>{
                 'fob_supplier_currency':parseFloat(item.fob,2),
                 'id_currencies':item.id_currencies,
                 'brand':item.brand,
-                'measurement_unit':item.price_list_mu.measurement_unit,
+                'measurement_unit':item.mu_data.measurement_unit,
                 'total_fob_supplier_currency':totalfob
             }
 
@@ -286,7 +286,7 @@ window.addEventListener('load',async()=>{
 
             }else{
 
-                window.location.href = '/imports/' + idBrunch + '/imports-data'
+                window.location.href = '/imports/' + idBrunch
 
             }
         }
@@ -348,12 +348,12 @@ window.addEventListener('load',async()=>{
 
     //cancel reception event listener
     cancelReception.addEventListener("click", async() => {
-        window.location.href = '/imports/' + idBrunch + '/imports-data'
+        window.location.href = '/imports/' + idBrunch
     })
 
     //close popup event listener
     receiveImportClosePopup.addEventListener("click", async() => {
-        window.location.href = '/imports/' + idBrunch + '/imports-data'
+        window.location.href = '/imports/' + idBrunch
     })
 
     //save reception data
@@ -370,7 +370,7 @@ window.addEventListener('load',async()=>{
             body: JSON.stringify(data)
         })
 
-        window.location.href = '/imports/' + idBrunch + '/imports-data'
+        window.location.href = '/imports/' + idBrunch
 
     })
 
@@ -412,18 +412,27 @@ window.addEventListener('load',async()=>{
 
         //complete inputs data
         const {data, alertCounter} = await receptionCalculateCosts(globals.importData,globals.process,formatOptions)
-
+        data.idSupplier = globals.importData.id_suppliers
+        
         if (alertCounter == 0 && errors == 0) {
+
+            //receive import
             await fetch(dominio + 'apis/receive-import',{
                 method:'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(data)
             })
-    
-            window.location.href = '/imports/' + idBrunch + '/imports-data'
-            
+
+            //add estimated costs to imports
+            await fetch(dominio + 'apis/imports/add-estimated-costs/' + idBrunch, {
+                method:'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            })
+
+            window.location.href = '/imports/' + idBrunch
         }
-        
+
     })
     
 })

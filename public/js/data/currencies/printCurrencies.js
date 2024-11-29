@@ -1,6 +1,5 @@
-import { dominio } from "../dominio.js"
 import cg from "./globals.js"
-import { isValid } from "../generalFunctions.js"
+import { isValid } from "../../generalFunctions.js"
 
 
 async function printCurrencies() {
@@ -35,8 +34,6 @@ async function currenciesEventListeners() {
         //edit
         edit.addEventListener('click',async()=>{
             cecppTitle.innerText = 'MODIFICAR TASA DE CAMBIO'
-            cecppCreate.style.display = 'none'
-            cecppEdit.style.display = 'block'
             cecppCurrency.value = element.currency
             cecppExchange.value = element.currency_exchange[0].currency_exchange
             cecppCurrencyError.style.display = 'none'

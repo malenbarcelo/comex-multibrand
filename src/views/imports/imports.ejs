@@ -2,7 +2,7 @@
 <%- include('../partials/header') %>
 
 <div class="mainTitle">
-    <div class="titleL">Detalle importaciones</div>
+    IMPORTACIONES
 </div>
 
 <div class="content">
@@ -12,7 +12,7 @@
         <div class="divInput">
 
             <label for="selectSupplier" class="label2">Proveedor</label>
-            <select name="selectSupplier" id="filterSupplier" class="input1 il ipm">
+            <select name="selectSupplier" id="filterSupplier" class="input1 il spm">
                 <option value="default"></option>
                 <% data.suppliers.forEach(supplier => { %>
                     <option value="<%= supplier.id %>">
@@ -20,7 +20,6 @@
                     </option>
                 <% }) %>
             </select>
-
         </div>
 
         <div class="divInput">
@@ -85,16 +84,20 @@
             <tbody id="tBody"></tbody>
             
         </table>
-    </div>    
-
+    </div>
 </div>
 
+<!----------LOADER---------->
+<div class="loader midLoader" id="loader"></div>
+
+<!----------POPUPS---------->
 <%- include('../imports/createEditPo') %>
 <%- include('../imports/receiveImport') %>
 <%- include('../imports/importDetails') %>
 <%- include('../popups/yesNoPopup') %>
 <%- include('../popups/infoPopup') %>
 
+<!----------SCRIPTS---------->
 <script type="module" src="/js/imports.js"></script>
 
 

@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
    const Data_supplier_brunch = sequelize.define(alias, cols, config)
 
    Data_supplier_brunch.associate = (models) => {
-      Data_supplier_brunch.belongsTo(models.Suppliers,{
+      Data_supplier_brunch.belongsTo(models.Data_suppliers,{
          as:'supplier_data',
          foreignKey: 'id_suppliers'
      }),

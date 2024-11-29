@@ -1,156 +1,92 @@
 <%- include('../../partials/head') %>
 <%- include('../../partials/header') %>
 
-<div class="notVisible" id="idBrunch"><%= data.idBrunch %></div>
 <div class="notVisible" id="idUserCategory"><%= userLogged.id_users_categories %></div>
 
-<div class="mainTitle">
-    <div class="titleL">Listas de precios</div>
+<!------GENERAL ACTIONS------>
+<div class="dgas dgas-m">
+    <div class="dga dga-m" id="dgaAddItem">
+        <i class="fa-solid fa-plus"></i>
+        <div class="dgaInfo">
+            Agregar item
+        </div>        
+    </div>
+    <div class="dga dga-m"id="dgaDownload">
+        <i class="fa-solid fa-download"></i>
+        <div class="dgaInfo">
+            Descargar lista
+        </div>
+    </div>
+    <div class="dga dga-m"id="dgaUpload">
+        <i class="fa-solid fa-upload"></i>
+        <div class="dgaInfo">
+            Subir lista
+        </div>
+    </div>
+    
 </div>
 
-<div class="content">
-    
-    <div class="divInputs">
-        <select name="selectSupplier" class="input1 XL" id="selectSupplier">
-            <option value="default" selected>
-                ---Seleccione un proveedor---
-            </option>
-            <% data.suppliers.forEach(supplier => { %>
-                <option value="<%= supplier.id %>" <%= locals.supplierId != 0 && supplierId == supplier.id ? 'selected' : null %>>
-                    <%= supplier.supplier %>
-                </option>
-            <% }) %>
-        </select>
-    </div>
+<!------MAIN TITLE------>
+<div class="mainTitle">
+    LISTAS DE PRECIOS
+</div>
 
-    <div class="divPricesList" id="divPricesList">
-
-        <!------------FILTERS------------>        
-        <!---<div class="divImportFilters">
-            <div class="divInput">
-                <label for="item" class="label">Item</label>
-                <input type="text" name="item" class="input1 S" id="filterItem">
-            </div>
-
-            <div class="divInput">
-                <label for="description" class="label">Descripción</label>
-                <input type="text" name="description" class="input1 XL" id="filterDescription">
-            </div>
-
-            <div class="filterAction">
-                <i class="fa-solid fa-filter-circle-xmark" id="unfilterPo"></i>
-            </div>
-        </div>---> 
-
-        <!---ACTIONS-->
-        <div class="divPricesListActions">
-
-            <a href="" id="hrefDownloadPriceList">
-                <i class="fa-solid fa-download pricesListAction"></i>
-            </a>
-            
-            <i class="fa-solid fa-upload pricesListAction" id="uploadPriceList"></i>
-
+<!------SELECT SUPPLIER------>
+<div class="mainFilters mbm">
+    <div class="divInputsRow mbl">
+        <div class="divInput">
+            <label class="label2">Proveedor</label>
+            <select name="selectSupplier" class="input1 ixl ipm" id="supplier">
+                <option value="" selected></option>
+                <% data.suppliers.forEach(supplier => { %>
+                    <option value="<%= supplier.id %>"><%= supplier.supplier %></option>
+                <% }) %>
+            </select>
         </div>
-
+        <div class="divInput">
+            <label class="label2">Item</label>
+            <input type="text" class="input1 im ipm" id="item">
+        </div>
+        <div id="unfilter" class="icon">
+            <i class="fa-solid fa-filter-circle-xmark"></i>
+        </div>
+    </div>
+</div>
 
         
-
-        <!---Price list table-->
-        <div class="divTable" id="priceListTable">
-
-            <table>
-                <thead>
-                    <tr>
-                        <th class="theadM thLeftBorder thPo" id="create">
-                            Item
-                            <i class="fa-regular fa-square-plus newItem"></i>
-                        </th>
-                        <th class="theadXXL">Descripción</th>
-                        <th class="theadM">UM</th>
-                        <th class="theadS">UM por caja</th>
-                        <th class="theadS">Peso (kg)</th>
-                        <th class="theadS">Volumen (m3)</th>
-                        <th class="theadM" id="priceCurrency"></th>
-                        <th class="theadS">Marca</th>
-                        <th class="theadM">Origen</th>
-                        <th class="theadS">Roturas</th>
-                        <% if (userLogged && userLogged.id_users_categories == 1) { %>
-                            <th class="theadXS"><i class="fa-regular fa-trash-can"></i></th>
-                        <% } %>                        
-                        <th class="theadXS thRightBorder"><i class="fa-regular fa-pen-to-square"></i></th>
-                    </tr>
-                </thead>
-                <tbody id="priceListBody"></tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="divListNotFound notVisible" id="listNotFound">
-        <div class="textListNotFound">
-            <i class="fa-solid fa-triangle-exclamation notFoundIcon"></i>
-            <div class="notFoundText">
-                El proveedor seleccionado no posee una lista de precios asociada.
-            </div>
-            <div class="uploadFirstList" id="uploadFirstList">
-                <i class="fa-solid fa-upload"></i>
-                <div>Subir lista</div>
-            </div>            
-        </div>
-    </div>
+<!---------PRICES LISTS TABLE--------->
+<div class="divTable" id="pricesListsTable">    
+    <table>
+        <thead>
+            <tr>
+                <th class="thCss thl thLeftBorder">Proveedor</th>
+                <th class="thCss ths">Item</th>
+                <th class="thCss thxl">Descripción</th>
+                <th class="thCss thxs">UM</th>
+                <th class="thCss thxs">UM por caja</th>
+                <th class="thCss thxs">Peso (kg)</th>
+                <th class="thCss thxs">Volumen (m3)</th>
+                <th class="thCss thxs">Precio unitario</th>
+                <th class="thCss thxs">Moneda</th>
+                <th class="thCss ths">Marca</th>
+                <th class="thCss thxs">Origen</th>
+                <th class="thCss thxs">Roturas</th>
+                <th class="thCss thxxs thRightBorder"><i class="fa-regular fa-pen-to-square"></i></th>
+            </tr>
+        </thead>
+        <tbody id="bodyPricesLists"></tbody>
+    </table>
 </div>
 
-<!---Add new price list--->
-<div class="newListPopup <%= locals.uploadFormVisible ? 'newListPopupVisible' : 'newListPopupNotVisible' %>" id="newPriceList">
-    <div class="newListContent">
-        <div class="yesNoClosePopup" id="newListClosePopup">X</div>
-        <form action="" method="POST" enctype="multipart/form-data" id="formUploadList2">
-            <div>
-                <div class="newListPopupTitle">Importar lista de precios</div>
-                <div class="newListPopupSubtitle" id="newListSupplier"><%= locals.uploadFormVisible ? supplier.supplier : null %></div>
-                
-                <div class="inputFileAndError">
-                    <input type="file" name="priceList" class="inputUploadFile <%= locals.errors && errors.priceList ? 'isInvalid' : null %>" id="newListFile">
+<!----------LOADER---------->
+<div class="loader midLoader" id="loader" ></div>
 
-                    <div class="divError" id="newListError">
-                        <% if (locals.errors && errors.priceList) { %>
-                            <%= errors.priceList.msg %>
-                        <% } %>
-                    </div>
-                </div>                
-
-                <div class="divButtonsRow">
-                    <button type="submit" class="button1 mButton" id="confirmButton">Importar</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!--delete item popup--->
-<div class="yesNoPopup" id="deleteItemPopup">
-    <form action="" method="POST" id="formDeleteItem" enctype="multipart/form-data" >    
-        <div class="acceptCancelContent">
-    
-            <div class="divClosePopup">
-                <div class="acceptCancelClosePopup" id="deleteItemClose">X</div>
-            </div>
-    
-            <div class="deleteItemText" id="deleteItemText"></div>
-    
-            <div class="divButtonsRow">
-                <button class="button1 mButton" type="submit" >Confirmar</button>
-                <div class="button1 mButton" id="cancelEdit">Cancelar</div>
-            </div>
-        </div>    
-    </form>
-</div>
+<!----------POPUPS---------->
+<%- include('../../partials/errorPopup') %>
+<%- include('../../partials/okPopup') %>
+<%- include('./pricesListsAIPP') %>
+<%- include('./pricesListsULPP') %>
 
 
-<%- include('./createEditItem') %>
-<script type="module" src="/js/pricesLists.js"></script>
-
-
-
-
-
+<!----------SCRIPTS---------->
+<script type="module" src="/js/data/pricesLists/pricesLists.js"></script>

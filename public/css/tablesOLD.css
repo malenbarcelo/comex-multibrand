@@ -81,18 +81,6 @@ border-top-right-radius: 10px;
 }
 
 /*------Tbody------*/
-.tBody1{
-    font-weight: lighter;
-    padding: 9px 0px;
-}
-
-.tBodyEven{
-    background-color: var(--color4);
-}/*background when row number is even*/
-
-.tBodyOdd{
-    background-color: var(--color8);
-}/*background when row number is odd*/
 
 
 /*-----------SPECIFIC-----------*/

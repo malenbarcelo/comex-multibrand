@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
    const Brunch = sequelize.define(alias, cols, config)
 
    Brunch.associate = (models) => {
-      Brunch.belongsTo(models.Currencies,{
+      Brunch.belongsTo(models.Data_currencies,{
           as:'brunch_currency',
           foreignKey: 'id_currencies'
       })

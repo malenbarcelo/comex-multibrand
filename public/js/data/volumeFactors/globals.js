@@ -7,6 +7,8 @@ let vfg = {
     idBrunch:0,
     volumeFactors:[],
     idElementToEdit:0,
+    suppliers:[],
+    action:''
 }
 
 export default vfg

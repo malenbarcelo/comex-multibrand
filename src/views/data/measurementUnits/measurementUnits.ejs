@@ -20,10 +20,10 @@
             </thead>
 
             <tbody>
-                <% for( let i = 0; i < data.mu.length; i++ ) { %>
+                <% for( let i = 0; i < data.mus.length; i++ ) { %>
                     <tr>
-                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= data.mu[i].measurement_unit %></th>
-                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= data.mu[i].units_per_um %></th>                        
+                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= data.mus[i].measurement_unit %></th>
+                        <th class="tBody1 <%= i%2 == 0 ? 'tBodyEven' : 'tBodyOdd' %>"><%= data.mus[i].units_per_um %></th>                        
                     </tr>
                 <% } %>
             </tbody>

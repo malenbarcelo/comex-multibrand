@@ -1,40 +1,30 @@
-<!----------Create edit currency popup---------->
+<!----------Create edit currency---------->
 <div class="pp" id="cecpp">
 
     <div class="ppContent" id="cecppContent">
 
         <div class="ppIcons">
-            <div class="ppIcon1"><i class="fa-regular fa-square-plus"></i></div>
-            <div class="ppClose1" id="cecppClose"><i class="fa-solid fa-rectangle-xmark ppCloseIcon"></i></div>
+            <div class="ppIcon2"><i class="fa-regular fa-square-plus"></i></div>
+            <div class="ppClose2" id="cecppClose"><i class="fa-solid fa-rectangle-xmark ppCloseIcon"></i></div>
         </div>
 
-        <div class="ppTitleS mbL" id="cecppTitle"></div>       
+        <div class="ppTitleS mbl" id="cecppTitle"></div>       
         
         <div class="divInputsColumn">
             <div class="divInput">
-                <label class="label2" id="cecppCurrencyLabel">Moneda</label>
+                <label class="label3" id="cecppCurrencyLabel">Moneda</label>
                 <input type="text" class="input1 il ipl" id="cecppCurrency" autocomplete="off" readonly>
-                <div class="divError" id="cecppCurrencyError"></div>
+                <div class="divError2" id="cecppCurrencyError"></div>
             </div>
-            <div class="divInput mtM">
-                <label class="label2" id="cecppExchangeLabel">Tasa de cambio</label>
-                <input type="number" class="input1 il ipl" step="0.01" id="cecppExchange" autocomplete="off">
-                <div class="divError" id="cecppExchangeError"></div>
+            <div class="divInput mtm">
+                <label class="label3" id="cecppExchangeLabel">Tasa de cambio</label>
+                <input type="number" step="0.01" class="input1 il ipl" id="cecppExchange" autocomplete="off">
+                <div class="divError2" id="cecppExchangeError">Debe completar el volúmen estándar</div>
             </div>
         </div>
 
-        <div class="divButtonsRow mtL mbS">
-            <div id="cecppCreate" class="button1 sButton">Crear</div>
-            <div id="cecppEdit" class="button1 sButton">Guardar</div>
-        </div>
-    </div>
-</div>
-
-<div class="okPopup" id="cecppOk">    
-    <div class="okContent" id="cecppOkContent">
-        <div class="okDiv">
-            <div class="okIcon1"><i class="fa-regular fa-circle-check"></i></div>
-            <div class="okText" id="cecppOkText">Tasa de cambio editada con éxito</div>
+        <div class="divButtonsRow mtl mbs">
+            <div id="cecppEdit" class="button1 mButton">Editar</div>
         </div>
     </div>
 </div>

@@ -1,0 +1,86 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+
+<div class="mainTitle">
+    COSTOS
+</div>
+
+<!--------COSTING ALERT-------->
+<div id="costingAlert">
+    <div id="costingAlertText">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        Los costos estimados no están actualizados
+    </div>
+</div>
+
+<!--------UPDATE COSTINGS-------->
+<div id="updateDiv">
+    <div id="updateCostings">ACTUALIZAR COSTOS</div>
+    <i class="fa-solid fa-circle-info" id="costingAlertInfo"></i>
+</div>
+
+<!------GENERAL ACTIONS------>
+<div class="dgas dgas-m">
+    <div class="dga dga-m" id="download">
+        <i class="fa-solid fa-download"></i>
+        <div class="dgaInfo">
+            Descargar costos
+        </div>        
+    </div>
+</div>
+
+<!--------FILTERS-------->
+<div class="mainFilters mbm">
+    <div class="divInputsRow">            
+        <div class="divInput">
+            <label for="supplier" class="label2">Proveedor</label>
+            <select name="supplier" id="supplier" class="input1 il ipm">
+                <option value=""></option>
+                <% data.suppliers.forEach(supplier => { %>
+                    <option value="<%= supplier.id %>"><%= supplier.supplier %></option>
+                <% }) %>
+            </select>
+        </div>
+        <div class="divInput">
+            <label for="selectOrder" class="label2">Item</label>
+            <input type="text" class="input1 il ipm" id="item">
+        </div>
+        <div id="unfilter" class="icon">
+            <i class="fa-solid fa-filter-circle-xmark"></i>
+        </div>
+    </div>    
+</div>
+
+<!------MAIN CONTENT------>
+<div class="divTable" id="costingTable">
+
+    <table>
+        <thead>
+            <tr>
+                <th class="thCss thm thLeftBorder">Proveedor</th>
+                <th class="thCss thxs">Item</th>
+                <th class="thCss thxxxl">Descripción</th>
+                <th class="thCss thxs">UM</th>
+                <th class="thCss thxs">UM / caja</th>
+                <th class="thCss thxs">Moneda</th>
+                <th class="thCss ths">FOB</th>
+                <th class="thCss ths">Costo por unidad</th>
+                <th class="thCss ths thRightBorder">Fecha</th>
+        </thead>
+        <tbody id="bodyCostings"></tbody>
+    </table>
+</div>
+
+<!----------LOADER---------->
+<div class="loader midLoader" id="costingsLoader"></div>
+
+<!----------POPUPS---------->
+<%- include('../partials/okPopup') %>
+<%- include('../partials/errorPopup') %>
+<%- include('./costingsLCPP') %>
+<%- include('../partials/confirmPopup') %>
+
+<!----------SCRIPTS---------->
+<script type="module" src="/js/costings/costings.js"></script>
+
+

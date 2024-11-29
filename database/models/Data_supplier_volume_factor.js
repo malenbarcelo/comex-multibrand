@@ -123,7 +123,7 @@ module.exports = (sequelize, DataTypes) => {
           as:'factor_user',
           foreignKey: 'id_users'
       }),
-      Data_supplier_volume_factor.belongsTo(models.Suppliers,{
+      Data_supplier_volume_factor.belongsTo(models.Data_suppliers,{
          as:'factor_supplier',
          foreignKey: 'id_suppliers'
      })
