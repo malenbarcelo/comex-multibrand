@@ -35,7 +35,7 @@ async function csppEventListeners() {
                     address:csppAddress.value,
                     id_countries:csppCountry.value,
                     id_currencies:csppCurrency.value,
-                    cost_calculation:csppCostCalculation.value,
+                    cost_calculation:csppCostCalculation.value == 'volume' ? 'Volumen' : 'Factor',
                 },
                 brunches:sg.selectedBrunches
             }

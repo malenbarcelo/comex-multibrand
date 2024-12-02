@@ -18,7 +18,7 @@ const suppliersVolumeFactorsQueries = {
                 created_at: {
                     [Op.eq]: sequelize.literal(`(
                         SELECT MAX(created_at)
-                        FROM Data_suppliers_volume_factors AS subquery
+                        FROM data_suppliers_volume_factors AS subquery
                         WHERE 
                             subquery.id_suppliers = Data_suppliers_volume_factors.id_suppliers
                             AND subquery.id_brunches = Data_suppliers_volume_factors.id_brunches
