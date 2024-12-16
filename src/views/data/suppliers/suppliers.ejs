@@ -1,15 +1,15 @@
 <%- include('../../partials/head') %>
 <%- include('../../partials/header') %>
 
-<div class="mainTitle">
+<div class="mainTitle mbm">
     PROVEEDORES
 </div>
 
 <!------GENERAL ACTIONS------>
-<div class="divDGAs" id="dgasSuppliers">
-    <div class="divDGA divDGAm" id="createSupplier">
-        <i class="fa-regular fa-square-plus"></i>
-        <div class="DGAinfoAside">
+<div class="dgas dgas-m">
+    <div class="dga dga-m" id="createSupplier">
+        <i class="fa-solid fa-plus"></i>
+        <div class="dgaInfo">
             Crear proveedor
         </div>        
     </div>
@@ -40,6 +40,7 @@
 
 <!----------POPUPS---------->
 <%- include('../../partials/okPopup') %>
+<%- include('../../partials/errorPopup') %>
 <%- include('./suppliersCSPP') %>
 
 <!----------SCRIPTS---------->

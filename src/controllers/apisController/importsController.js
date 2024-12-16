@@ -97,11 +97,11 @@ const coeficientFactorsController = {
         const detailsToEdit = req.body.details.map(d => {
 
           const estimated_cost_supplier_currency = estimatedCosts.filter(ec => ec.item == d.item)[0].unit_cost
-          
+
           return {
             id: d.id,
             item: d.item,
-            estimated_cost_supplier_currency: parseFloat(estimated_cost_supplier_currency,2) || null 
+            estimated_cost_supplier_currency: d.total_cost_local_currency == 0 ? 0 : parseFloat(estimated_cost_supplier_currency,2) || null 
           }
         })
 

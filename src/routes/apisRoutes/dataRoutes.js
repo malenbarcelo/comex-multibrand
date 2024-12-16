@@ -3,6 +3,7 @@ const volumeFactorsController = require('../../controllers/apisController/data/v
 const coeficientFactorsController = require('../../controllers/apisController/data/coeficientFactorsController')
 const suppliersController = require('../../controllers/apisController/data/suppliersController')
 const currenciesController = require('../../controllers/apisController/data/currenciesController')
+const measurementUnitsController = require('../../controllers/apisController/data/measurementUnitsController')
 const express = require('express')
 const multer = require('multer')
 const path = require('path')
@@ -41,13 +42,17 @@ router.get('/coeficient-factors/:idBrunch',coeficientFactorsController.coeficien
 router.post('/coeficient-factors/create',coeficientFactorsController.create)
 
 /*---Suppliers---*/
+router.get('/suppliers',suppliersController.allSuppliers)
 router.get('/suppliers/:idBrunch',suppliersController.suppliers)
 router.post('/suppliers/create',suppliersController.create)
-
+router.post('/suppliers/edit',suppliersController.edit) //composed route
 
 /*---Currencies---*/
 router.get('/currencies/:idBrunch',currenciesController.currencies)
 router.post('/currencies/create-exchange-rate',currenciesController.createExchangeRate)
+
+/*---Measurement units---*/
+router.get('/measurement-units',measurementUnitsController.measurementUnits)
 
 
 module.exports = router

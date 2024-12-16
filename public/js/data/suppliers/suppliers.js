@@ -1,5 +1,6 @@
 
-import { loadData } from "./functions.js"
+import { getData } from "./functions.js"
+import { printTable } from "./printTable.js"
 import { closePopupsEventListeners,clearInputs,isValid,inputsValidation, uncheckInputs } from "../../generalFunctions.js"
 import sg from "./globals.js"
 
@@ -11,7 +12,10 @@ window.addEventListener('load',async()=>{
     suppliersLoader.style.display = 'block'
 
     //load data
-    await loadData()
+    await getData()
+
+    //print table
+    await printTable()
 
     //popups event listeners
     csppEventListeners() //CREATE SUPPLIER POPUP

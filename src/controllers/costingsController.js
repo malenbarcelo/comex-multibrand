@@ -88,11 +88,13 @@ const costsController = {
             const priceExpenses = cif * (parseFloat(supplierData[0].supplier_volume_factors[0].custom_agent,2) + parseFloat(supplierData[0].supplier_volume_factors[0].transference,2))
             
             unitCost = (cif + importDuty + volumeExpenses + priceExpenses) / itemData.mu_data.units_per_um
-
+            
           }else{
             unitCost = null
           }
         }
+
+        
         
         return {
           ...i,

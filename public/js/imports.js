@@ -300,18 +300,44 @@ window.addEventListener('load',async()=>{
         const newFob = parseFloat(globals.editItemFob.value,3)
         const newQty = parseFloat(globals.editItemQty.value,3)
         const newTotalFob = newFob * newQty
+        
 
         let rowData = globals.poDetails.find(item => item.id == idRow)
 
-        if (rowData) {
+        const mus = await (await fetch(dominio + 'apis/data/measurement-units')).json()
+        const units_per_mu = mus.filter( mu => mu.id == rowData.id_measurement_units)[0].units_per_um
 
+        if (rowData) {
             rowData.fob_supplier_currency = newFob
             rowData.mu_quantity = newQty
+            rowData.units_quantity = newQty / units_per_mu
             rowData.boxes = newQty / rowData.mu_per_box
             rowData.total_fob_supplier_currency = newTotalFob
             rowData.total_weight_kg = (newQty / rowData.mu_per_box) * rowData.weight_kg
             rowData.total_volume_m3 = (newQty / rowData.mu_per_box) * rowData.volume_m3
         }
+
+        //update table in database
+        const data = {
+            id: idRow,
+            newData: {
+                fob_supplier_currency:newFob,
+                mu_quantity:newQty,
+                units_quantity: newQty / units_per_mu,
+                boxes:newQty / rowData.mu_per_box,
+                total_fob_supplier_currency:newTotalFob,
+                total_weight_kg:(newQty / rowData.mu_per_box) * rowData.weight_kg,
+                total_volume_m3:(newQty / rowData.mu_per_box) * rowData.volume_m3
+            }
+
+        }
+
+        await fetch(dominio + 'apis/imports-details/update',{
+            method:'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        })
+        
 
         //updatePoData
         updatePoData(globals.poDetails,globals.poData,formatOptions)
@@ -422,7 +448,7 @@ window.addEventListener('load',async()=>{
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(data)
             })
-
+            
             //add estimated costs to imports
             await fetch(dominio + 'apis/imports/add-estimated-costs/' + idBrunch, {
                 method:'POST',

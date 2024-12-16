@@ -109,31 +109,7 @@ const purchaseOrdersQueries = {
     },
     receiveImport: async(data) => {
 
-        await db.Purchase_orders.update(
-            {
-                reception_date: data.reception_date,
-                exchange_rate: data.exchange_rate,
-                total_fob_local_currency: data.total_fob_local_currency,
-                freight_local_currency: data.freight_local_currency,
-                insurance_local_currency: data.insurance_local_currency,
-                cif_local_currency: data.cif_local_currency,
-                forwarder_local_currency: data.forwarder_local_currency,
-                domestic_freight_local_currency: data.domestic_freight_local_currency,
-                dispatch_expenses_local_currency: data.dispatch_expenses_local_currency,
-                office_fees_local_currency: data.office_fees_local_currency,
-                container_costs_local_currency: data.container_costs_local_currency,
-                port_expenses_local_currency: data.port_expenses_local_currency,
-                duties_tarifs_local_currency: data.duties_tarifs_local_currency,
-                container_insurance_local_currency: data.container_insurance_local_currency,
-                port_contribution_local_currency: data.port_contribution_local_currency,
-                other_expenses_local_currency: data.other_expenses_local_currency,
-                total_expenses_local_currency: data.total_expenses_local_currency,
-                total_costs_local_currency: data.total_costs_local_currency,
-                total_volume_expense_local_currency: data.total_volume_expense,
-                total_price_expense_local_currency: data.total_price_expense,
-                cost_vs_fob: data.cost_vs_fob,
-                status:data.status
-            },
+        await db.Purchase_orders.update(data,
             {where:{purchase_order:data.purchase_order}}
         )
 

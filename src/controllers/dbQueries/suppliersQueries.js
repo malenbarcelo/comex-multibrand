@@ -5,7 +5,7 @@ const model = db.Data_suppliers
 
 
 const suppliersQueries = {
-    allSuppliers: async() => {
+    getAllSuppliers: async() => {
         const allSuppliers = await model.findAll({
             order:['supplier'],
             include: [
@@ -98,7 +98,19 @@ const suppliersQueries = {
     create: async(data) => {
         const newSupplier = await model.create(data)
         return newSupplier
-    }
+    },
+    update: async(newData,supplierId) => {
+        console.log(newData)
+        console.log(supplierId)
+        
+        await model.update(
+            newData,
+            {
+                where:{
+                    id: supplierId
+                }
+            }
+        )}
 }       
 
 module.exports = suppliersQueries

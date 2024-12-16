@@ -10,6 +10,7 @@ const userLoggedMiddleware = require('./src/middlewares/userLoggedMiddleware.js'
 const appRoutes = require('./src/routes/appRoutes.js')
 const dataRoutes = require('./src/routes/apisRoutes/dataRoutes.js')
 const importsRoutes = require('./src/routes/apisRoutes/importsRoutes.js')
+const importsDetailsRoutes = require('./src/routes/apisRoutes/importsDetailsRoutes.js')
 
 
 
@@ -32,8 +33,8 @@ app.use(express.static(publicPath))
 //app.use(cors())
 
 //get forms info as objects
-app.use(express.urlencoded({extended:false}))
-app.use(express.json())
+app.use(express.urlencoded({extended:true,limit: '10mb'}))
+app.use(express.json({ limit: '10mb' }))
 
 //set views folder in src/views
 app.set('views', path.join(__dirname, 'src/views'));
@@ -61,6 +62,7 @@ app.listen(APP_PORT,() => console.log("Servidor corriendo en puerto " + APP_PORT
 app.use('/',appRoutes)
 app.use('/apis/data',dataRoutes)
 app.use('/apis/imports',importsRoutes)
+app.use('/apis/imports-details',importsDetailsRoutes)
 
 
 
@@ -77,10 +79,12 @@ app.use('/data/apis',dataRoutes)
 app.use('/costings',costingsRoutes)
 app.use('/costings/apis',costingsRoutes)
 
+
+
 app.use('/imports',importsRoutesOld)
 app.use('/statistics',statisticsRoutes)
 app.use('/apis',apisRoutes)
 
-// console.log('jaime: ' + bcrypt.hashSync('jbarcelo',10))
+//console.log('jaime: ' + bcrypt.hashSync('controldocumental@proeco.com.ar',10))
 // console.log('malen: ' + bcrypt.hashSync('mbarcelo',10))
 // console.log('tomas: ' + bcrypt.hashSync('tallegri',10))

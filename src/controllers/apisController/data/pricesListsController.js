@@ -149,8 +149,6 @@ const pricesListsController = {
      
       const dataToPrint = supplierId == '' ? pricesList : pricesList.filter( p => p.id_suppliers == supplierId)
 
-      console.log(dataToPrint)
-
       //create excel
       const workbook = new excelJs.Workbook()
 
@@ -182,9 +180,9 @@ const pricesListsController = {
           'description': item.description,
           'mu': item.mu_data.measurement_unit,
           'muPerBox': parseFloat(item.mu_per_box,2),
-          'volume': parseFloat(item.volume_m3,4),
-          'weight': parseFloat(item.weight_kg,4),
-          'price': parseFloat(item.fob,4),
+          'volume': parseFloat(item.volume_m3,4).toFixed(4),
+          'weight': parseFloat(item.weight_kg,4).toFixed(3),
+          'fob': parseFloat(item.fob,3).toFixed(3),
           'currency': item.currency_data.currency,
           'hasBreaks': item.has_breaks == 1 ? "si" : 'no',
           'brand': item.brand,
