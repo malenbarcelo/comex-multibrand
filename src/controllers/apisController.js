@@ -188,9 +188,13 @@ const apisController = {
         
         
         if (i.purchase_order == "AR.06.24") {
-          console.log(totalCostSupplierCurrency)
-        console.log(estimatedCost)
-        console.log(realVsEstimated)
+          i.details.forEach(d => {
+            console.log({'item':d.item,'qty':d.units_quantity, 'estimated_cost':d.estimated_cost_supplier_currency})
+            
+          });
+          // console.log(totalCostSupplierCurrency)
+          // console.log(estimatedCost)
+          // console.log(realVsEstimated)
           
         }
         
