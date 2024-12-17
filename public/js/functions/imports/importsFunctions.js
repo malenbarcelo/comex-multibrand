@@ -27,6 +27,11 @@ function printImportsTable(posToPrint,formatOptions,divPoErrors,createEditPoNumb
 
     posToPrint.forEach(po => {
 
+        if (po.purchase_order == "AR.06.24") {
+            console.log(po)
+            
+        }
+
         const rowClass = counter % 2 == 0 ? 'tBody1 tBodyEven' : 'tBody1 tBodyOdd'
         const statusClass = po.status == 'Recibir' ? 'actionRequired' : null
         const statusLine = po.status == 'Recibir' ? '<div class="receiveStatus">' + po.status + '<i class="fa-regular fa-circle-question questionIcon" id="questionIcon_' + po.id + '"></i></div>' : po.status
