@@ -186,6 +186,12 @@ const apisController = {
 
         const realVsEstimated = (i.total_costs_local_currency == null || i.total_costs_local_currency == '' || estimatedCost == 0) ? '': (totalCostSupplierCurrency / parseFloat(estimatedCost,2)) - 1
         
+        console.log(totalCostSupplierCurrency)
+        console.log(estimatedCost)
+        console.log(realVsEstimated)
+        
+
+        
         return {
           ...i,
           poDateString: poDateString,

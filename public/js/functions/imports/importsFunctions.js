@@ -37,6 +37,7 @@ function printImportsTable(posToPrint,formatOptions,divPoErrors,createEditPoNumb
         const receptionDateAsDate = po.reception_date == null ? '' : new Date(po.reception_date)
         const costVsFob = po.cost_vs_fob == null ? '' : parseFloat(po.cost_vs_fob * 100,2).toFixed(2) + '%'
         const realVsEstimated = parseFloat(po.realVsEstimated * 100,2) == 0 ? '' : (parseFloat(po.realVsEstimated * 100,2).toFixed(2) + '%')
+
         const costingClass = parseFloat(po.realVsEstimated,2) < 0 ? 'greenColor' : (parseFloat(po.realVsEstimated,2) > 0 ? 'redColor' : '')
 
         const line1 = '<th class="' + rowClass + '">' + po.purchase_order + '</th>'
