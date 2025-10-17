@@ -72,32 +72,37 @@ const costsController = {
         let unitCost
 
         if (supplierData.length > 0 && supplierData[0].cost_calculation == 'Factor') {
-          if (supplierData[0].supplier_coeficient_factors.length > 0) {
-            unitCost = itemData.fob * (1 + parseFloat(supplierData[0].supplier_coeficient_factors[0].factor,2))
+          const coefData = supplierData.filter(s => s.id_brunches == idBrunch)
+          if (coefData.length > 0) {
+            unitCost = itemData.fob * (1 + parseFloat(coefData[0].factor,2))
           }else{
             unitCost = null
           }
           
         }else if(supplierData.length > 0 && supplierData[0].cost_calculation == 'Volumen'){
-          if (supplierData[0].supplier_volume_factors.length > 0) {
-            const volume = supplierData[0].supplier_volume_factors[0].volume_mu == 'ft3' ? parseFloat(itemData.volume_m3,2) * 35.3147 : parseFloat(itemData.volume_m3,2)
-            const freight = (volume * parseFloat(supplierData[0].supplier_volume_factors[0].freight,2)) / parseFloat(itemData.mu_per_box,2)
-            const cif = (freight + parseFloat(itemData.fob)) * (1 + parseFloat(supplierData[0].supplier_volume_factors[0].insurance,2))
-            const importDuty = cif * parseFloat(supplierData[0].supplier_volume_factors[0].import_duty,2)
-            const volumeExpenses = parseFloat(supplierData[0].supplier_volume_factors[0].total_volume_expenses,2) * volume / parseFloat(itemData.mu_per_box,2)
-            const priceExpenses = cif * (parseFloat(supplierData[0].supplier_volume_factors[0].custom_agent,2) + parseFloat(supplierData[0].supplier_volume_factors[0].transference,2))
+          const coefData = supplierData[0].supplier_volume_factors.filter(s => s.id_brunches == idBrunch)
+          
+          if (coefData.length > 0) {
+            const volume = coefData[0].volume_mu == 'ft3' ? parseFloat(itemData.volume_m3,2) * 35.3147 : parseFloat(itemData.volume_m3,2)
+            const freight = (volume * parseFloat(coefData[0].freight,2)) / parseFloat(itemData.mu_per_box,2)
+            const cif = (freight + parseFloat(itemData.fob)) * (1 + parseFloat(coefData[0].insurance,2))
+            const importDuty = cif * parseFloat(coefData[0].import_duty,2)
+            const volumeExpenses = parseFloat(coefData[0].total_volume_expenses,2) * volume / parseFloat(itemData.mu_per_box,2)
+            const priceExpenses = cif * (parseFloat(coefData[0].custom_agent,2) + parseFloat(coefData[0].transference,2))
             
-            if (i.item == '7504') {
+            // if (i.item == '7504') {
+
+            //   console.log(suppData[0])
               
-              console.log('freight: ' + freight)
-              console.log('supplierData[0].supplier_volume_factors[0].freight: ' + supplierData[0].supplier_volume_factors[0].freight)
-              console.log('itemData.mu_per_box: ' + itemData.mu_per_box)
-              console.log('freight: ' + freight)            
-              console.log(cif)            
-              console.log(importDuty)
-              console.log(volumeExpenses)
-              console.log(priceExpenses)
-            }
+            //   console.log('freight: ' + freight)
+            //   console.log('supplierData[0].supplier_volume_factors[0].freight: ' + supplierData[0].supplier_volume_factors[0].freight)
+            //   console.log('itemData.mu_per_box: ' + itemData.mu_per_box)
+            //   console.log('freight: ' + freight)            
+            //   console.log(cif)            
+            //   console.log(importDuty)
+            //   console.log(volumeExpenses)
+            //   console.log(priceExpenses)
+            // }
             
 
             
