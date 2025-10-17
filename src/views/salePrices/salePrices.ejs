@@ -1,0 +1,85 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+
+<div class="notVisible" id="idUserCategory"><%= userLogged.id_users_categories %></div>
+
+<!------GENERAL ACTIONS------>
+<div class="dgas dgas-m">
+    <div class="dga dga-m" id="dgaAddItem">
+        <i class="fa-solid fa-plus"></i>
+        <div class="dgaInfo">
+            Agregar item
+        </div>        
+    </div>
+    <div class="dga dga-m"id="dgaDownload">
+        <i class="fa-solid fa-download"></i>
+        <div class="dgaInfo">
+            Descargar lista
+        </div>
+    </div>
+    <div class="dga dga-m"id="dgaUpload">
+        <i class="fa-solid fa-upload"></i>
+        <div class="dgaInfo">
+            Subir lista
+        </div>
+    </div>
+    
+</div>
+
+<!------MAIN TITLE------>
+<div class="mainTitle">
+    PRECIOS DE VENTA
+</div>
+
+<!------SELECT SUPPLIER------>
+<div class="mainFilters mbm">
+    <div class="divInputsRow mbl">
+        <div class="divInput">
+            <label class="label2">Proveedor</label>
+            <select name="selectSupplier" class="input1 ixl ipm" id="supplier">
+                <option value="" selected></option>
+                <% data.suppliers.forEach(supplier => { %>
+                    <option value="<%= supplier.id %>"><%= supplier.supplier %></option>
+                <% }) %>
+            </select>
+        </div>
+        <div class="divInput">
+            <label class="label2">Item</label>
+            <input type="text" class="input1 im ipm" id="item">
+        </div>
+        <div id="unfilter" class="icon">
+            <i class="fa-solid fa-filter-circle-xmark"></i>
+        </div>
+    </div>
+</div>
+
+        
+<!---------PRICES LISTS TABLE--------->
+<div class="divTable" id="pricesListsTable">    
+    <table>
+        <thead>
+            <tr>
+                <th class="thCss ths">Item Flexxus</th>
+                <th class="thCss ths">Item Proveedor</th>
+                <th class="thCss ths">Item lista de precios</th>
+                <th class="thCss ths">Proveedor</th>
+                <th class="thCss thxs">Descripción</th>
+                <th class="thCss thxs">UM por caja</th>
+                <th class="thCss thxs">Volumen (m3)</th>
+                <th class="thCss thxxs"><i class="fa-regular fa-pen-to-square"></i></th>
+            </tr>
+        </thead>
+        <tbody id="bodyPricesLists"></tbody>
+    </table>
+</div>
+
+<!----------LOADER---------->
+<div class="loader midLoader" id="loader" ></div>
+
+<!----------POPUPS---------->
+<%- include('../partials/errorPopup') %>
+<%- include('../partials/okPopup') %>
+
+
+<!----------SCRIPTS---------->
+<!-- <script type="module" src="/js/data/pricesLists/pricesLists.js"></script> -->

@@ -186,20 +186,6 @@ const apisController = {
 
         const realVsEstimated = (i.total_costs_local_currency == null || i.total_costs_local_currency == '' || estimatedCost == 0) ? '': (totalCostSupplierCurrency / parseFloat(estimatedCost,2)) - 1
         
-        
-        if (i.purchase_order == "AR.06.24") {
-          i.details.forEach(d => {
-            console.log({'item':d.item,'qty':d.units_quantity, 'estimated_cost':d.estimated_cost_supplier_currency})
-            
-          });
-          // console.log(totalCostSupplierCurrency)
-          // console.log(estimatedCost)
-          // console.log(realVsEstimated)
-          
-        }
-        
-
-        
         return {
           ...i,
           poDateString: poDateString,

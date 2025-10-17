@@ -53,6 +53,20 @@ const backendController = {
       return res.send('Ha ocurrido un error')
     }
   },
+  // prices
+  salePrices: async(req,res) =>{
+    try{
+      const idBrunch = req.params.idBrunch
+      const data = await getData(idBrunch)
+      const selectedItem = 'salePrices'
+
+      return res.render('salePrices/salePrices',{title:'Listas de precios',data,selectedItem})
+
+    }catch(error){
+      console.log(error)
+      return res.send('Ha ocurrido un error')
+    }
+  },
   //DATA
   pricesLists: async(req,res) =>{
       try{

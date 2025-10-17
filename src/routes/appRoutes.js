@@ -3,13 +3,16 @@ const backendController = require('../controllers/backendController.js')
 
 const router = express.Router()
 
-//IMPORTS
+// imports
 router.get('/imports/:idBrunch',backendController.imports)
 
-//COSTING
+// costings
 router.get('/costings/:idBrunch',backendController.costings)
 
-//DATA
+// prices
+router.get('/sale-prices/:idBrunch',backendController.salePrices)
+
+// data
 router.get('/data/prices-lists/:idBrunch',backendController.pricesLists)
 router.get('/data/volume-factors/:idBrunch',backendController.volumeFactors)
 router.get('/data/coeficient-factors/:idBrunch',backendController.coeficientFactors)

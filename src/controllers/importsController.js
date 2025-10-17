@@ -47,7 +47,7 @@ const importsController = {
   //APIS
   receiveImport: async(req,res) =>{
     try{
-
+s
       const data = req.body
         
       await purchaseOrdersQueries.receiveImport(data)      

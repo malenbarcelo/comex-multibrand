@@ -87,14 +87,23 @@ const costsController = {
             const volumeExpenses = parseFloat(supplierData[0].supplier_volume_factors[0].total_volume_expenses,2) * volume / parseFloat(itemData.mu_per_box,2)
             const priceExpenses = cif * (parseFloat(supplierData[0].supplier_volume_factors[0].custom_agent,2) + parseFloat(supplierData[0].supplier_volume_factors[0].transference,2))
             
+            if (i.item == '7504') {
+              console.log(volume)
+              console.log(freight)            
+              console.log(cif)            
+              console.log(importDuty)
+              console.log(volumeExpenses)
+              console.log(priceExpenses)
+            }
+            
+
+            
             unitCost = (cif + importDuty + volumeExpenses + priceExpenses) / itemData.mu_data.units_per_um
             
           }else{
             unitCost = null
           }
-        }
-
-        
+        }        
         
         return {
           ...i,
@@ -112,6 +121,8 @@ const costsController = {
           discontinued: itemData.price_list_number == supplierLastList.max_price_list_number ? 0 : 1
         }
       })
+
+      console.log(costing.filter( c => c.item == '7504'))
 
       //save data
       await costingsQueries.bulkCreate(costing)

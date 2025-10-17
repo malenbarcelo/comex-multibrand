@@ -37,6 +37,10 @@
                 <a href="/costings/<%= data.brunchData.id %>" class="<%= data.changes.length > 0 ? 'itemHeaderMenuError' : 'itemHeaderMenu' %><%= selectedItem == 'costings' ? ' fwb' : '' %>" id="itemsMenu5Text">Costos estimados</a>
             </div>
 
+            <div class="itemsMenu" id="itemsMenu5">
+                <a href="/sale-prices/<%= data.brunchData.id %>" class="<%= data.changes.length > 0 ? 'itemHeaderMenuError' : 'itemHeaderMenu' %><%= selectedItem == 'salePrices' ? ' fwb' : '' %>" id="itemsMenu6Text">Precios de venta</a>
+            </div>
+
             <div class="itemsMenu" id="itemsMenu1">
                 <div class="itemHeaderMenu <%= selectedItem == 'data' ? ' fwb' : '' %>" id="itemMenu1">Datos generales</div>
                 <div class="subItems" id="subItems1">

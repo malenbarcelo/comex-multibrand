@@ -456,7 +456,9 @@ window.addEventListener('load',async()=>{
                 body: JSON.stringify(data)
             })
 
-            window.location.href = '/imports/' + idBrunch
+            console.log(data)
+
+            //window.location.href = '/imports/' + idBrunch
         }
 
     })
