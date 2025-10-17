@@ -1,3 +1,3 @@
-const dominio = 'http://localhost:3001/'
+const dominio = 'https://multibrand.wnpower.host/'
 
 module.exports = dominio
