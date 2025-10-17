@@ -88,8 +88,11 @@ const costsController = {
             const priceExpenses = cif * (parseFloat(supplierData[0].supplier_volume_factors[0].custom_agent,2) + parseFloat(supplierData[0].supplier_volume_factors[0].transference,2))
             
             if (i.item == '7504') {
-              console.log(volume)
-              console.log(freight)            
+              
+              console.log('freight: ' + freight)
+              console.log('supplierData[0].supplier_volume_factors[0].freight: ' + supplierData[0].supplier_volume_factors[0].freight)
+              console.log('itemData.mu_per_box: ' + itemData.mu_per_box)
+              console.log('freight: ' + freight)            
               console.log(cif)            
               console.log(importDuty)
               console.log(volumeExpenses)

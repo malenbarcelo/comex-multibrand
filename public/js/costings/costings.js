@@ -65,7 +65,6 @@ window.addEventListener('load',async()=>{
     coppAccept.addEventListener('click',async()=>{
 
         //update costs
-        console.log('hola')
         const updateResponse = await fetch(dominio + 'costings/apis/' + cg.idBrunch + '/update',{
             method:'POST',
             headers: {'Content-Type': 'application/json'},
