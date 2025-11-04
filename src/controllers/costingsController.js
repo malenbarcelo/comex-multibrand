@@ -4,6 +4,7 @@ const costingsQueries = require('./dbQueries/costingsQueries')
 const pricesListsQueries = require('./dbQueries/pricesListsQueries')
 const suppliersQueries = require('./dbQueries/suppliersQueries')
 const suppliersCoeficientFactorsQueries = require('./dbQueries/suppliersCoeficientFactorsQueries')
+const suppliersVolumeFactorsQueries = require('./dbQueries/suppliersVolumeFactorsQueries')
 const excelJs = require('exceljs')
 
 const costsController = {
