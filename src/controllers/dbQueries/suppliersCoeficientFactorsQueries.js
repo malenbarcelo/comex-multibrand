@@ -1,3 +1,4 @@
+const { raw } = require('mysql2')
 const db = require('../../../database/models')
 const sequelize = require('sequelize')
 const { Op } = require('sequelize')
@@ -47,7 +48,35 @@ const suppliersCoeficientFactorsQueries = {
     },
     create: async(data) => {
         await model.create(data)
-    }
+    },
+    get: async({ filters }) => {
+
+        // order
+        let order = ''
+        if (filters.order) {
+            order = filters.order
+        }
+
+        //where
+        const where = {}
+
+        if (filters.id_brunches) {
+            where.id_brunches = filters.id_brunches
+        }
+
+        if (filters.id_suppliers) {
+            where.id_suppliers = filters.id_suppliers
+        }
+
+        const data = await model.findAll({
+            order,
+            where,
+            raw: true
+        })
+
+        return data
+    },
+
 }       
 
 module.exports = suppliersCoeficientFactorsQueries

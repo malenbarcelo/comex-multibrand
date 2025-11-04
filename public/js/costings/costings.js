@@ -64,7 +64,7 @@ window.addEventListener('load',async()=>{
     //update costings confirm
     coppAccept.addEventListener('click',async()=>{
 
-        //update costs
+        // update costs
         const updateResponse = await fetch(dominio + 'costings/apis/' + cg.idBrunch + '/update',{
             method:'POST',
             headers: {'Content-Type': 'application/json'},
@@ -73,7 +73,7 @@ window.addEventListener('load',async()=>{
 
         let changesResponse = false
         if (updateResponse.ok == true) {
-            //update changes
+            // update changes
             changesResponse = await fetch(dominio + 'costings/apis/' + cg.idBrunch + '/update-changes',{
                 method:'POST',
                 headers: {'Content-Type': 'application/json'},

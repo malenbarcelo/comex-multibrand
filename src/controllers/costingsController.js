@@ -3,6 +3,7 @@ const costingsChangesQueries = require('./dbQueries/costingsChangesQueries')
 const costingsQueries = require('./dbQueries/costingsQueries')
 const pricesListsQueries = require('./dbQueries/pricesListsQueries')
 const suppliersQueries = require('./dbQueries/suppliersQueries')
+const suppliersCoeficientFactorsQueries = require('./dbQueries/suppliersCoeficientFactorsQueries')
 const excelJs = require('exceljs')
 
 const costsController = {
@@ -60,6 +61,8 @@ const costsController = {
       const uniqueItems = await pricesListsQueries.uniqueItems(idBrunch)
       const lastListsNumbers = await pricesListsQueries.lastListsNumbers(idBrunch)
       const costingsNumber = await costingsQueries.maxListNumber(idBrunch)
+      const coeficientFactors = await suppliersCoeficientFactorsQueries.get({filters:{id_brunches: idBrunch,order:[["id","DESC"]]}})
+      const volumeFactors = await suppliersVolumeFactorsQueries.get({filters:{id_brunches: idBrunch,order:[["id","DESC"]]}})
       let suppliers = await suppliersQueries.brunchSuppliers(idBrunch)
       suppliers = suppliers.map(s => s.get({ plain: true }))
 
@@ -72,7 +75,7 @@ const costsController = {
         let unitCost
 
         if (supplierData.length > 0 && supplierData[0].cost_calculation == 'Factor') {
-          const coefData = supplierData.filter(s => s.id_brunches == idBrunch)
+          const coefData = coeficientFactors.filter( cf => cf.id_suppliers == supplierData[0].id)
           if (coefData.length > 0) {
             unitCost = itemData.fob * (1 + parseFloat(coefData[0].factor,2))
           }else{
@@ -80,7 +83,7 @@ const costsController = {
           }
           
         }else if(supplierData.length > 0 && supplierData[0].cost_calculation == 'Volumen'){
-          const coefData = supplierData[0].supplier_volume_factors.filter(s => s.id_brunches == idBrunch)
+          const coefData = volumeFactors.filter( vf => vf.id_suppliers == supplierData[0].id)
           
           if (coefData.length > 0) {
             const volume = coefData[0].volume_mu == 'ft3' ? parseFloat(itemData.volume_m3,2) * 35.3147 : parseFloat(itemData.volume_m3,2)
@@ -89,22 +92,6 @@ const costsController = {
             const importDuty = cif * parseFloat(coefData[0].import_duty,2)
             const volumeExpenses = parseFloat(coefData[0].total_volume_expenses,2) * volume / parseFloat(itemData.mu_per_box,2)
             const priceExpenses = cif * (parseFloat(coefData[0].custom_agent,2) + parseFloat(coefData[0].transference,2))
-            
-            // if (i.item == '7504') {
-
-            //   console.log(suppData[0])
-              
-            //   console.log('freight: ' + freight)
-            //   console.log('supplierData[0].supplier_volume_factors[0].freight: ' + supplierData[0].supplier_volume_factors[0].freight)
-            //   console.log('itemData.mu_per_box: ' + itemData.mu_per_box)
-            //   console.log('freight: ' + freight)            
-            //   console.log(cif)            
-            //   console.log(importDuty)
-            //   console.log(volumeExpenses)
-            //   console.log(priceExpenses)
-            // }
-            
-
             
             unitCost = (cif + importDuty + volumeExpenses + priceExpenses) / itemData.mu_data.units_per_um
             
@@ -120,7 +107,7 @@ const costsController = {
           id_suppliers: itemData.id_suppliers || '',
           description: itemData.description || '',
           id_measurement_units: itemData.id_measurement_units || '',
-          mu_per_box: parseFloat(itemData.mu_per_box,2) || '',
+          mu_per_box: parseFloat(itemData.mu_per_box,2) || 0,
           id_currencies: itemData.id_currencies || '',
           fob: parseFloat(itemData.fob,2) || '',
           unit_cost: unitCost,
@@ -129,8 +116,6 @@ const costsController = {
           discontinued: itemData.price_list_number == supplierLastList.max_price_list_number ? 0 : 1
         }
       })
-
-      console.log(costing.filter( c => c.item == '7504'))
 
       //save data
       await costingsQueries.bulkCreate(costing)
